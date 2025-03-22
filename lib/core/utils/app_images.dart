@@ -1,9 +1,8 @@
-// ignore_for_file: prefer_single_quotes
-class Assets {
-  Assets._();
-  
-  /// Assets for imagesLogo
-  /// assets/images/logo.png
-  static const String imagesLogo = "assets/images/logo.png";
+class AppImages {
+  static const String logo = 'assets/images/logo.png';
+  static const String onBoardingPageOne = 'assets/images/pageone.jpg';
+  static const String onBoardingPageTwo = 'assets/images/pagetwo.jpg';
+  static const String onBoardingPageThree = 'assets/images/pagethree.jpg';
+  static const String onBoardingPageFour = 'assets/images/pagefour.jpg';
 }
 
