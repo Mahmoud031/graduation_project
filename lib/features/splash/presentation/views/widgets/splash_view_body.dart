@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project/constants.dart';
+import 'package:graduation_project/core/services/shared_preferences_singleton.dart';
+import 'package:graduation_project/features/auth/presentation/views/login_view.dart';
 import 'package:graduation_project/features/on_boarding/presentation/views/on_boarding_view.dart';
 
 class SplashViewBody extends StatefulWidget {
@@ -24,8 +27,13 @@ class _SplashViewBodyState extends State<SplashViewBody> {
   }
 
   void executeNavigation() {
+    bool isOnBoardingViewSeen = Prefs.getBool(kIsOnBoardingViewSeen) ?? false;
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, OnBoardingView.routeName);
+      if (isOnBoardingViewSeen) {
+        Navigator.pushReplacementNamed(context, LoginView.routeName);
+      } else {
+  Navigator.pushReplacementNamed(context, OnBoardingView.routeName);
+}
     });
   }
 }
