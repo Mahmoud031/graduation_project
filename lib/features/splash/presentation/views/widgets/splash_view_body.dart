@@ -14,7 +14,7 @@ class SplashViewBody extends StatefulWidget {
 class _SplashViewBodyState extends State<SplashViewBody> {
   @override
   void initState() {
-    executeNavigation(); 
+    executeNavigation();
     super.initState();
   }
 
@@ -27,13 +27,13 @@ class _SplashViewBodyState extends State<SplashViewBody> {
   }
 
   void executeNavigation() {
-    bool isOnBoardingViewSeen = Prefs.getBool(kIsOnBoardingViewSeen) ?? false;
+    bool isOnBoardingViewSeen = Prefs.getBool(kIsOnBoardingViewSeen);
     Future.delayed(const Duration(seconds: 2), () {
       if (isOnBoardingViewSeen) {
         Navigator.pushReplacementNamed(context, LoginView.routeName);
       } else {
-  Navigator.pushReplacementNamed(context, OnBoardingView.routeName);
-}
+        Navigator.pushReplacementNamed(context, OnBoardingView.routeName);
+      }
     });
   }
 }

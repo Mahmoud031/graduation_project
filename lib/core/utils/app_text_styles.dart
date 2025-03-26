@@ -15,4 +15,9 @@ abstract class TextStyles {
     color: Colors.white,
     fontSize: 18,
   );
+  static const TextStyle textstyle14 = TextStyle(
+    color: Colors.white,
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+  );
 }
