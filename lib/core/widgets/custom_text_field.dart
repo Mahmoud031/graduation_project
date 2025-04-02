@@ -8,7 +8,8 @@ class CustomTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.obscureText = false,
-    this.labelText, required this.textInputType,
+    this.labelText,
+    this.textInputType,
   });
   final String hintText;
   final double size;
@@ -16,12 +17,12 @@ class CustomTextFormField extends StatelessWidget {
   final IconData? suffixIcon;
   final bool obscureText;
   final String? labelText;
-  final TextInputType textInputType;
+  final TextInputType? textInputType;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 49,
-      width: 363,
+      height: MediaQuery.of(context).size.height * 0.07,
+      width: MediaQuery.of(context).size.width * 0.9,
       child: TextFormField(
         keyboardType: textInputType,
         obscureText: obscureText,

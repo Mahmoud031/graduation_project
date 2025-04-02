@@ -22,14 +22,14 @@ class LoginViewBody extends StatelessWidget {
               Image.asset(
                 AppImages.loginViewImage,
                 width: double.infinity,
-                height: 270,
+                height: MediaQuery.of(context).size.height * 0.35,
                 fit: BoxFit.fill,
               ),
               SizedBox(
                 height: 50,
               ),
               Container(
-                width: 412,
+                width: double.infinity,
                 decoration: ShapeDecoration(
                   gradient: AppColors.primaryGradient,
                   shape: RoundedRectangleBorder(
@@ -48,7 +48,7 @@ class LoginViewBody extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(
-                            height: 80,
+                            height: 70,
                           ),
                           const CustomTextFormField(
                             labelText: 'Email',
@@ -81,7 +81,8 @@ class LoginViewBody extends StatelessWidget {
                           ),
                           CustomButton(
                             text: "Sign In",
-                            size: Size(200, 52),
+                            size: Size(MediaQuery.of(context).size.width * 0.6,
+                                MediaQuery.of(context).size.height * 0.07),
                             onPressed: () {},
                           ),
                           SizedBox(

@@ -8,5 +8,6 @@ abstract class AppImages {
   static const String loginViewImage = 'assets/images/loginImages/image 1 (1).png';
   static const String loginViewFacebook = 'assets/images/loginImages/Social Icons.png';
   static const String loginViewGoogle = 'assets/images/loginImages/Vector.png';
+  static const String signUpViewIcon = 'assets/images/signUpIcon.png';
 }
 
