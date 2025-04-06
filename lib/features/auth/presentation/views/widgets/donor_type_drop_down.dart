@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 
 class DonorTypeDropdown extends StatefulWidget {
-  const DonorTypeDropdown({super.key});
-
+  const DonorTypeDropdown({super.key, this.onSaved});
+  final void Function(String?)? onSaved; // Callback function to handle the selected value
   @override
   _DonorTypeDropdownState createState() => _DonorTypeDropdownState();
 }
@@ -18,11 +18,13 @@ class _DonorTypeDropdownState extends State<DonorTypeDropdown> {
     "Manufacturers"
   ];
 
-  String? selectedDonorType; // Holds selected value
+  String? selectedDonorType;
+   // Holds selected value
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
+      onSaved: widget.onSaved,
       decoration: InputDecoration(
         labelText: "Donor Type",
         labelStyle: TextStyles.textstyle18.copyWith(color: Colors.black),

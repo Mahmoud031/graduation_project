@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/utils/app_colors.dart';
 import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/core/widgets/custom_button.dart';
 import 'package:graduation_project/core/widgets/custom_text_field.dart';
+import 'package:graduation_project/features/auth/presentation/cubits/signp_cubit/signup_cubit.dart';
 import 'package:graduation_project/features/auth/presentation/views/login_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/terms_and_conditions.dart';
 
 import 'donor_type_drop_down.dart';
 import 'memer_ngo_toggle.dart';
 
-class SignUpViewBody extends StatelessWidget {
+class SignUpViewBody extends StatefulWidget {
   const SignUpViewBody({super.key});
 
+  @override
+  State<SignUpViewBody> createState() => _SignUpViewBodyState();
+}
+
+class _SignUpViewBodyState extends State<SignUpViewBody> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  late String email, password, name, phone, nationalId, type, address;
+  late int age;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -63,81 +74,137 @@ class SignUpViewBody extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 8),
-                      child: Column(
-                        children: [
-                          Text('Member Registration',
-                              style: TextStyles.textstyle25.copyWith(
-                                color: Colors.black,
-                              )),
-                          Divider(
-                            color: Colors.black,
-                            indent: MediaQuery.of(context).size.width * 0.1,
-                            endIndent: MediaQuery.of(context).size.width * 0.1,
-                          ),
-                          const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Enter Full Name',
-                            labelText: 'Name',
-                            prefixIcon: Icons.person,
-                          ),
-                          const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Enter Email',
-                            labelText: 'Email',
-                            prefixIcon: Icons.email,
-                          ),
-                          const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Enter Age',
-                            labelText: 'Age',
-                            prefixIcon: Icons.calendar_today_rounded,
-                          ),
-                          const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Enter phone number',
-                            labelText: 'Contact',
-                            prefixIcon: Icons.phone,
-                          ),
-                          const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'National id',
-                            labelText: 'National id',
-                            prefixIcon: Icons.badge,
-                          ),
-                          const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Enter Password',
-                            labelText: 'Password',
-                            prefixIcon: Icons.lock_outlined,
-                            suffixIcon: Icons.visibility_off,
-                            obscureText: true,
-                          ),
-                          const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Confirm Password',
-                            labelText: 'Confirm Password',
-                            prefixIcon: Icons.lock_outlined,
-                            suffixIcon: Icons.visibility_off,
-                            obscureText: true,
-                          ),
-                          const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Enter Address',
-                            labelText: 'Address',
-                            prefixIcon: Icons.location_on_outlined,
-                          ),
-                          const SizedBox(height: 10),
-                          DonorTypeDropdown(),
-                          const SizedBox(height: 10),
-                          TermsAndConditions(),
-                          const SizedBox(height: 10),
-                          CustomButton(
-                            text: "Sign Up",
-                            size: Size(MediaQuery.of(context).size.width * 0.55,
-                                MediaQuery.of(context).size.height * 0.06),
-                            onPressed: () {},
-                          ),
-                        ],
+                      child: Form(
+                        key: formKey,
+                        autovalidateMode: autovalidateMode,
+                        child: Column(
+                          children: [
+                            Text('Member Registration',
+                                style: TextStyles.textstyle25.copyWith(
+                                  color: Colors.black,
+                                )),
+                            Divider(
+                              color: Colors.black,
+                              indent: MediaQuery.of(context).size.width * 0.1,
+                              endIndent:
+                                  MediaQuery.of(context).size.width * 0.1,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              onSaved: (value) {
+                                name = value!;
+                              },
+                              hintText: 'Enter Full Name',
+                              labelText: 'Name',
+                              prefixIcon: Icons.person,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              onSaved: (value) {
+                                email = value!;
+                              },
+                              hintText: 'Enter Email',
+                              labelText: 'Email',
+                              prefixIcon: Icons.email,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              onSaved: (value) {
+                                age = int.parse(value!);
+                              },
+                              hintText: 'Enter Age',
+                              labelText: 'Age',
+                              prefixIcon: Icons.calendar_today_rounded,
+                              textInputType: TextInputType.number,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              onSaved: (value) {
+                                phone = value!;
+                              },
+                              hintText: 'Enter phone number',
+                              labelText: 'Contact',
+                              prefixIcon: Icons.phone,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              onSaved: (value) {
+                                nationalId = value!;
+                              },
+                              hintText: 'National id',
+                              labelText: 'National id',
+                              prefixIcon: Icons.badge,
+                              textInputType: TextInputType.number,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              onSaved: (value) {
+                                password = value!;
+                              },
+                              hintText: 'Enter Password',
+                              labelText: 'Password',
+                              prefixIcon: Icons.lock_outlined,
+                              suffixIcon: Icons.visibility_off,
+                              obscureText: true,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              onSaved: (value) {
+                                password = value!;
+                              },
+                              hintText: 'Confirm Password',
+                              labelText: 'Confirm Password',
+                              prefixIcon: Icons.lock_outlined,
+                              suffixIcon: Icons.visibility_off,
+                              obscureText: true,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              onSaved: (value) {
+                                address = value!;
+                              },
+                              hintText: 'Enter Address',
+                              labelText: 'Address',
+                              prefixIcon: Icons.location_on_outlined,
+                            ),
+                            const SizedBox(height: 10),
+                            DonorTypeDropdown(
+                              onSaved: (value) {
+                                type = value!;
+                              },
+                            ),
+                            const SizedBox(height: 10),
+                            TermsAndConditions(),
+                            const SizedBox(height: 10),
+                            CustomButton(
+                              text: "Sign Up",
+                              size: Size(
+                                  MediaQuery.of(context).size.width * 0.55,
+                                  MediaQuery.of(context).size.height * 0.06),
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  formKey.currentState!.save();
+                                  context
+                                      .read<SignupCubit>()
+                                      .createUserWithEmailAndPassword(
+                                        email: email,
+                                        password: password,
+                                        name: name,
+                                        phone: phone,
+                                        nationalId: nationalId,
+                                        address: address,
+                                        type: type,
+                                        age: age,
+                                      );
+                                } else {
+                                  setState(() {
+                                    autovalidateMode = AutovalidateMode.always;
+                                  });
+                                }
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
