@@ -6,6 +6,7 @@ import 'package:graduation_project/core/widgets/custom_button.dart';
 import 'package:graduation_project/core/widgets/custom_text_field.dart';
 import 'package:graduation_project/core/widgets/dont_have_account.dart';
 import 'package:graduation_project/core/widgets/or_divider.dart';
+import 'package:graduation_project/core/widgets/password_field.dart';
 
 import 'social_login.dart';
 
@@ -59,14 +60,7 @@ class LoginViewBody extends StatelessWidget {
                           const SizedBox(
                             height: 32,
                           ),
-                          const CustomTextFormField(
-                            labelText: 'Password',
-                            hintText: 'Enter your password',
-                            prefixIcon: Icons.lock_outline,
-                            suffixIcon: Icons.remove_red_eye,
-                            obscureText: true,
-                            textInputType: TextInputType.visiblePassword,
-                          ),
+                          PasswordField(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [

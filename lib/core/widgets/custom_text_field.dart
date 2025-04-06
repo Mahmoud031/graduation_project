@@ -14,7 +14,7 @@ class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final double size;
   final IconData? prefixIcon;
-  final IconData? suffixIcon;
+  final Widget? suffixIcon;
   final bool obscureText;
   final String? labelText;
   final TextInputType? textInputType;
@@ -45,8 +45,7 @@ class CustomTextFormField extends StatelessWidget {
           prefixIcon: prefixIcon != null
               ? Icon(prefixIcon, color: Colors.grey)
               : null, // Only show the prefixIcon if it's not null
-          suffixIcon:
-              suffixIcon != null ? Icon(suffixIcon, color: Colors.grey) : null,
+          suffixIcon: suffixIcon,
           filled: true,
           fillColor: Colors.white,
           focusedBorder: OutlineInputBorder(

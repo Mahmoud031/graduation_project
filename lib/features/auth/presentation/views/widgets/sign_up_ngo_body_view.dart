@@ -4,6 +4,7 @@ import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/core/widgets/custom_button.dart';
 import 'package:graduation_project/core/widgets/custom_text_field.dart';
+import 'package:graduation_project/core/widgets/password_field.dart';
 import 'package:graduation_project/features/auth/presentation/views/login_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/memer_ngo_toggle.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/terms_and_conditions.dart';
@@ -97,21 +98,11 @@ class SignUpNgoViewBody extends StatelessWidget {
                             prefixIcon: Icons.badge,
                           ),
                           const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Enter Password',
-                            labelText: 'Password',
-                            prefixIcon: Icons.lock_outlined,
-                            suffixIcon: Icons.visibility_off,
-                            obscureText: true,
-                          ),
+                          PasswordField(
+                            ),
                           const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Confirm Password',
-                            labelText: 'Confirm Password',
-                            prefixIcon: Icons.lock_outlined,
-                            suffixIcon: Icons.visibility_off,
-                            obscureText: true,
-                          ),
+                          PasswordField(
+                            ),
                           const SizedBox(height: 10),
                           const CustomTextFormField(
                             hintText: 'Enter Address',

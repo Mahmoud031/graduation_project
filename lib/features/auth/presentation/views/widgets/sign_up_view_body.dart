@@ -5,6 +5,7 @@ import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/core/widgets/custom_button.dart';
 import 'package:graduation_project/core/widgets/custom_text_field.dart';
+import 'package:graduation_project/core/widgets/password_field.dart';
 import 'package:graduation_project/features/auth/presentation/cubits/signp_cubit/signup_cubit.dart';
 import 'package:graduation_project/features/auth/presentation/views/login_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/terms_and_conditions.dart';
@@ -97,6 +98,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                               hintText: 'Enter Full Name',
                               labelText: 'Name',
                               prefixIcon: Icons.person,
+                              textInputType: TextInputType.name,
                             ),
                             const SizedBox(height: 10),
                             CustomTextFormField(
@@ -106,6 +108,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                               hintText: 'Enter Email',
                               labelText: 'Email',
                               prefixIcon: Icons.email,
+                              textInputType: TextInputType.emailAddress,
                             ),
                             const SizedBox(height: 10),
                             CustomTextFormField(
@@ -137,15 +140,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                               textInputType: TextInputType.number,
                             ),
                             const SizedBox(height: 10),
-                            CustomTextFormField(
+                            PasswordField(
                               onSaved: (value) {
                                 password = value!;
                               },
-                              hintText: 'Enter Password',
-                              labelText: 'Password',
-                              prefixIcon: Icons.lock_outlined,
-                              suffixIcon: Icons.visibility_off,
-                              obscureText: true,
                             ),
                             const SizedBox(height: 10),
                             CustomTextFormField(
@@ -155,7 +153,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                               hintText: 'Confirm Password',
                               labelText: 'Confirm Password',
                               prefixIcon: Icons.lock_outlined,
-                              suffixIcon: Icons.visibility_off,
+                              suffixIcon: Icon(Icons.visibility_off),
                               obscureText: true,
                             ),
                             const SizedBox(height: 10),
