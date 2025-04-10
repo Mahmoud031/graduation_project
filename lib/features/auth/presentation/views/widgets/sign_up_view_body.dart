@@ -10,7 +10,6 @@ import 'package:graduation_project/core/widgets/password_field.dart';
 import 'package:graduation_project/features/auth/presentation/cubits/signp_cubit/signup_cubit.dart';
 import 'package:graduation_project/features/auth/presentation/views/login_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/terms_and_conditions.dart';
-
 import 'donor_type_drop_down.dart';
 import 'memer_ngo_toggle.dart';
 
