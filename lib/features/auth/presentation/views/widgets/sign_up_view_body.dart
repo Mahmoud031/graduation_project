@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/core/helper_functions/build_error_bar.dart';
 import 'package:graduation_project/core/utils/app_colors.dart';
 import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
@@ -25,6 +26,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   late String email, password, name, phone, nationalId, type, address;
   late int age;
+  late bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -182,18 +184,23 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
                                   formKey.currentState!.save();
-                                  context
-                                      .read<SignupCubit>()
-                                      .createUserWithEmailAndPassword(
-                                        email: email,
-                                        password: password,
-                                        name: name,
-                                        phone: phone,
-                                        nationalId: nationalId,
-                                        address: address,
-                                        type: type,
-                                        age: age,
-                                      );
+                                  if (isChecked) {
+                                    context
+                                        .read<SignupCubit>()
+                                        .createUserWithEmailAndPassword(
+                                          email: email,
+                                          password: password,
+                                          name: name,
+                                          phone: phone,
+                                          nationalId: nationalId,
+                                          address: address,
+                                          type: type,
+                                          age: age,
+                                        );
+                                  } else {
+                                    buildErrorBar(context,
+                                        'Please accept the terms and conditions');
+                                  }
                                 } else {
                                   setState(() {
                                     autovalidateMode = AutovalidateMode.always;

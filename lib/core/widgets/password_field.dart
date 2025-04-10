@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'custom_text_field.dart';
-
 class PasswordField extends StatefulWidget {
   const PasswordField({
     super.key, this.onSaved,
   });
   final void Function(String?)? onSaved;
-
   @override
   State<PasswordField> createState() => _PasswordFieldState();
 }
@@ -24,7 +21,6 @@ class _PasswordFieldState extends State<PasswordField> {
       hintText: 'Enter Password',
       labelText: 'Password',
       prefixIcon: Icons.lock_outlined,
-      
       suffixIcon: GestureDetector(
         onTap: () {
           obscureText = !obscureText;

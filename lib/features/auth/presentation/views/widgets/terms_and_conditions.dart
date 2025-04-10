@@ -4,15 +4,17 @@ import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'check_box.dart';
 
 class TermsAndConditions extends StatelessWidget {
-  const TermsAndConditions({super.key});
-
+   TermsAndConditions({super.key});
+  late bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Transform.scale(
             scale: 1.3,
-            child: CheckBox() 
+            child: CheckBox(onChanged: (bool value) {  
+               isChecked = value;
+            },) 
             ),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.7,
