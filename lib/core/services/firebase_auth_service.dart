@@ -53,7 +53,8 @@ class FirebaseAuthService {
         throw CustomException(message: 'email or password  is incorrect.');
       } else if (e.code == 'network-request-failed') {
         throw CustomException(message: 'No internet connection');
-      } else {
+      } 
+      else {
         throw CustomException(
             message: 'An unknown error occurred. please try later.');
       }
