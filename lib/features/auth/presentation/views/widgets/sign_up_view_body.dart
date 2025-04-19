@@ -154,19 +154,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                             PasswordField(
                               labelText: 'Confirm Password',
                               hintText: 'Confirm Password',
-                              onSaved: (value) {
-                                confirmPasswordInput = value!;
-                              },
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please confirm your password';
-                                }
-                                if (formKey.currentState != null &&
-                                    formKey.currentState!.validate()) {
-                                  // no-op: this avoids recursion
-                                }
-                                return null;
-                              },
                             ),
                             const SizedBox(height: 10),
                             CustomTextFormField(

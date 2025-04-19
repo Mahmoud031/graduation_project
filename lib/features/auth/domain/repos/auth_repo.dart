@@ -15,4 +15,6 @@ abstract class AuthRepo {
         String ngoId,
         String address
       );
+  Future<Either<Failure, UserEntity>> signInWithEmailAndPassword(
+      String email, String password);
 }

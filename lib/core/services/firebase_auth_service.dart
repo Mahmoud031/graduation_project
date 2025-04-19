@@ -34,4 +34,33 @@ class FirebaseAuthService {
           message: 'An unknown error occurred. please try later.');
     }
   }
+   Future<User> signInWithEmailandPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final credential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return credential.user!;
+    } on FirebaseAuthException catch (e) {
+      log("Exception in FirebaseAuthService.signInWithEmailandPassword: ${e.toString()} and code is ${e.code}");
+      if (e.code == 'user-not-found') {
+        throw CustomException(message: ' email or password  is incorrect.');
+      } else if (e.code == 'wrong-password') {
+        throw CustomException(message: 'email or password  is incorrect.');
+      } else if (e.code == 'network-request-failed') {
+        throw CustomException(message: 'No internet connection');
+      } else {
+        throw CustomException(
+            message: 'An unknown error occurred. please try later.');
+      }
+    } catch (e) {
+      log("Exception in FirebaseAuthService.signInWithEmailandPassword: ${e.toString()}");
+      throw CustomException(
+          message: 'An unknown error occurred. please try later.');
+    }
+  }
 }

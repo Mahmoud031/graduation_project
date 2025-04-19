@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:graduation_project/core/errors/exceptions.dart';
 import 'package:graduation_project/core/errors/failures.dart';
@@ -10,6 +9,7 @@ import 'package:graduation_project/features/auth/domain/entities/user_entity.dar
 import 'dart:developer';
 
 import '../models/ngo_model.dart';
+
 class AuthRepoImpl extends AuthRepo {
   final FirebaseAuthService firebaseAuthService;
 
@@ -38,8 +38,13 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Failure, NgoEntity>> createNgoWithEmailAndPassword(String email, String password, String name, String phone, String ngoId, String address) 
-    async {
+  Future<Either<Failure, NgoEntity>> createNgoWithEmailAndPassword(
+      String email,
+      String password,
+      String name,
+      String phone,
+      String ngoId,
+      String address) async {
     try {
       var user = await firebaseAuthService.createUserWithEmailandPassword(
           email: email, password: password);
@@ -52,5 +57,20 @@ class AuthRepoImpl extends AuthRepo {
           ServerFailure('An unknown error occurred. please try later.'));
     }
   }
-  
+
+  @override
+  Future<Either<Failure, UserEntity>> signInWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      var user = await firebaseAuthService.signInWithEmailandPassword(
+          email: email, password: password);
+      return right(UserModel.fromFirebaseUser(user));
+    } on CustomException catch (e) {
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.signInWithEmailAndPassword: ${e.toString()}');
+      return left(
+          ServerFailure('An unknown error occurred. please try later.'));
+    }
+  }
 }

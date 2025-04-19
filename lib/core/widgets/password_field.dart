@@ -4,10 +4,9 @@ import 'custom_text_field.dart';
 class PasswordField extends StatefulWidget {
   const PasswordField({
     super.key,
-    this.onSaved, required this.hintText, required this.labelText, this.validator,
+    this.onSaved, required this.hintText, required this.labelText,  
   });
   final void Function(String?)? onSaved;
-  final String? Function(String?)? validator;
   final String hintText;
   final String labelText;
   @override
@@ -21,7 +20,6 @@ class _PasswordFieldState extends State<PasswordField> {
   Widget build(BuildContext context) {
     return CustomTextFormField(
       onSaved: widget.onSaved,
-      validator: widget.validator,
       obscureText: obscureText,
       hintText:  widget.hintText,
       labelText:  widget.labelText,
