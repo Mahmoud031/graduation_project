@@ -60,7 +60,10 @@ class LoginViewBody extends StatelessWidget {
                           const SizedBox(
                             height: 32,
                           ),
-                          PasswordField(),
+                          PasswordField(
+                            labelText: 'Password',
+                            hintText: 'Enter your Password',
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [

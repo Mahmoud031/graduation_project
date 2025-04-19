@@ -9,7 +9,7 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.obscureText = false,
     this.labelText,
-    this.textInputType, this.onSaved,
+    this.textInputType, this.onSaved, String? Function(String? p1)? validator,
   });
   final String hintText;
   final double size;

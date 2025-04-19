@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
 
-class CheckBox extends StatefulWidget {
-  const CheckBox({super.key, required this.onChanged});
-  final ValueChanged<bool> onChanged;
-  @override
-  State<CheckBox> createState() => _CheckBoxState();
-}
+class CheckBox extends StatelessWidget {
+  final bool value;
+  final ValueChanged<bool?> onChanged;
 
-class _CheckBoxState extends State<CheckBox> {
-  bool isChecked = false;
+  const CheckBox({
+    super.key,
+    required this.value,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Checkbox(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      value: isChecked,
-      onChanged: (value) {
-        isChecked = value!;
-        widget.onChanged(value);
-        setState(() {
-           // Toggle checkbox state
-        });
-      },
+      value: value,
+      onChanged: onChanged,
     );
   }
 }

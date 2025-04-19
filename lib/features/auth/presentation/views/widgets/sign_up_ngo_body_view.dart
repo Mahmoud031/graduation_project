@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/core/helper_functions/build_error_bar.dart';
 import 'package:graduation_project/core/utils/app_colors.dart';
 import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/core/widgets/custom_button.dart';
 import 'package:graduation_project/core/widgets/custom_text_field.dart';
 import 'package:graduation_project/core/widgets/password_field.dart';
+import 'package:graduation_project/features/auth/presentation/cubits/ngo_signup_cubit/ngo_signup_cubit.dart';
 import 'package:graduation_project/features/auth/presentation/views/login_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/memer_ngo_toggle.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/terms_and_conditions.dart';
 
-class SignUpNgoViewBody extends StatelessWidget {
+class SignUpNgoViewBody extends StatefulWidget {
   const SignUpNgoViewBody({super.key});
 
+  @override
+  State<SignUpNgoViewBody> createState() => _SignUpNgoViewBodyState();
+}
+
+class _SignUpNgoViewBodyState extends State<SignUpNgoViewBody> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  late String email, password, name, phone, ngoId, address;
+  late bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -62,63 +74,119 @@ class SignUpNgoViewBody extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 8),
-                      child: Column(
-                        children: [
-                          Text('Ngo Registration',
-                              style: TextStyles.textstyle25.copyWith(
-                                color: Colors.black,
-                              )),
-                          Divider(
-                            color: Colors.black,
-                            indent: MediaQuery.of(context).size.width * 0.1,
-                            endIndent: MediaQuery.of(context).size.width * 0.1,
-                          ),
-                          const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Enter Ngo Name',
-                            labelText: 'Ngo Name',
-                            prefixIcon: Icons.person,
-                          ),
-                          const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Enter Email',
-                            labelText: 'Email',
-                            prefixIcon: Icons.email,
-                          ),
-                          const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Enter phone number',
-                            labelText: 'Contact',
-                            prefixIcon: Icons.phone,
-                          ),
-                          const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Ngo id',
-                            labelText: 'Enter Ngo id',
-                            prefixIcon: Icons.badge,
-                          ),
-                          const SizedBox(height: 10),
-                          PasswordField(
+                      child: Form(
+                        key: formKey,
+                        autovalidateMode: autovalidateMode,
+                        child: Column(
+                          children: [
+                            Text('Ngo Registration',
+                                style: TextStyles.textstyle25.copyWith(
+                                  color: Colors.black,
+                                )),
+                            Divider(
+                              color: Colors.black,
+                              indent: MediaQuery.of(context).size.width * 0.1,
+                              endIndent:
+                                  MediaQuery.of(context).size.width * 0.1,
                             ),
-                          const SizedBox(height: 10),
-                          PasswordField(
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              onSaved: (value) {
+                                name = value!;
+                              },
+                              hintText: 'Enter Ngo Name',
+                              labelText: 'Ngo Name',
+                              prefixIcon: Icons.person,
                             ),
-                          const SizedBox(height: 10),
-                          const CustomTextFormField(
-                            hintText: 'Enter Address',
-                            labelText: 'Address',
-                            prefixIcon: Icons.location_on_outlined,
-                          ),
-                          const SizedBox(height: 10),
-                          TermsAndConditions(),
-                          const SizedBox(height: 10),
-                          CustomButton(
-                            text: "Sign Up",
-                            size: Size(MediaQuery.of(context).size.width * 0.55,
-                                MediaQuery.of(context).size.height * 0.06),
-                            onPressed: () {},
-                          ),
-                        ],
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              onSaved: (value) {
+                                email = value!;
+                              },
+                              hintText: 'Enter Email',
+                              labelText: 'Email',
+                              prefixIcon: Icons.email,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              onSaved: (value) {
+                                phone = value!;
+                              },
+                              hintText: 'Enter phone number',
+                              labelText: 'Contact',
+                              prefixIcon: Icons.phone,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              onSaved: (value) {
+                                ngoId = value!;
+                              },
+                              hintText: 'Ngo id',
+                              labelText: 'Enter Ngo id',
+                              prefixIcon: Icons.badge,
+                            ),
+                            const SizedBox(height: 10),
+                            PasswordField(
+                              onSaved: (value) {
+                                password = value!;
+                              },
+                              labelText: 'Password',
+                              hintText: 'Enter Password',
+                            ),
+                            const SizedBox(height: 10),
+                            PasswordField(
+                             
+                              labelText: 'confirm Password',
+                              hintText: 'confirm Password',
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextFormField(
+                              onSaved: (value) {
+                                address = value!;
+                              },
+                              hintText: 'Enter Address',
+                              labelText: 'Address',
+                              prefixIcon: Icons.location_on_outlined,
+                            ),
+                            const SizedBox(height: 10),
+                            TermsAndConditions(
+                               onChanged: (value) {
+    isChecked = value;
+  },
+                            ),
+                            const SizedBox(height: 10),
+                            CustomButton(
+                              text: "Sign Up",
+                              size: Size(
+                                  MediaQuery.of(context).size.width * 0.55,
+                                  MediaQuery.of(context).size.height * 0.06),
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  formKey.currentState!.save();
+                                  if (isChecked) {
+                                    context
+                                        .read<NgoSignupCubit>()
+                                        .createNgoWithEmailAndPassword(
+                                          email: email,
+                                          password: password,
+                                          name: name,
+                                          phone: phone,
+                                          ngoId: ngoId,
+                                          address: address,
+                                        );
+                                  } else {
+                                    buildErrorBar(context,
+                                        'Please accept the terms and conditions');
+                                  }
+                                } else {
+                                  setState(() {
+                                    autovalidateMode = AutovalidateMode.always;
+                                  });
+                                }
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

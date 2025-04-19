@@ -26,6 +26,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   late String email, password, name, phone, nationalId, type, address;
   late int age;
   late bool isChecked = false;
+  late String confirmPasswordInput;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -142,20 +144,29 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                             ),
                             const SizedBox(height: 10),
                             PasswordField(
+                              labelText: 'Password',
+                              hintText: 'Enter Password',
                               onSaved: (value) {
                                 password = value!;
                               },
                             ),
                             const SizedBox(height: 10),
-                            CustomTextFormField(
-                              onSaved: (value) {
-                                password = value!;
-                              },
-                              hintText: 'Confirm Password',
+                            PasswordField(
                               labelText: 'Confirm Password',
-                              prefixIcon: Icons.lock_outlined,
-                              suffixIcon: Icon(Icons.visibility_off),
-                              obscureText: true,
+                              hintText: 'Confirm Password',
+                              onSaved: (value) {
+                                confirmPasswordInput = value!;
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please confirm your password';
+                                }
+                                if (formKey.currentState != null &&
+                                    formKey.currentState!.validate()) {
+                                  // no-op: this avoids recursion
+                                }
+                                return null;
+                              },
                             ),
                             const SizedBox(height: 10),
                             CustomTextFormField(
@@ -173,7 +184,11 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                               },
                             ),
                             const SizedBox(height: 10),
-                            TermsAndConditions(),
+                            TermsAndConditions(
+                              onChanged: (value) {
+                                isChecked = value;
+                              },
+                            ),
                             const SizedBox(height: 10),
                             CustomButton(
                               text: "Sign Up",
@@ -183,23 +198,29 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
                                   formKey.currentState!.save();
-                                  if (isChecked) {
-                                    context
-                                        .read<SignupCubit>()
-                                        .createUserWithEmailAndPassword(
-                                          email: email,
-                                          password: password,
-                                          name: name,
-                                          phone: phone,
-                                          nationalId: nationalId,
-                                          address: address,
-                                          type: type,
-                                          age: age,
-                                        );
-                                  } else {
+                                  if (!isChecked) {
                                     buildErrorBar(context,
                                         'Please accept the terms and conditions');
+                                    return;
                                   }
+                                  if (confirmPasswordInput != password) {
+                                    buildErrorBar(
+                                        context, 'Passwords do not match');
+                                    return;
+                                  }
+
+                                  context
+                                      .read<SignupCubit>()
+                                      .createUserWithEmailAndPassword(
+                                        email: email,
+                                        password: password,
+                                        name: name,
+                                        phone: phone,
+                                        nationalId: nationalId,
+                                        address: address,
+                                        type: type,
+                                        age: age,
+                                      );
                                 } else {
                                   setState(() {
                                     autovalidateMode = AutovalidateMode.always;
