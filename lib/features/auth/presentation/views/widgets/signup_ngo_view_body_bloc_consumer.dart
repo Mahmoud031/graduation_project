@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/helper_functions/build_error_bar.dart';
 import 'package:graduation_project/features/auth/presentation/cubits/ngo_signup_cubit/ngo_signup_cubit.dart';
-import 'package:graduation_project/features/auth/presentation/views/login_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
 
 import 'package:graduation_project/features/auth/presentation/views/widgets/sign_up_ngo_body_view.dart';
 
@@ -23,7 +23,7 @@ class SignupNgoViewBodyBlocConsumer extends StatelessWidget {
           } else if (state is NgoSignupSuccess) {
             buildErrorBar(context, 'Signup Success');
             Future.delayed(const Duration(seconds: 2), () {
-              Navigator.pushReplacementNamed(context, LoginView.routeName);
+              Navigator.pushReplacementNamed(context, SigninView.routeName);
             });
           }
         },

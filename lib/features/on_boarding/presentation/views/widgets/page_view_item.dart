@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/constants.dart';
 import 'package:graduation_project/core/services/shared_preferences_singleton.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
-import 'package:graduation_project/features/auth/presentation/views/login_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
 
 import 'get_started_button.dart';
 import 'on_boarding_button.dart';
@@ -55,7 +55,7 @@ class PageViewItem extends StatelessWidget {
                           onTap: () {
                             Prefs.setBool(kIsOnBoardingViewSeen, true);
                             Navigator.of(context)
-                                .pushReplacementNamed(LoginView.routeName);
+                                .pushReplacementNamed(SigninView.routeName);
                           },
                           child: Text('Skip', style: TextStyles.textstyle18)),
                       Icon(Icons.arrow_forward_ios, color: Color(0xff2196F3)),
@@ -105,7 +105,7 @@ class PageViewItem extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context)
-                      .pushReplacementNamed(LoginView.routeName);
+                      .pushReplacementNamed(SigninView.routeName);
                 },
                 child: GetStartedButton(
                   text: 'Get Started',

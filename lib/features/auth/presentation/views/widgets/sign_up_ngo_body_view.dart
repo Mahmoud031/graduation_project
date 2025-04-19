@@ -8,7 +8,7 @@ import 'package:graduation_project/core/widgets/custom_button.dart';
 import 'package:graduation_project/core/widgets/custom_text_field.dart';
 import 'package:graduation_project/core/widgets/password_field.dart';
 import 'package:graduation_project/features/auth/presentation/cubits/ngo_signup_cubit/ngo_signup_cubit.dart';
-import 'package:graduation_project/features/auth/presentation/views/login_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/memer_ngo_toggle.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/terms_and_conditions.dart';
 
@@ -42,7 +42,7 @@ class _SignUpNgoViewBodyState extends State<SignUpNgoViewBody> {
                 const SizedBox(height: 5),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, LoginView.routeName);
+                    Navigator.pushNamed(context, SigninView.routeName);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -135,7 +135,6 @@ class _SignUpNgoViewBodyState extends State<SignUpNgoViewBody> {
                             ),
                             const SizedBox(height: 10),
                             PasswordField(
-                             
                               labelText: 'confirm Password',
                               hintText: 'confirm Password',
                             ),
@@ -150,9 +149,9 @@ class _SignUpNgoViewBodyState extends State<SignUpNgoViewBody> {
                             ),
                             const SizedBox(height: 10),
                             TermsAndConditions(
-                               onChanged: (value) {
-    isChecked = value;
-  },
+                              onChanged: (value) {
+                                isChecked = value;
+                              },
                             ),
                             const SizedBox(height: 10),
                             CustomButton(

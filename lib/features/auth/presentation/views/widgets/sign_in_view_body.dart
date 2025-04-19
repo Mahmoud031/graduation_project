@@ -10,8 +10,8 @@ import 'package:graduation_project/core/widgets/password_field.dart';
 
 import 'social_login.dart';
 
-class LoginViewBody extends StatelessWidget {
-  const LoginViewBody({super.key});
+class SigninViewBody extends StatelessWidget {
+  const SigninViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
