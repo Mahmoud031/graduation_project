@@ -19,4 +19,14 @@ class NgoModel extends NgoEntity {
       address: 'unKnown',
     );
   }
+  factory NgoModel.fromJson(Map<String, dynamic> json) {
+    return NgoModel(
+      name: json['name'],
+      email: json['email'],
+      phone: json['phone'],
+      ngoId: json['ngoId'],
+      address: json['address'],
+      uId: json['uId'], // Ensure this is included in the JSON
+    );
+  }
 }

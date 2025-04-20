@@ -13,7 +13,19 @@ class UserModel extends UserEntity{
       type: 'Individual', // Default user type
       phone: user.phoneNumber ?? '', 
       uId: user.uid, // Firebase UID as user ID
-      // You need to handle this according to your requirements
+      
+    );
+  }
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      name: json['name'] ,
+      email: json['email'] ,
+      age: json['age'] ,
+      nationalId: json['nationalId'] ,
+      address: json['address'] ,
+      type: json['type'] ,
+      phone: json['phone'] ,
+      uId: json['uId'] , // Ensure this is included in the JSON
     );
   }
 }
