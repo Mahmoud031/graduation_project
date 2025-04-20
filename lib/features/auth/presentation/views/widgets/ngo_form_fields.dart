@@ -48,6 +48,7 @@ class NgoFormFields extends StatelessWidget {
           hintText: 'Enter Email',
           labelText: 'Email',
           prefixIcon: Icons.email,
+          textInputType: TextInputType.emailAddress,
         ),
         const SizedBox(height: 10),
         CustomTextFormField(
@@ -55,6 +56,7 @@ class NgoFormFields extends StatelessWidget {
           hintText: 'Enter phone number',
           labelText: 'Contact',
           prefixIcon: Icons.phone,
+          textInputType: TextInputType.phone,
         ),
         const SizedBox(height: 10),
         CustomTextFormField(
@@ -88,4 +90,4 @@ class NgoFormFields extends StatelessWidget {
       ],
     );
   }
-} 
+}

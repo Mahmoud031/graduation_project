@@ -5,8 +5,8 @@ import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/core/widgets/custom_button.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/member_form_fields.dart';
-import 'package:graduation_project/features/auth/presentation/views/widgets/member_signup_handler.dart';
-import 'package:graduation_project/features/auth/presentation/views/widgets/memer_ngo_toggle.dart';
+import 'package:graduation_project/features/auth/presentation/views/widgets/handlers/member_signup_handler.dart';
+import 'package:graduation_project/features/auth/presentation/views/widgets/member_ngo_toggle.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/sign_in_link.dart';
 
 class SignUpViewBody extends StatefulWidget {
