@@ -1,5 +1,6 @@
 class NgoEntity 
 {
+  final String uId;
   final String name;
   final String email;
   final String phone;
@@ -8,6 +9,7 @@ class NgoEntity
   
 
   NgoEntity({
+    required this.uId,
     required this.name,
     required this.email,
     required this.phone,
@@ -17,6 +19,7 @@ class NgoEntity
   });
   toMap() {
     return {
+      'uId': uId,
       'name': name,
       'email': email,
       'phone': phone,

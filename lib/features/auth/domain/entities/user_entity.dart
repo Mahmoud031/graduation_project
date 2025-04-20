@@ -1,5 +1,5 @@
-class UserEntity 
-{
+class UserEntity {
+  final String uId;
   final String name;
   final String email;
   final int age;
@@ -7,9 +7,9 @@ class UserEntity
   final String nationalId;
   final String address;
   final String type;
-  
 
-  UserEntity({
+  UserEntity( {
+    required this.uId,
     required this.name,
     required this.email,
     required this.age,
@@ -20,6 +20,7 @@ class UserEntity
   });
   toMap() {
     return {
+      'uId': uId,
       'name': name,
       'email': email,
       'age': age,

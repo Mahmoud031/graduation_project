@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:graduation_project/core/errors/exceptions.dart';
 import 'package:graduation_project/core/errors/failures.dart';
 import 'package:graduation_project/core/services/database_service.dart';
@@ -28,15 +29,22 @@ class AuthRepoImpl extends AuthRepo {
       String address,
       String type,
       int age) async {
+    User? user;
     try {
-      var user = await firebaseAuthService.createUserWithEmailandPassword(
+      user = await firebaseAuthService.createUserWithEmailandPassword(
           email: email, password: password);
-      var userEntity = UserModel.fromFirebaseUser(user);
+      var userEntity = UserEntity(name: name, email: email, age: age, phone: phone, nationalId: nationalId, address: address, type: type, uId: user.uid);
       await adduserData(user: userEntity);
       return right(userEntity);
     } on CustomException catch (e) {
+      if (user != null) {
+        await firebaseAuthService.deleteUser();
+      }
       return left(ServerFailure(e.message));
     } catch (e) {
+      if (user != null) {
+        await firebaseAuthService.deleteUser();
+      }
       log('Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}');
       return left(
           ServerFailure('An unknown error occurred. please try later.'));
@@ -51,15 +59,27 @@ class AuthRepoImpl extends AuthRepo {
       String phone,
       String ngoId,
       String address) async {
+    User? user;
     try {
-      var user = await firebaseAuthService.createUserWithEmailandPassword(
+      user = await firebaseAuthService.createUserWithEmailandPassword(
           email: email, password: password);
-      var ngoEntity = NgoModel.fromFirebaseUser(user);
+      var ngoEntity = NgoEntity(
+          name: name,
+          email: email,
+          phone: phone,
+          ngoId: ngoId,
+          address: address, uId: user.uid);
       await addNgoData(ngo: ngoEntity);
       return right(ngoEntity);
     } on CustomException catch (e) {
+      if (user != null) {
+        await firebaseAuthService.deleteUser();
+      }
       return left(ServerFailure(e.message));
     } catch (e) {
+      if (user != null) {
+        await firebaseAuthService.deleteUser();
+      }
       log('Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}');
       return left(
           ServerFailure('An unknown error occurred. please try later.'));
