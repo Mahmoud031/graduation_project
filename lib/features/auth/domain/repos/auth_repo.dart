@@ -5,21 +5,21 @@ import '../entities/user_entity.dart';
 
 abstract class AuthRepo {
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword(
-      String email, String password, String name, String phone, String nationalId, String address, String type ,int age);
+      String email,
+      String password,
+      String name,
+      String phone,
+      String nationalId,
+      String address,
+      String type,
+      int age);
 
-      Future<Either<Failure,NgoEntity>> createNgoWithEmailAndPassword(
-        String email,
-        String password,
-        String name,
-        String phone,
-        String ngoId,
-        String address
-      );
+  Future<Either<Failure, NgoEntity>> createNgoWithEmailAndPassword(String email,
+      String password, String name, String phone, String ngoId, String address);
   Future<Either<Failure, UserEntity>> signInWithEmailAndPassword(
       String email, String password);
-        Future<Either<Failure, UserEntity>> signInWithGoogle(
-      );
-  Future<Either<Failure, UserEntity>> signInWithFacebook(
-      );
-
+  Future<Either<Failure, UserEntity>> signInWithGoogle();
+  Future<Either<Failure, UserEntity>> signInWithFacebook();
+  Future adduserData({required UserEntity user});
+  Future addNgoData({required NgoEntity ngo});
 }

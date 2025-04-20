@@ -15,4 +15,14 @@ class NgoEntity
     required this.address,
     
   });
+  toMap() {
+    return {
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'ngoId': ngoId,
+      'address': address,
+      
+    };
+  }
 }

@@ -18,4 +18,15 @@ class UserEntity
     required this.address,
     required this.type,
   });
+  toMap() {
+    return {
+      'name': name,
+      'email': email,
+      'age': age,
+      'phone': phone,
+      'nationalId': nationalId,
+      'address': address,
+      'type': type,
+    };
+  }
 }
