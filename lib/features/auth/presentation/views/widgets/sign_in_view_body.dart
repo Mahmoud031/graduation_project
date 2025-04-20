@@ -125,7 +125,15 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                             SizedBox(
                               height: 8,
                             ),
-                            const SocialLogin(),
+                             SocialLogin(
+                              onTapGoogle: () { 
+                                context.read<SigninCubit>().signInWithGoogle();
+                               },
+                              onTapFacebook: () {
+                                context.read<SigninCubit>().signInWithFacebook();
+                              },
+
+                            ),
                             SizedBox(
                               height: 10,
                             ),

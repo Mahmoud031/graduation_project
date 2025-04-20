@@ -3,7 +3,9 @@ import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/social_login_widget.dart';
 
 class SocialLogin extends StatelessWidget {
-  const SocialLogin({super.key});
+  const SocialLogin({super.key, required this.onTapGoogle, required this.onTapFacebook});
+  final VoidCallback onTapGoogle;
+  final VoidCallback onTapFacebook;
 
   @override
   Widget build(BuildContext context) {
@@ -12,14 +14,15 @@ class SocialLogin extends StatelessWidget {
       children: [
         SocialLoginWidget(
           image: AppImages.loginViewGoogle,
-          onTap: () {},
+          onTap: onTapGoogle,
+          
         ),
         const SizedBox(
           width: 20,
         ),
         SocialLoginWidget(
           image: AppImages.loginViewFacebook,
-          onTap: () {},
+          onTap: onTapFacebook,
         ),
       ],
     );

@@ -73,14 +73,26 @@ class AuthRepoImpl extends AuthRepo {
           ServerFailure('An unknown error occurred. please try later.'));
     }
   }
-  
+
   @override
   Future<Either<Failure, UserEntity>> signInWithGoogle() async {
     try {
       var user = await firebaseAuthService.signInWithGoogle();
       return right(UserModel.fromFirebaseUser(user));
-    }  catch (e) {
+    } catch (e) {
       log('Exception in AuthRepoImpl.signInWithGoogle: ${e.toString()}');
+      return left(
+          ServerFailure('An unknown error occurred. please try later.'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInWithFacebook() async {
+    try {
+      var user = await firebaseAuthService.signInWithFacebook();
+      return right(UserModel.fromFirebaseUser(user));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.signInWithFacebook: ${e.toString()}');
       return left(
           ServerFailure('An unknown error occurred. please try later.'));
     }
