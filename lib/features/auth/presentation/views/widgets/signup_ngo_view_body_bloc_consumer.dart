@@ -22,7 +22,7 @@ class SignupNgoViewBodyBlocConsumer extends StatelessWidget {
             buildErrorBar(context, state.message);
           } else if (state is NgoSignupSuccess) {
             buildErrorBar(context, 'Signup Success');
-            Future.delayed(const Duration(seconds: 2), () {
+            Future.delayed(const Duration(seconds: 1), () {
               Navigator.pushReplacementNamed(context, SigninView.routeName);
             });
           }

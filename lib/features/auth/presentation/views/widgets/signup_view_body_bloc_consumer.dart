@@ -20,8 +20,8 @@ class SignupViewBodyBlocConsumer extends StatelessWidget {
             buildErrorBar(context, state.message);
           } else if (state is SignupSuccess) {
             buildErrorBar(context, 'Signup Success');
-            Future.delayed(const Duration(seconds: 2), () {
-              Navigator.pushReplacementNamed(context, SigninView.routeName);
+            Future.delayed(const Duration(seconds: 1), () {
+              Navigator.pop(context);
             });
           }
         },

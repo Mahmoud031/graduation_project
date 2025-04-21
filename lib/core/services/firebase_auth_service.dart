@@ -53,12 +53,14 @@ class FirebaseAuthService {
     } on FirebaseAuthException catch (e) {
       log("Exception in FirebaseAuthService.signInWithEmailandPassword: ${e.toString()} and code is ${e.code}");
       if (e.code == 'user-not-found') {
-        throw CustomException(message: ' email or password  is incorrect.');
+        throw CustomException(message: ' email or password  is incorrect.Please try again.');
       } else if (e.code == 'wrong-password') {
-        throw CustomException(message: 'email or password  is incorrect.');
+        throw CustomException(message: 'email or password  is incorrect.Please try again.');
       } else if (e.code == 'network-request-failed') {
         throw CustomException(message: 'No internet connection');
-      } 
+      } else if (e.code =='invalid-credentials'){
+         throw CustomException(message: 'the email or password is incorrect.Please try again.');
+      }
       else {
         throw CustomException(
             message: 'An unknown error occurred. please try later.');
