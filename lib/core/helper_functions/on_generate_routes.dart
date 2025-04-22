@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_up_ngo_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_up_view.dart';
+import 'package:graduation_project/features/home/presentation/views/add_medicine_view.dart';
 import 'package:graduation_project/features/home/presentation/views/home_view.dart';
 import 'package:graduation_project/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:graduation_project/features/splash/presentation/views/splash_view.dart';
@@ -20,6 +21,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const SignUpNgoView());
     case HomeView.routeName:
       return MaterialPageRoute(builder: (_) => const HomeView());
+      case AddMedicineView.routeName:
+      return MaterialPageRoute(builder: (_) => const AddMedicineView());
     default:
       return MaterialPageRoute(builder: (_) => const SplashView());
   }

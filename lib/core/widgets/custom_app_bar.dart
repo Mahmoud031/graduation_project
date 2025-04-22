@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+  const CustomAppBar({super.key, required this.title});
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class CustomAppBar extends StatelessWidget {
             ),
             SizedBox(width: MediaQuery.of(context).size.width * 0.05),
             Text(
-              'Donate Medicine',
+              title,
               style: TextStyles.textstyle34.copyWith(
                 color: Colors.white,
                 fontSize: MediaQuery.of(context).size.width * 0.08,
