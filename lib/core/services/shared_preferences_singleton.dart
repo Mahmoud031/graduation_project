@@ -14,4 +14,10 @@ class Prefs {
   static bool getBool(String key) {
     return _instance.getBool(key) ?? false;
   }
+  static setString(String key, String value) async{
+    await _instance.setString(key, value);
+  }
+  static String getString(String key) {
+    return _instance.getString(key) ?? '';
+  }
 }

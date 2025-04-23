@@ -28,4 +28,28 @@ class UserModel extends UserEntity{
       uId: json['uId'] , // Ensure this is included in the JSON
     );
   }
+  factory UserModel.fromEntity(UserEntity user) {
+    return UserModel(
+      name: user.name,
+      email: user.email,
+      age: user.age,
+      nationalId: user.nationalId,
+      address: user.address,
+      type: user.type,
+      phone: user.phone,
+      uId: user.uId, // Ensure this is included in the JSON
+    );
+  }
+  toMap() {
+    return {
+      'uId': uId,
+      'name': name,
+      'email': email,
+      'age': age,
+      'phone': phone,
+      'nationalId': nationalId,
+      'address': address,
+      'type': type,
+    };
+  }
 }

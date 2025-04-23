@@ -29,4 +29,24 @@ class NgoModel extends NgoEntity {
       uId: json['uId'], // Ensure this is included in the JSON
     );
   }
+  factory NgoModel.fromEntity(NgoEntity ngo) {
+    return NgoModel(
+      name: ngo.name,
+      email: ngo.email,
+      phone: ngo.phone,
+      ngoId: ngo.ngoId,
+      address: ngo.address,
+      uId: ngo.uId, // Ensure this is included in the JSON
+    );
+  }
+  toMap() {
+    return {
+      'uId': uId,
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'ngoId': ngoId,
+      'address': address,
+    };
+  }
 }

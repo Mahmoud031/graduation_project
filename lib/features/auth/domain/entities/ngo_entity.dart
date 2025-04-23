@@ -17,15 +17,5 @@ class NgoEntity
     required this.address,
     
   });
-  toMap() {
-    return {
-      'uId': uId,
-      'name': name,
-      'email': email,
-      'phone': phone,
-      'ngoId': ngoId,
-      'address': address,
-      
-    };
-  }
+ 
 }

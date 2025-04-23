@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:graduation_project/constants.dart';
 import 'package:graduation_project/core/errors/exceptions.dart';
 import 'package:graduation_project/core/errors/failures.dart';
 import 'package:graduation_project/core/services/database_service.dart';
 import 'package:graduation_project/core/services/firebase_auth_service.dart';
+import 'package:graduation_project/core/services/shared_preferences_singleton.dart';
 import 'package:graduation_project/core/utils/backend_endpoint.dart';
 import 'package:graduation_project/features/auth/data/models/user_model.dart';
 import 'package:graduation_project/features/auth/domain/entities/ngo_entity.dart';
@@ -100,6 +104,7 @@ class AuthRepoImpl extends AuthRepo {
       var user = await firebaseAuthService.signInWithEmailandPassword(
           email: email, password: password);
       var userEntity = await getUserData(uId: user.uid);
+      await saveUserData(user: userEntity);
       return right(userEntity);
     } on CustomException catch (e) {
       return left(ServerFailure(e.message));
@@ -145,7 +150,7 @@ class AuthRepoImpl extends AuthRepo {
   Future addNgoData({required NgoEntity ngo}) async {
     await databaseService.addData(
         path: BackendEndpoint.addNgoData,
-        data: ngo.toMap(),
+        data: NgoModel.fromEntity(ngo).toMap(),
         documentId: ngo.uId);
   }
 
@@ -153,7 +158,7 @@ class AuthRepoImpl extends AuthRepo {
   Future adduserData({required UserEntity user}) async {
     await databaseService.addData(
         path: BackendEndpoint.addUserData,
-        data: user.toMap(),
+        data: UserModel.fromEntity(user).toMap(),
         documentId: user.uId);
   }
 
@@ -200,5 +205,17 @@ class AuthRepoImpl extends AuthRepo {
       return left(
           ServerFailure('An unknown error occurred. please try later.'));
     }
+  }
+  
+  @override
+  Future saveNgoData({required NgoEntity ngo}) {
+      var jsonData = jsonEncode(NgoModel.fromEntity(ngo).toMap());
+      return Prefs.setString(kNgoData, jsonData);
+  }
+  
+  @override
+  Future saveUserData({required UserEntity user}) async{
+      var jsonData = jsonEncode(UserModel.fromEntity(user).toMap());
+      await Prefs.setString(kUserData, jsonData);
   }
 }

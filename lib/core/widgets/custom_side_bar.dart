@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project/core/helper_functions/get_user.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
+import 'package:graduation_project/features/home/presentation/views/home_view.dart';
+import 'package:graduation_project/features/home/presentation/views/view_transaction_view.dart';
 
 class CustomSideBar extends StatelessWidget {
   const CustomSideBar({super.key});
@@ -17,34 +20,41 @@ class CustomSideBar extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(16),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const CircleAvatar(
                         radius: 30,
                         backgroundColor: Color(0xFF071A26),
                         child: Icon(
                           Icons.account_circle_outlined,
-                          size: 60,
+                          size: 50,
                           color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 12),
-                      Column(
-                        children: [
-                          Text(
-                            'Donors',
-                            style: TextStyles.textstyle34.copyWith(
-                              color: Colors.white,
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              getUser().name,
+                              style: TextStyles.textstyle25.copyWith(
+                                color: Colors.white,
+                              ),
+                              overflow: TextOverflow.visible,
+                              softWrap: true,
                             ),
-                          ),
-                          Text(
-                            'admin@gmail.com',
-                            style: TextStyles.textstyle18.copyWith(
-                              color: Colors.white,
+                            Text(
+                              getUser().email,
+                              style: TextStyles.textstyle18.copyWith(
+                                color: Colors.white,
+                              ),
+                              overflow: TextOverflow.visible,
+                              softWrap: true,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 12),
                     ],
                   ),
                 ),
@@ -65,7 +75,11 @@ class CustomSideBar extends StatelessWidget {
               ],
             ),
             const Divider(
-                color: Colors.white24, thickness: 1, indent: 16, endIndent: 16),
+              color: Colors.white24,
+              thickness: 1,
+              indent: 16,
+              endIndent: 16,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 30),
               child: Column(
@@ -73,7 +87,9 @@ class CustomSideBar extends StatelessWidget {
                   _buildDrawerItem(
                     icon: Icons.medical_services_outlined,
                     title: 'Donate Medicine',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, HomeView.routeName);
+                    },
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.05,
@@ -81,7 +97,12 @@ class CustomSideBar extends StatelessWidget {
                   _buildDrawerItem(
                     icon: Icons.receipt_long_outlined,
                     title: 'View Transaction',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        ViewTransactionView.routeName,
+                      );
+                    },
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.05,
