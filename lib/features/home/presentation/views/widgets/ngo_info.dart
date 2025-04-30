@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
-import 'package:graduation_project/features/home/presentation/views/add_medicine_view.dart';
+import 'package:graduation_project/features/add_medicine/presentation/views/add_medicine_view.dart';
 
 import 'custom_home_button.dart';
 

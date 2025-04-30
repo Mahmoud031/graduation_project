@@ -8,6 +8,7 @@ class MedicineTextField extends StatelessWidget {
   final bool isDateField;
   final DateTime? selectedDate;
   final VoidCallback? onDateTap;
+  final void Function(String?)? onSaved;
 
   const MedicineTextField({
     super.key,
@@ -17,7 +18,10 @@ class MedicineTextField extends StatelessWidget {
     this.maxLines = 1,
     this.isDateField = false,
     this.selectedDate,
-    this.onDateTap, required TextEditingController controller,
+    this.onDateTap,
+    required TextEditingController controller,
+    this.onSaved,
+    String? Function(String? p1)? validator,
   });
 
   @override
@@ -34,6 +38,13 @@ class MedicineTextField extends StatelessWidget {
           ),
         ),
         child: TextFormField(
+          onSaved: onSaved,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter some text';
+            }
+            return null;
+          },
           maxLines: maxLines,
           keyboardType: keyboardType,
           readOnly: isDateField,

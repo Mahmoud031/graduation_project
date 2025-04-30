@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+ import 'package:bloc/bloc.dart';
 import 'package:graduation_project/features/auth/domain/entities/user_entity.dart';
 import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
 import 'package:meta/meta.dart';

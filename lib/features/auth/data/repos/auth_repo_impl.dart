@@ -114,6 +114,23 @@ class AuthRepoImpl extends AuthRepo {
           ServerFailure('An unknown error occurred. please try later.'));
     }
   }
+  
+  Future<Either<Failure, NgoEntity>> signInWithEmailAndPasswordNgo(
+      String email, String password) async {
+    try {
+      var user = await firebaseAuthService.signInWithEmailandPassword(
+          email: email, password: password);
+      var ngoEntity = await getNgoData(uId: user.uid);
+      await saveNgoData(ngo: ngoEntity);
+      return right(ngoEntity);
+    } on CustomException catch (e) {
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.signInWithEmailAndPassword: ${e.toString()}');
+      return left(
+          ServerFailure('An unknown error occurred. please try later.'));
+    }
+  }
 
   @override
   Future<Either<Failure, UserEntity>> signInWithGoogle() async {
@@ -206,16 +223,16 @@ class AuthRepoImpl extends AuthRepo {
           ServerFailure('An unknown error occurred. please try later.'));
     }
   }
-  
+
   @override
   Future saveNgoData({required NgoEntity ngo}) {
-      var jsonData = jsonEncode(NgoModel.fromEntity(ngo).toMap());
-      return Prefs.setString(kNgoData, jsonData);
+    var jsonData = jsonEncode(NgoModel.fromEntity(ngo).toMap());
+    return Prefs.setString(kNgoData, jsonData);
   }
-  
+
   @override
-  Future saveUserData({required UserEntity user}) async{
-      var jsonData = jsonEncode(UserModel.fromEntity(user).toMap());
-      await Prefs.setString(kUserData, jsonData);
+  Future saveUserData({required UserEntity user}) async {
+    var jsonData = jsonEncode(UserModel.fromEntity(user).toMap());
+    await Prefs.setString(kUserData, jsonData);
   }
 }

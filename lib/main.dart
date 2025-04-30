@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/services/custom_bloc_observer.dart';
 import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/core/services/shared_preferences_singleton.dart';
-
 import 'core/helper_functions/on_generate_routes.dart';
 import 'features/splash/presentation/views/splash_view.dart';
 import 'firebase_options.dart';
@@ -28,6 +27,7 @@ class Medics extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Judson'),
+      
       debugShowCheckedModeBanner: false,
       onGenerateRoute: onGenerateRoutes,
       initialRoute: SplashView.routeName,
