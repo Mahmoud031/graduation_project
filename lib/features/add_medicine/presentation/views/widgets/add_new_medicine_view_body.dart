@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/core/helper_functions/build_error_bar.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/core/widgets/custom_app_bar.dart';
+import 'package:graduation_project/features/add_medicine/domain/entities/add_new_medicine_entity.dart';
 import 'package:graduation_project/features/add_medicine/presentation/services/medicine_form_service.dart';
 import 'package:graduation_project/features/add_medicine/presentation/views/widgets/medicine_text_field.dart';
 import 'package:graduation_project/features/home/presentation/views/widgets/custom_home_button.dart';
@@ -126,6 +127,9 @@ late String medicineName , tabletCount , details , purchasedDate , expiryDate;
             _buildExpiryError(),
             const SizedBox(height: 16),
             MedicineTextField(
+              onSaved: (value) {
+                details = value!;
+              },
               hintText: 'Details',
               prefixIcon: Icons.description,
               maxLines: 3,
@@ -163,6 +167,14 @@ late String medicineName , tabletCount , details , purchasedDate , expiryDate;
                     if(imageFile != null){
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
+                        AddNewMedicineEntity input = AddNewMedicineEntity(
+                          medicineName: medicineName,
+                          tabletCount: tabletCount,
+                          details: details,
+                          purchasedDate: purchasedDate,
+                          expiryDate: expiryDate,
+                          imageFile: imageFile!,
+                        );
                         
                       }else{
                         autovalidateMode = AutovalidateMode.always;
