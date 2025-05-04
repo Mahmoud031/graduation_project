@@ -72,11 +72,16 @@ class _AddNewMedicineViewBodyState extends State<AddNewMedicineViewBody> {
       ),
     );
   }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-late String medicineName , tabletCount , details , purchasedDate , expiryDate;
- File? imageFile;
-  
+  String medicineName = '',
+      tabletCount = '',
+      details = '',
+      purchasedDate = '',
+      expiryDate = '';
+  File? imageFile;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -110,7 +115,7 @@ late String medicineName , tabletCount , details , purchasedDate , expiryDate;
             ),
             const SizedBox(height: 16),
             _buildDateField(
-              onSaved: (value){
+              onSaved: (value) {
                 purchasedDate = value!;
               },
               hintText: 'Purchased Date',
@@ -119,7 +124,7 @@ late String medicineName , tabletCount , details , purchasedDate , expiryDate;
             ),
             const SizedBox(height: 16),
             _buildDateField(
-              onSaved: (value){
+              onSaved: (value) {
                 expiryDate = value!;
               },
               hintText: 'Expiry Date',
@@ -166,24 +171,27 @@ late String medicineName , tabletCount , details , purchasedDate , expiryDate;
                 child: CustomHomeButton(
                   text: 'Add Medicine',
                   onPressed: () {
-                    if(imageFile != null){
+                    if (imageFile != null) {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
                         AddNewMedicineEntity input = AddNewMedicineEntity(
                           medicineName: medicineName,
                           tabletCount: tabletCount,
                           details: details,
-                          purchasedDate: purchasedDate,
-                          expiryDate: expiryDate,
+                          purchasedDate: _formService.purchasedDate != null
+                              ? '${_formService.purchasedDate!.day}/${_formService.purchasedDate!.month}/${_formService.purchasedDate!.year}'
+                              : '',
+                          expiryDate: _formService.expiryDate != null
+                              ? '${_formService.expiryDate!.day}/${_formService.expiryDate!.month}/${_formService.expiryDate!.year}'
+                              : '',
                           imageFile: imageFile!,
                         );
                         context.read<AddMedicineCubit>().addMedicine(input);
-                        
-                      }else{
+                      } else {
                         autovalidateMode = AutovalidateMode.always;
                         setState(() {});
                       }
-                    }else{
+                    } else {
                       buildErrorBar(context, 'Please upload a medicine image');
                     }
                   },

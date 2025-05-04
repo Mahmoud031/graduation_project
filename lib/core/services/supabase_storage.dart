@@ -34,7 +34,8 @@ class SupabaseStorageService implements StorageService {
     String extensionName = b.extension(file.path);
     var result = await _supabase.client.storage
         .from('medicine_images')
-        .upload('$path/$fileName$extensionName', file);
+        .upload('$path/$fileName.$extensionName', file);
+        final String publicUrl = _supabase.client.storage.from('medicine_images').getPublicUrl('$path/$fileName.$extensionName');
     return result;
   }
 }
