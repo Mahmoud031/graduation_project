@@ -14,6 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await SupabaseStorageService.initSupabase();
+  await SupabaseStorageService.createBucket('medicine_images');
   Bloc.observer = CustomBlocObserver();
 
   await Firebase.initializeApp(

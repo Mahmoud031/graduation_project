@@ -7,15 +7,15 @@ class AddNewMedicineEntity {
   final String purchasedDate;
   final String expiryDate;
   final File imageFile;
-  final String? imageurl;
+   String? imageUrl;
 
-  const AddNewMedicineEntity({
+   AddNewMedicineEntity({
     required this.medicineName,
     required this.tabletCount,
     required this.details,
     required this.purchasedDate,
     required this.expiryDate,
     required this.imageFile,
-     this.imageurl,
+    this.imageUrl,
   });
 }
