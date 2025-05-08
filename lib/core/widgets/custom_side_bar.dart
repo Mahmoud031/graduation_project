@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/helper_functions/get_user.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
-import 'package:graduation_project/features/home/presentation/views/home_view.dart';
-import 'package:graduation_project/features/home/presentation/views/view_transaction_view.dart';
+import 'package:graduation_project/features/find_ngo/presentation/views/find_ngo_view.dart';
+import 'package:graduation_project/features/view_transaction/presentation/views/view_transaction_view.dart';
 
 class CustomSideBar extends StatelessWidget {
   const CustomSideBar({super.key});
@@ -88,7 +88,7 @@ class CustomSideBar extends StatelessWidget {
                     icon: Icons.medical_services_outlined,
                     title: 'Donate Medicine',
                     onTap: () {
-                      Navigator.pushNamed(context, HomeView.routeName);
+                      Navigator.pushNamed(context, FindNgoView.routeName);
                     },
                   ),
                   SizedBox(

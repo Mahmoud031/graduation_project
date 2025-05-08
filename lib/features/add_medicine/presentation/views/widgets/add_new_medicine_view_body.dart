@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/helper_functions/build_error_bar.dart';
@@ -7,9 +6,10 @@ import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/core/widgets/custom_app_bar.dart';
 import 'package:graduation_project/features/add_medicine/domain/entities/add_new_medicine_entity.dart';
 import 'package:graduation_project/features/add_medicine/presentation/services/medicine_form_service.dart';
+import 'package:graduation_project/features/add_medicine/presentation/views/widgets/add_medicine_widgets/date_field_widget.dart';
+import 'package:graduation_project/features/add_medicine/presentation/views/widgets/add_medicine_widgets/expiry_error_widget.dart';
 import 'package:graduation_project/features/add_medicine/presentation/views/widgets/medicine_text_field.dart';
-import 'package:graduation_project/features/home/presentation/views/widgets/custom_home_button.dart';
-
+import 'package:graduation_project/features/find_ngo/presentation/views/widgets/custom_home_button.dart';
 import '../../manager/add_medicine_cubit/add_medicine_cubit.dart';
 import 'image_field.dart';
 
@@ -35,42 +35,6 @@ class _AddNewMedicineViewBodyState extends State<AddNewMedicineViewBody> {
     _tabletCountController.dispose();
     _detailsController.dispose();
     super.dispose();
-  }
-
-  Widget _buildDateField({
-    required String hintText,
-    required IconData icon,
-    required bool isPurchasedDate,
-    final void Function(String?)? onSaved,
-  }) {
-    return MedicineTextField(
-      hintText: hintText,
-      prefixIcon: icon,
-      isDateField: true,
-      selectedDate: isPurchasedDate
-          ? _formService.purchasedDate
-          : _formService.expiryDate,
-      onDateTap: () async {
-        await _formService.selectDate(context, isPurchasedDate);
-        setState(() {});
-      },
-      controller: TextEditingController(),
-    );
-  }
-
-  Widget _buildExpiryError() {
-    if (_formService.expiryError == null) return const SizedBox.shrink();
-
-    return Padding(
-      padding: const EdgeInsets.only(left: 24.0, top: 8.0),
-      child: Text(
-        _formService.expiryError!,
-        style: const TextStyle(
-          color: Colors.red,
-          fontSize: 14,
-        ),
-      ),
-    );
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -114,24 +78,34 @@ class _AddNewMedicineViewBodyState extends State<AddNewMedicineViewBody> {
               controller: _tabletCountController,
             ),
             const SizedBox(height: 16),
-            _buildDateField(
+            DateFieldWidget(
               onSaved: (value) {
                 purchasedDate = value!;
               },
               hintText: 'Purchased Date',
               icon: Icons.calendar_month_outlined,
               isPurchasedDate: true,
+              selectedDate: _formService.purchasedDate,
+              onDateTap: () async {
+                await _formService.selectDate(context, true);
+                setState(() {});
+              },
             ),
             const SizedBox(height: 16),
-            _buildDateField(
+            DateFieldWidget(
               onSaved: (value) {
                 expiryDate = value!;
               },
               hintText: 'Expiry Date',
               icon: Icons.event_busy_outlined,
               isPurchasedDate: false,
+              selectedDate: _formService.expiryDate,
+              onDateTap: () async {
+                await _formService.selectDate(context, false);
+                setState(() {});
+              },
             ),
-            _buildExpiryError(),
+            ExpiryErrorWidget(errorMessage: _formService.expiryError),
             const SizedBox(height: 16),
             MedicineTextField(
               onSaved: (value) {
