@@ -4,6 +4,7 @@ import 'package:graduation_project/features/auth/presentation/views/sign_up_ngo_
 import 'package:graduation_project/features/auth/presentation/views/sign_up_view.dart';
 import 'package:graduation_project/features/add_medicine/presentation/views/add_medicine_view.dart';
 import 'package:graduation_project/features/find_ngo/presentation/views/find_ngo_view.dart';
+import 'package:graduation_project/features/home/presentation/views/home_view.dart';
 import 'package:graduation_project/features/view_transaction/presentation/views/view_transaction_view.dart';
 import 'package:graduation_project/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:graduation_project/features/splash/presentation/views/splash_view.dart';
@@ -26,6 +27,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const AddMedicineView());
     case ViewTransactionView.routeName:
       return MaterialPageRoute(builder: (_) => const ViewTransactionView());
+    case HomeView.routeName:
+      return MaterialPageRoute(builder: (_) => const HomeView());
     default:
       return MaterialPageRoute(builder: (_) => const SplashView());
   }

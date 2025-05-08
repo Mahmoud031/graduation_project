@@ -13,5 +13,6 @@ abstract class AppImages {
   static const String donateMedicine = 'assets/images/home_page_images/donate_medicine.png';
   static const String supporCenter = 'assets/images/home_page_images/support_center.png';
   static const String viewTransaction = 'assets/images/home_page_images/view_transaction.png';
+  static const String medicineDonationGuide= 'assets/images/home_page_images/medicine_donation_guide.png';
 }
 
