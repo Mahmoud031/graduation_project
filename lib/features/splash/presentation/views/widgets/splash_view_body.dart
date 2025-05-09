@@ -3,7 +3,6 @@ import 'package:graduation_project/constants.dart';
 import 'package:graduation_project/core/services/firebase_auth_service.dart';
 import 'package:graduation_project/core/services/shared_preferences_singleton.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
-import 'package:graduation_project/features/find_ngo/presentation/views/find_ngo_view.dart';
 import 'package:graduation_project/features/home/presentation/views/home_view.dart';
 import 'package:graduation_project/features/on_boarding/presentation/views/on_boarding_view.dart';
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/features/add_medicine/presentation/views/add_medicine_view.dart';
+import 'package:graduation_project/features/support_center/presentation/views/support_center_view.dart';
 import 'package:graduation_project/features/view_transaction/presentation/views/view_transaction_view.dart';
 
 class DonationOption {
@@ -41,7 +42,7 @@ class DonationOptions {
       title: 'Support Center',
       imagePath: AppImages.supporCenter,
       color: Colors.orange,
-      route: '/support',
+      route: SupportCenterView.routeName,
     ),
     DonationOption(
       title: 'Donation Guide',
