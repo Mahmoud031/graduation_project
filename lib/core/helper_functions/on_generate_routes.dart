@@ -3,6 +3,7 @@ import 'package:graduation_project/features/auth/presentation/views/sign_in_view
 import 'package:graduation_project/features/auth/presentation/views/sign_up_ngo_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_up_view.dart';
 import 'package:graduation_project/features/add_medicine/presentation/views/add_medicine_view.dart';
+import 'package:graduation_project/features/donation_guide/presentation/views/donation_guide_view.dart';
 import 'package:graduation_project/features/find_ngo/presentation/views/find_ngo_view.dart';
 import 'package:graduation_project/features/home/presentation/views/home_view.dart';
 import 'package:graduation_project/features/support_center/presentation/views/contact_support_view.dart';
@@ -35,6 +36,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const SupportCenterView());
     case ContactSupportView.routeName:
       return MaterialPageRoute(builder: (_) => const ContactSupportView());
+    case DonationGuideView.routeName:
+      return MaterialPageRoute(builder: (_) => const DonationGuideView());
     default:
       return MaterialPageRoute(builder: (_) => const SplashView());
   }
