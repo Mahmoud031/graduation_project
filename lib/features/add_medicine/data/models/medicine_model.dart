@@ -1,17 +1,17 @@
 import 'dart:io';
 
-import 'package:graduation_project/features/add_medicine/domain/entities/add_new_medicine_entity.dart';
+import 'package:graduation_project/features/add_medicine/domain/entities/medicine_entity.dart';
 
-class AddNewMedicineModel {
+class MedicineModel {
   final String medicineName;
   final String tabletCount;
   final String details;
   final String purchasedDate;
   final String expiryDate;
   final File imageFile;
-   String? imageUrl;
+  String? imageUrl;
 
-   AddNewMedicineModel({
+  MedicineModel({
     required this.medicineName,
     required this.tabletCount,
     required this.details,
@@ -21,9 +21,8 @@ class AddNewMedicineModel {
     this.imageUrl,
   });
 
-  factory AddNewMedicineModel.fromEntity(
-      AddNewMedicineEntity addNewMedicineEntity) {
-    return AddNewMedicineModel(
+  factory MedicineModel.fromEntity(MedicineEntity addNewMedicineEntity) {
+    return MedicineModel(
       medicineName: addNewMedicineEntity.medicineName,
       tabletCount: addNewMedicineEntity.tabletCount,
       details: addNewMedicineEntity.details,
@@ -32,8 +31,29 @@ class AddNewMedicineModel {
       imageFile: addNewMedicineEntity.imageFile,
       imageUrl: addNewMedicineEntity.imageUrl,
     );
-
-  } 
+  }
+factory MedicineModel.fromJson(Map<String, dynamic> json) {
+    return MedicineModel(
+      medicineName: json['medicineName'],
+      tabletCount: json['tabletCount'],
+      details: json['details'],
+      purchasedDate: json['purchasedDate'],
+      expiryDate: json['expiryDate'],
+      imageFile: File(json['imageFile']),
+      imageUrl: json['imageUrl'],
+    );
+  }
+ MedicineEntity toEntity() {
+    return MedicineEntity(
+      medicineName: medicineName,
+      tabletCount: tabletCount,
+      details: details,
+      purchasedDate: purchasedDate,
+      expiryDate: expiryDate,
+      imageFile: imageFile,
+      imageUrl: imageUrl,
+    );
+  }
   toJson() {
     return {
       'medicineName': medicineName,

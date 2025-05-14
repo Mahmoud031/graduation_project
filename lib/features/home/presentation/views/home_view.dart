@@ -10,7 +10,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFC2E1E3),
       appBar: AppBar(
-        title: const Text(
+        title: const Text(  
           'Donation Hub',
           style: TextStyle(
             fontSize: 24,
@@ -24,7 +24,7 @@ class HomeView extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              
+               
             },
             icon: const Icon(
               Icons.notifications_outlined,
@@ -33,7 +33,7 @@ class HomeView extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              
+
             },
             icon: const Icon(
               Icons.person_outline,

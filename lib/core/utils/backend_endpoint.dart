@@ -5,4 +5,5 @@ class BackendEndpoint {
   static const getNgoData = 'ngos';
   static const images = 'images';
   static const addMedicine = 'medicine';
+  static const getMedicine = 'medicine';
 }

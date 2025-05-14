@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_images.dart';
-import 'package:graduation_project/features/add_medicine/presentation/views/add_medicine_view.dart';
 import 'package:graduation_project/features/donation_guide/presentation/views/donation_guide_view.dart';
+import 'package:graduation_project/features/find_ngo/presentation/views/find_ngo_view.dart';
 import 'package:graduation_project/features/support_center/presentation/views/support_center_view.dart';
 import 'package:graduation_project/features/view_transaction/presentation/views/view_transaction_view.dart';
 
@@ -25,7 +25,7 @@ class DonationOptions {
       title: 'Donate Medicine',
       imagePath: AppImages.donateMedicine,
       color: Colors.blue,
-      route: AddMedicineView.routeName,
+      route: FindNgoView.routeName,
     ),
     DonationOption(
       title: 'Donate Money',

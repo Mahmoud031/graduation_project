@@ -1,15 +1,15 @@
 import 'dart:io';
 
-class AddNewMedicineEntity {
+class MedicineEntity {
   final String medicineName;
   final String tabletCount;
   final String details;
   final String purchasedDate;
   final String expiryDate;
   final File imageFile;
-   String? imageUrl;
+  String? imageUrl;
 
-   AddNewMedicineEntity({
+  MedicineEntity({
     required this.medicineName,
     required this.tabletCount,
     required this.details,
