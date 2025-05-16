@@ -11,21 +11,21 @@ class SigninCubit extends Cubit<SigninState> {
       String email, String password) async {
     emit(SigninLoading());
     
-    // Try donor sign-in first
-    final donorResult = await authRepo.signInWithEmailAndPassword(email, password);
+    // Try NGO sign-in first
+    final ngoResult = await authRepo.signInWithEmailAndPasswordNgo(email, password);
     
-    if (donorResult.isRight()) {
-      // If donor sign-in succeeds, emit success
-      donorResult.fold(
+    if (ngoResult.isRight()) {
+      // If NGO sign-in succeeds, emit success with NGO entity
+      ngoResult.fold(
         (failure) => null, // This won't be called since we checked isRight()
-        (userEntity) => emit(SigninSuccess(userEntity)),
+        (ngoEntity) => emit(SigninSuccess(ngoEntity)),
       );
     } else {
-      // If donor sign-in fails, try NGO sign-in
-      final ngoResult = await authRepo.signInWithEmailAndPasswordNgo(email, password);
-      ngoResult.fold(
+      // If NGO sign-in fails, try donor sign-in
+      final donorResult = await authRepo.signInWithEmailAndPassword(email, password);
+      donorResult.fold(
         (failure) => emit(SigninFailure(message: failure.message)),
-        (ngoEntity) => emit(SigninSuccess(ngoEntity)),
+        (userEntity) => emit(SigninSuccess(userEntity)),
       );
     }
   }

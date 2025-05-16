@@ -14,5 +14,10 @@ abstract class AppImages {
   static const String supporCenter = 'assets/images/home_page_images/support_center.png';
   static const String viewTransaction = 'assets/images/home_page_images/view_transaction.png';
   static const String medicineDonationGuide= 'assets/images/home_page_images/medicine_donation_guide.png';
+  static const String ngoDonations = 'assets/images/ngo_home_page_images/Donations.png';
+  static const String ngoMedicineInventory = 'assets/images/ngo_home_page_images/medicine inventory.png';
+  static const String ngoReports = 'assets/images/ngo_home_page_images/reports.png';
+  static const String ngoDistributionManagement = 'assets/images/ngo_home_page_images/distribution management.png';
+  
 }
 

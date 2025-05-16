@@ -2,10 +2,10 @@ import 'package:get_it/get_it.dart';
 import 'package:graduation_project/core/services/database_service.dart';
 import 'package:graduation_project/core/services/storage_service.dart';
 import 'package:graduation_project/core/services/supabase_storage.dart';
-import 'package:graduation_project/features/add_medicine/data/repos/images_repo_impl.dart';
-import 'package:graduation_project/features/add_medicine/data/repos/medicine_repo_impl.dart';
-import 'package:graduation_project/features/add_medicine/domain/repos/images_repo.dart';
-import 'package:graduation_project/features/add_medicine/domain/repos/medicine_repo.dart';
+import 'package:graduation_project/features/donor_features/add_medicine/data/repos/images_repo_impl.dart';
+import 'package:graduation_project/features/donor_features/add_medicine/data/repos/medicine_repo_impl.dart';
+import 'package:graduation_project/features/donor_features/add_medicine/domain/repos/images_repo.dart';
+import 'package:graduation_project/features/donor_features/add_medicine/domain/repos/medicine_repo.dart';
 import 'package:graduation_project/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
 
