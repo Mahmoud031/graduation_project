@@ -7,8 +7,8 @@ final class SigninInitial extends SigninState {}
 
 final class SigninLoading extends SigninState {}
 final class SigninSuccess extends SigninState {
- final UserEntity userEntity;
-  SigninSuccess(this.userEntity);
+  final dynamic entity; // Can be either UserEntity or NgoEntity
+  SigninSuccess(this.entity);
 }
 final class SigninFailure extends SigninState {
   final String message;

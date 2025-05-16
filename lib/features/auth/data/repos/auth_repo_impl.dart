@@ -115,6 +115,7 @@ class AuthRepoImpl extends AuthRepo {
     }
   }
   
+  @override
   Future<Either<Failure, NgoEntity>> signInWithEmailAndPasswordNgo(
       String email, String password) async {
     try {
@@ -126,7 +127,7 @@ class AuthRepoImpl extends AuthRepo {
     } on CustomException catch (e) {
       return left(ServerFailure(e.message));
     } catch (e) {
-      log('Exception in AuthRepoImpl.signInWithEmailAndPassword: ${e.toString()}');
+      log('Exception in AuthRepoImpl.signInWithEmailAndPasswordNgo: ${e.toString()}');
       return left(
           ServerFailure('An unknown error occurred. please try later.'));
     }

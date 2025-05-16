@@ -18,6 +18,8 @@ abstract class AuthRepo {
       String password, String name, String phone, String ngoId, String address);
   Future<Either<Failure, UserEntity>> signInWithEmailAndPassword(
       String email, String password);
+  Future<Either<Failure, NgoEntity>> signInWithEmailAndPasswordNgo(
+      String email, String password);
   Future<Either<Failure, UserEntity>> signInWithGoogle();
   Future<Either<Failure, NgoEntity>> ngoSignInWithGoogle();
 

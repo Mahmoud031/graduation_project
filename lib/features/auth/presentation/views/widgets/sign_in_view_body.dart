@@ -19,10 +19,10 @@ class SigninViewBody extends StatefulWidget {
 }
 
 class _SigninViewBodyState extends State<SigninViewBody> {
-   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  late String email,password;
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  late String email, password;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -64,8 +64,8 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                             const SizedBox(
                               height: 70,
                             ),
-                             CustomTextFormField(
-                              onSaved: (value){
+                            CustomTextFormField(
+                              onSaved: (value) {
                                 email = value!;
                               },
                               labelText: 'Email',
@@ -77,7 +77,7 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                               height: 32,
                             ),
                             PasswordField(
-                              onSaved: (value){
+                              onSaved: (value) {
                                 password = value!;
                               },
                               labelText: 'Password',
@@ -97,13 +97,17 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                             ),
                             CustomButton(
                               text: "Sign In",
-                              size: Size(MediaQuery.of(context).size.width * 0.6,
+                              size: Size(
+                                  MediaQuery.of(context).size.width * 0.6,
                                   MediaQuery.of(context).size.height * 0.07),
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
                                   formKey.currentState!.save();
-                                 context.read<SigninCubit>().signInWithEmailAndPassword(email, password);
-                                }else{
+                                  context
+                                      .read<SigninCubit>()
+                                      .signInWithEmailAndPassword(
+                                          email, password);
+                                } else {
                                   autovalidateMode = AutovalidateMode.always;
                                   setState(() {});
                                 }
@@ -124,14 +128,15 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                             SizedBox(
                               height: 8,
                             ),
-                             SocialLogin(
-                              onTapGoogle: () { 
+                            SocialLogin(
+                              onTapGoogle: () {
                                 context.read<SigninCubit>().signInWithGoogle();
-                               },
-                              onTapFacebook: () {
-                                context.read<SigninCubit>().signInWithFacebook();
                               },
-
+                              onTapFacebook: () {
+                                context
+                                    .read<SigninCubit>()
+                                    .signInWithFacebook();
+                              },
                             ),
                             SizedBox(
                               height: 10,

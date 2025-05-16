@@ -6,6 +6,7 @@ import 'package:graduation_project/features/add_medicine/presentation/views/add_
 import 'package:graduation_project/features/donation_guide/presentation/views/donation_guide_view.dart';
 import 'package:graduation_project/features/find_ngo/presentation/views/find_ngo_view.dart';
 import 'package:graduation_project/features/home/presentation/views/home_view.dart';
+import 'package:graduation_project/features/ngo_home/presentation/views/ngo_home_view.dart';
 import 'package:graduation_project/features/support_center/presentation/views/contact_support_view.dart';
 import 'package:graduation_project/features/support_center/presentation/views/support_center_view.dart';
 import 'package:graduation_project/features/view_transaction/presentation/views/view_transaction_view.dart';
@@ -38,6 +39,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const ContactSupportView());
     case DonationGuideView.routeName:
       return MaterialPageRoute(builder: (_) => const DonationGuideView());
+    case NgoHomeView.routeName:
+      return MaterialPageRoute(builder: (_) => const NgoHomeView());
     default:
       return MaterialPageRoute(builder: (_) => const SplashView());
   }
