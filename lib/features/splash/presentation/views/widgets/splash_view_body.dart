@@ -34,6 +34,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
       if (isOnBoardingViewSeen) {
         var isLoggedIn = FirebaseAuthService().isLoggedIn();
         if (isLoggedIn) {
+          
           Navigator.pushReplacementNamed(context, HomeView.routeName);
         } else {
           Navigator.pushReplacementNamed(context, SigninView.routeName);

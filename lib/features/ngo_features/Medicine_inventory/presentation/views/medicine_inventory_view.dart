@@ -7,6 +7,9 @@ class MedicineInventoryView extends StatelessWidget {
   static const String routeName = 'medicine_inventory_view';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: MedicineInventoryViewBody());
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: MedicineInventoryViewBody()));
   }
 }

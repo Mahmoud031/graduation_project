@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_images.dart';
-import 'package:graduation_project/features/donor_features/find_ngo/presentation/views/find_ngo_view.dart';
-import 'package:graduation_project/features/donor_features/support_center/presentation/views/support_center_view.dart';
-import 'package:graduation_project/features/donor_features/view_transaction/presentation/views/view_transaction_view.dart';
-import 'package:graduation_project/features/ngo_features/Distribution_Management/presentation/views/distribution_management_view.dart';
+import 'package:graduation_project/features/ngo_features/Donation_Management/presentation/views/donation_management_view.dart';
 import 'package:graduation_project/features/ngo_features/Donations/presentation/views/donations_view.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/views/medicine_inventory_view.dart';
 import 'package:graduation_project/features/ngo_features/reports/presentation/views/reports_view.dart';
@@ -37,10 +34,10 @@ class NgoOptions {
       route: MedicineInventoryView.routeName,
     ),
     NgoOption(
-      title: 'Distribution Management',
+      title: 'Donation Management',
       imagePath: AppImages.ngoDistributionManagement,
       color: Colors.orangeAccent,
-      route: DistributionManagementView.routeName,
+      route: DonationManagementView.routeName,
     ),
     NgoOption(
       title: 'Reports',

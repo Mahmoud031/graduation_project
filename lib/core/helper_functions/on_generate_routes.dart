@@ -16,7 +16,7 @@ import 'package:graduation_project/features/ngo_features/reports/presentation/vi
 import 'package:graduation_project/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:graduation_project/features/splash/presentation/views/splash_view.dart';
 
-import '../../features/ngo_features/Distribution_Management/presentation/views/distribution_management_view.dart';
+import '../../features/ngo_features/Donation_Management/presentation/views/donation_management_view.dart';
 
 Route<dynamic> onGenerateRoutes(RouteSettings settings) {
   switch (settings.name) {
@@ -48,8 +48,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const NgoHomeView());
     case DonationsView.routeName:
       return MaterialPageRoute(builder: (_) => const DonationsView());
-    case DistributionManagementView.routeName:
-      return MaterialPageRoute(builder: (_) => const DistributionManagementView());
+    case DonationManagementView.routeName:
+      return MaterialPageRoute(builder: (_) => const DonationManagementView());
     case MedicineInventoryView.routeName:
       return MaterialPageRoute(builder: (_) => const MedicineInventoryView());
     case ReportsView.routeName:

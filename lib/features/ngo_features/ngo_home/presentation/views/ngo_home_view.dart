@@ -11,7 +11,7 @@ class NgoHomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFFFF3E0),
       appBar: CustomHomeAppBar(
-        title: 'HomeView',
+        title: 'Home View',
       ),
       body: const SafeArea(
         child: NgoHomeViewBody(),

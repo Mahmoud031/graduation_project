@@ -7,8 +7,11 @@ class ReportsView extends StatelessWidget {
   static const String routeName = 'reports_view';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const ReportsViewBody(),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: const ReportsViewBody(),
+      ),
     );
   }
 }

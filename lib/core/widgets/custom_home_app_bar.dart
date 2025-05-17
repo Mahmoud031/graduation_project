@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../features/auth/presentation/views/sign_in_view.dart';
+
 class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomHomeAppBar({
-    super.key, required this.title,
+    super.key,
+    required this.title,
   });
 
   @override
@@ -11,7 +14,7 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title:  Text(  
+      title: Text(
         title,
         style: TextStyle(
           fontSize: 24,
@@ -25,7 +28,11 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
-             
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SigninView(),
+                ));
           },
           icon: const Icon(
             Icons.notifications_outlined,
@@ -33,9 +40,7 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         IconButton(
-          onPressed: () {
-    
-          },
+          onPressed: () {},
           icon: const Icon(
             Icons.person_outline,
             color: Colors.black87,

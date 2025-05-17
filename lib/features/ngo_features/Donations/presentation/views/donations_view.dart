@@ -7,6 +7,8 @@ class DonationsView extends StatelessWidget {
   static const String routeName = 'donations_view';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: DonationsViewBody());
+    return SafeArea(
+      child: Scaffold(backgroundColor: Colors.white, body: DonationsViewBody()),
+    );
   }
 }
