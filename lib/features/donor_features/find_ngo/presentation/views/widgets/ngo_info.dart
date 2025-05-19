@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
+import 'package:graduation_project/features/auth/data/models/ngo_model.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/presentation/views/add_medicine_view.dart';
 
 import 'custom_home_button.dart';
 
 class NgoInfo extends StatelessWidget {
-  const NgoInfo({super.key});
+  final NgoModel ngo;
+
+  const NgoInfo({
+    super.key,
+    required this.ngo,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +41,10 @@ class NgoInfo extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildInfoItem('NGO Name :', 'Ngo Two'),
-                _buildInfoItem('Contact No :', '01120101517'),
-                _buildInfoItem('Email :', 'mahmoudrady007@gmail.com'),
-                _buildInfoItem('Address :', 'Aswan'),
+                _buildInfoItem('NGO Name :', ngo.name),
+                _buildInfoItem('Contact No :', ngo.phone),
+                _buildInfoItem('Email :', ngo.email),
+                _buildInfoItem('Address :', ngo.address),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),

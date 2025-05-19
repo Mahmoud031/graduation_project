@@ -8,6 +8,7 @@ import 'package:graduation_project/features/donor_features/add_medicine/domain/r
 import 'package:graduation_project/features/donor_features/add_medicine/domain/repos/medicine_repo.dart';
 import 'package:graduation_project/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
+import 'package:graduation_project/features/donor_features/find_ngo/presentation/cubits/search_ngo_cubit/search_ngo_cubit.dart';
 
 import 'firebase_auth_service.dart';
 import 'firestore_service.dart';
@@ -30,5 +31,8 @@ void setupGetit() {
     MedicineRepoImpl(
       getIt<DatabaseService>(),
      ),
+  );
+  getIt.registerFactory<SearchNgoCubit>(
+    () => SearchNgoCubit(getIt<DatabaseService>()),
   );
 }

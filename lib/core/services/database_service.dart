@@ -4,5 +4,6 @@ abstract class DatabaseService {
       required Map<String, dynamic> data,
       String? documentId});
   Future<dynamic> getData(
-      {required String path,  String? documentId});
+      {required String path,
+      String? documentId}); // If documentId is null, returns all documents in the collection
 }

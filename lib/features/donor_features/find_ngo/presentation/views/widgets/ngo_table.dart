@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
+import 'package:graduation_project/features/auth/data/models/ngo_model.dart';
 
 import 'custom_home_button.dart';
 
 class NGOTable extends StatelessWidget {
-  final VoidCallback onViewPressed;
+  final Function(NgoModel) onViewPressed;
+  final List<NgoModel> ngos;
 
   const NGOTable({
     super.key,
     required this.onViewPressed,
+    required this.ngos,
   });
 
   @override
@@ -72,45 +75,45 @@ class NGOTable extends StatelessWidget {
               ],
             ),
           ),
-          // Table Row
-          Container(
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.grey.shade300),
-              ),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text('Ngotwo',
-                        style: TextStyles.textstyle14.copyWith(
-                          color: Colors.black54,
-                        )),
+          // Table Rows
+          ...ngos.map((ngo) => Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Colors.grey.shade300),
                   ),
                 ),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text('andheri',
-                        style: TextStyles.textstyle14.copyWith(
-                          color: Colors.black54,
-                        )),
-                  ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Text(ngo.name,
+                            style: TextStyles.textstyle14.copyWith(
+                              color: Colors.black54,
+                            )),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Text(ngo.address,
+                            style: TextStyles.textstyle14.copyWith(
+                              color: Colors.black54,
+                            )),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomHomeButton(
+                        text: 'View',
+                        onPressed: () => onViewPressed(ngo),
+                      ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomHomeButton(
-                    text: 'View',
-                    onPressed: onViewPressed,
-                  ),
-                ),
-              ],
-            ),
-          ),
+              )),
         ],
       ),
     );

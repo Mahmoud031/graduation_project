@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomSearchTextField extends StatelessWidget {
-  const CustomSearchTextField({super.key});
+  final Function(String) onChanged;
+
+  const CustomSearchTextField({
+    super.key,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -9,6 +14,7 @@ class CustomSearchTextField extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.06,
       width: MediaQuery.of(context).size.width * 0.8,
       child: TextField(
+        onChanged: onChanged,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           labelText: ' Search',
