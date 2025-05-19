@@ -4,6 +4,7 @@ import 'package:graduation_project/core/services/firebase_auth_service.dart';
 import 'package:graduation_project/core/services/shared_preferences_singleton.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
 import 'package:graduation_project/features/donor_features/home/presentation/views/home_view.dart';
+import 'package:graduation_project/features/ngo_features/ngo_home/presentation/views/ngo_home_view.dart';
 import 'package:graduation_project/features/on_boarding/presentation/views/on_boarding_view.dart';
 
 class SplashViewBody extends StatefulWidget {
@@ -34,8 +35,12 @@ class _SplashViewBodyState extends State<SplashViewBody> {
       if (isOnBoardingViewSeen) {
         var isLoggedIn = FirebaseAuthService().isLoggedIn();
         if (isLoggedIn) {
-          
-          Navigator.pushReplacementNamed(context, HomeView.routeName);
+          var isDonor = Prefs.getBool(kUserData);
+          if (isDonor) {
+            Navigator.pushReplacementNamed(context, HomeView.routeName);
+          } else {
+            Navigator.pushReplacementNamed(context, NgoHomeView.routeName);
+          }
         } else {
           Navigator.pushReplacementNamed(context, SigninView.routeName);
         }

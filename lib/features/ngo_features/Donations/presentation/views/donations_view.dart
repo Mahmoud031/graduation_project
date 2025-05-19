@@ -12,3 +12,4 @@ class DonationsView extends StatelessWidget {
     );
   }
 }
+ 
