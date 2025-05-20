@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/features/auth/data/models/ngo_model.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/presentation/views/add_medicine_view.dart';
-
-import 'custom_home_button.dart';
+import 'package:graduation_project/features/donor_features/find_ngo/presentation/views/widgets/custom_home_button.dart';
 
 class NgoInfo extends StatelessWidget {
   final NgoModel ngo;
@@ -15,69 +14,68 @@ class NgoInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18.0),
-          child: Container(
-            padding: const EdgeInsets.only(
-              top: 20.0,
-              left: 20.0,
-              right: 20.0,
-              bottom: 10.0,
-            ),
-            decoration: BoxDecoration(
-              color: const Color(0xFFE6F4F5),
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 5,
-                  blurRadius: 5,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildInfoItem('NGO Name :', ngo.name),
-                _buildInfoItem('Contact No :', ngo.phone),
-                _buildInfoItem('Email :', ngo.email),
-                _buildInfoItem('Address :', ngo.address),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.02,
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: CustomHomeButton(
-                      text: 'Add new medicine',
-                      onPressed: () {
-                        Navigator.pushNamed(context, AddMedicineView.routeName);
-                      }),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildInfoItem(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 4.0),
-      child: RichText(
-        text: TextSpan(
-          style: TextStyles.textstyle18.copyWith(
-            color: Colors.black54,
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: const Color(0xFFC2E1E3),
+          border: Border.all(
+            color: const Color(0xFF888888).withOpacity(0.2),
+            width: 1,
           ),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF888888).withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextSpan(text: '$label '),
-            TextSpan(
-              text: value,
+            Text(
+              'NGO Information',
+              style: TextStyles.textstyle25.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.06,
+                color: const Color(0xFF888888),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Name: ${ngo.name}',
               style: TextStyles.textstyle18.copyWith(
-                color: Colors.black54,
+                color: const Color(0xFF888888),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Location: ${ngo.address}',
+              style: TextStyles.textstyle18.copyWith(
+                color: const Color(0xFF888888),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Contact: ${ngo.phone}',
+              style: TextStyles.textstyle18.copyWith(
+                color: const Color(0xFF888888),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Center(
+              child: CustomHomeButton(
+                text: 'Add New Medicine',
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    AddMedicineView.routeName,
+                    arguments: ngo.name ?? '',
+                  );
+                },
               ),
             ),
           ],

@@ -9,10 +9,25 @@ import '../manager/add_medicine_cubit/add_medicine_cubit.dart';
 import 'widgets/add_new_medicine_view_body_bloc_consumer.dart';
 
 class AddMedicineView extends StatelessWidget {
-  const AddMedicineView({super.key});
+  final String ngoName;
+  const AddMedicineView({super.key, required this.ngoName});
   static const String routeName = 'add_medicine_view';
   @override
   Widget build(BuildContext context) {
+    if (ngoName.isEmpty) {
+      // If no NGO name is provided, show an error and pop back
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please select an NGO first'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        Navigator.pop(context);
+      });
+      return const SizedBox.shrink();
+    }
+
     return SafeArea(
       child: BlocProvider(
         create: (context) => AddMedicineCubit(
@@ -23,7 +38,7 @@ class AddMedicineView extends StatelessWidget {
           bottomNavigationBar: CustomBottomNavigationBar(),
           backgroundColor: Color(0xFFC2E1E3),
           drawer: const CustomSideBar(),
-          body: AddNewMedicineViewBodyBlocConsumer(),
+          body: AddNewMedicineViewBodyBlocConsumer(ngoName: ngoName),
         ),
       ),
     );

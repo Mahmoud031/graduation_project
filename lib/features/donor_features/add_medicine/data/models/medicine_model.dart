@@ -9,6 +9,7 @@ class MedicineModel {
   final String purchasedDate;
   final String expiryDate;
   final File imageFile;
+  final String ngoName;
   String? imageUrl;
 
   MedicineModel({
@@ -18,6 +19,7 @@ class MedicineModel {
     required this.purchasedDate,
     required this.expiryDate,
     required this.imageFile,
+    required this.ngoName,
     this.imageUrl,
   });
 
@@ -29,10 +31,12 @@ class MedicineModel {
       purchasedDate: addNewMedicineEntity.purchasedDate,
       expiryDate: addNewMedicineEntity.expiryDate,
       imageFile: addNewMedicineEntity.imageFile,
+      ngoName: addNewMedicineEntity.ngoName,
       imageUrl: addNewMedicineEntity.imageUrl,
     );
   }
-factory MedicineModel.fromJson(Map<String, dynamic> json) {
+
+  factory MedicineModel.fromJson(Map<String, dynamic> json) {
     return MedicineModel(
       medicineName: json['medicineName'],
       tabletCount: json['tabletCount'],
@@ -40,10 +44,12 @@ factory MedicineModel.fromJson(Map<String, dynamic> json) {
       purchasedDate: json['purchasedDate'],
       expiryDate: json['expiryDate'],
       imageFile: File(json['imageFile']),
+      ngoName: json['ngoName'],
       imageUrl: json['imageUrl'],
     );
   }
- MedicineEntity toEntity() {
+
+  MedicineEntity toEntity() {
     return MedicineEntity(
       medicineName: medicineName,
       tabletCount: tabletCount,
@@ -51,9 +57,11 @@ factory MedicineModel.fromJson(Map<String, dynamic> json) {
       purchasedDate: purchasedDate,
       expiryDate: expiryDate,
       imageFile: imageFile,
+      ngoName: ngoName,
       imageUrl: imageUrl,
     );
   }
+
   toJson() {
     return {
       'medicineName': medicineName,
@@ -61,6 +69,7 @@ factory MedicineModel.fromJson(Map<String, dynamic> json) {
       'details': details,
       'purchasedDate': purchasedDate,
       'expiryDate': expiryDate,
+      'ngoName': ngoName,
       'imageUrl': imageUrl,
     };
   }

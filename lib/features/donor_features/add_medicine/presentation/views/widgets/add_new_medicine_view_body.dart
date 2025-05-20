@@ -14,7 +14,8 @@ import '../../manager/add_medicine_cubit/add_medicine_cubit.dart';
 import 'image_field.dart';
 
 class AddNewMedicineViewBody extends StatefulWidget {
-  const AddNewMedicineViewBody({super.key});
+  final String ngoName;
+  const AddNewMedicineViewBody({super.key, required this.ngoName});
 
   @override
   State<AddNewMedicineViewBody> createState() => _AddNewMedicineViewBodyState();
@@ -159,7 +160,9 @@ class _AddNewMedicineViewBodyState extends State<AddNewMedicineViewBody> {
                               ? '${_formService.expiryDate!.day}/${_formService.expiryDate!.month}/${_formService.expiryDate!.year}'
                               : '',
                           imageFile: imageFile!,
+                          ngoName: widget.ngoName,
                         );
+                        print('Adding medicine for NGO: ${input.ngoName}');
                         context.read<AddMedicineCubit>().addMedicine(input);
                       } else {
                         autovalidateMode = AutovalidateMode.always;
