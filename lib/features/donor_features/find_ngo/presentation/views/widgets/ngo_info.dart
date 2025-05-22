@@ -13,7 +13,7 @@ class NgoInfo extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: Container(
@@ -73,7 +73,7 @@ class NgoInfo extends StatelessWidget {
                   Navigator.pushNamed(
                     context,
                     AddMedicineView.routeName,
-                    arguments: ngo.name ?? '',
+                    arguments: ngo.name ,
                   );
                 },
               ),

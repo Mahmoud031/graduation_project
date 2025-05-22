@@ -7,14 +7,20 @@ class ViewTransactionViewBody extends StatefulWidget {
   const ViewTransactionViewBody({super.key});
 
   @override
-  State<ViewTransactionViewBody> createState() => _ViewTransactionViewBodyState();
+  State<ViewTransactionViewBody> createState() =>
+      _ViewTransactionViewBodyState();
 }
 
 class _ViewTransactionViewBodyState extends State<ViewTransactionViewBody> {
   String selectedStatus = 'All';
   String selectedMonth = 'April 2025';
 
-  final List<String> statusOptions = ['All', 'Pending', 'Completed', 'Rejected'];
+  final List<String> statusOptions = [
+    'All',
+    'Pending',
+    'Completed',
+    'Rejected'
+  ];
   final List<String> monthOptions = [
     'January 2025',
     'February 2025',
@@ -22,7 +28,6 @@ class _ViewTransactionViewBodyState extends State<ViewTransactionViewBody> {
     'April 2025',
     'May 2025',
     'June 2025',
-    // Add more months as needed
   ];
 
   @override
@@ -40,7 +45,8 @@ class _ViewTransactionViewBodyState extends State<ViewTransactionViewBody> {
               children: [
                 Expanded(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(25),
@@ -74,7 +80,8 @@ class _ViewTransactionViewBodyState extends State<ViewTransactionViewBody> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(25),
@@ -110,22 +117,18 @@ class _ViewTransactionViewBodyState extends State<ViewTransactionViewBody> {
           ),
           const SizedBox(height: 20),
           TransactionCard(
-            organizationName: 'Hope Foundation',
+            ngoName: 'Hope Foundation',
             date: 'April 15, 2025',
             medicines: ['Paracetamol', 'Aspirin'],
             status: 'Completed',
-            statusColor: Colors.green.shade100,
-            textColor: Colors.green.shade700,
+            statusColor: Colors.green,
+            textColor: Colors.green,
+            purchasedDate: '1/4/2025',
+            expiryDate: '30/4/2025',
+            tabletCount: '5',
+            details: '5 tables of Aspirin ',
           ),
           const SizedBox(height: 16),
-          TransactionCard(
-            organizationName: 'Aid for All',
-            date: 'April 1, 2025',
-            medicines: ['Ibuprofen'],
-            status: 'Pending',
-            statusColor: Colors.orange.shade100,
-            textColor: Colors.orange.shade700,
-          ),
         ],
       ),
     );
