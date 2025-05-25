@@ -3,7 +3,7 @@ import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/features/donor_features/donation_guide/presentation/views/donation_guide_view.dart';
 import 'package:graduation_project/features/donor_features/find_ngo/presentation/views/find_ngo_view.dart';
 import 'package:graduation_project/features/donor_features/support_center/presentation/views/support_center_view.dart';
-import 'package:graduation_project/features/donor_features/view_transaction/presentation/views/view_transaction_view.dart';
+import 'package:graduation_project/features/donor_features/view_transaction/presentation/views/my_donations_view.dart';
 
 class DonorOption {
   final String title;
@@ -37,7 +37,7 @@ class DonorOptions {
       title: 'My Donations',
       imagePath: AppImages.viewTransaction,
       color: Colors.purple,
-      route: ViewTransactionView.routeName,
+      route: MyDonationsView.routeName,
     ),
     DonorOption(
       title: 'Support Center',

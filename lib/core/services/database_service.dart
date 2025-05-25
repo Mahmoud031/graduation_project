@@ -5,5 +5,5 @@ abstract class DatabaseService {
       String? documentId});
   Future<dynamic> getData(
       {required String path,
-      String? documentId}); // If documentId is null, returns all documents in the collection
+      String? documentId}); 
 }

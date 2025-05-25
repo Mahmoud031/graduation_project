@@ -161,6 +161,8 @@ class _AddNewMedicineViewBodyState extends State<AddNewMedicineViewBody> {
                               : '',
                           imageFile: imageFile!,
                           ngoName: widget.ngoName,
+                           
+                          
                         );
                         print('Adding medicine for NGO: ${input.ngoName}');
                         context.read<AddMedicineCubit>().addMedicine(input);

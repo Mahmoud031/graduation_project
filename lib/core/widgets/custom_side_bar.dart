@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/core/helper_functions/get_user.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/features/donor_features/find_ngo/presentation/views/find_ngo_view.dart';
-import 'package:graduation_project/features/donor_features/view_transaction/presentation/views/view_transaction_view.dart';
+import 'package:graduation_project/features/donor_features/view_transaction/presentation/views/my_donations_view.dart';
 
 class CustomSideBar extends StatelessWidget {
   const CustomSideBar({super.key});
@@ -100,7 +100,7 @@ class CustomSideBar extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        ViewTransactionView.routeName,
+                        MyDonationsView.routeName,
                       );
                     },
                   ),

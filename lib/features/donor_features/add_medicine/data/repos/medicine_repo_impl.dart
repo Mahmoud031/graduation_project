@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:graduation_project/core/errors/failures.dart';
 import 'package:graduation_project/core/services/database_service.dart';
@@ -11,6 +12,7 @@ class MedicineRepoImpl implements MedicineRepo {
   final DatabaseService databaseService;
 
   MedicineRepoImpl(this.databaseService);
+
   @override
   Future<Either<Failure, void>> addMedicine(
       MedicineEntity addNewMedicineEntity) async {
@@ -20,21 +22,39 @@ class MedicineRepoImpl implements MedicineRepo {
           data: MedicineModel.fromEntity(addNewMedicineEntity).toJson());
       return Right(null);
     } catch (e) {
-      return Left(ServerFailure('Failed to add medicine'));
+      log('Error adding medicine: $e');
+      return Left(ServerFailure('Failed to add medicine: ${e.toString()}'));
     }
   }
-  
+
   @override
   Future<Either<Failure, List<MedicineEntity>>> getMedicine() async {
     try {
-  var data = await databaseService.getData(path: BackendEndpoint.getMedicine) 
-  as List<Map<String, dynamic>>;
-  List<MedicineEntity> medicine = data
-      .map((e) => MedicineModel.fromJson(e).toEntity())
-      .toList();
-  return right(medicine);
-}  catch (e) {
-  return left(ServerFailure('Failed to get medicine'));
-}
-   }
+      log('Fetching medicines from Firestore...');
+      var data = await databaseService.getData(
+          path: BackendEndpoint.getMedicine) as List<Map<String, dynamic>>;
+      
+      log('Received data from Firestore: $data');
+      
+      if (data.isEmpty) {
+        log('No medicines found in Firestore');
+        return right([]);
+      }
+
+      List<MedicineEntity> medicine = data.map((e) {
+        try {
+          return MedicineModel.fromJson(e).toEntity();
+        } catch (e) {
+          log('Error converting medicine data: $e');
+          rethrow;
+        }
+      }).toList();
+
+      log('Successfully converted ${medicine.length} medicines');
+      return right(medicine);
+    } catch (e) {
+      log('Error getting medicines: $e');
+      return left(ServerFailure('Failed to get medicines: ${e.toString()}'));
+    }
+  }
 }

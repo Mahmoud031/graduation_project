@@ -38,15 +38,27 @@ class MedicineModel {
 
   factory MedicineModel.fromJson(Map<String, dynamic> json) {
     return MedicineModel(
-      medicineName: json['medicineName'],
-      tabletCount: json['tabletCount'],
-      details: json['details'],
-      purchasedDate: json['purchasedDate'],
-      expiryDate: json['expiryDate'],
-      imageFile: File(json['imageFile']),
-      ngoName: json['ngoName'],
+      medicineName: json['medicineName'] ,
+      tabletCount: json['tabletCount'] ,
+      details: json['details'] ,
+      purchasedDate: json['purchasedDate'] ,
+      expiryDate: json['expiryDate'] ,
+      imageFile: File(json['imageUrl']),
+      ngoName: json['ngoName'] ,
       imageUrl: json['imageUrl'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'medicineName': medicineName,
+      'tabletCount': tabletCount,
+      'details': details,
+      'purchasedDate': purchasedDate,
+      'expiryDate': expiryDate,
+      'imageUrl': imageUrl,
+      'ngoName': ngoName,
+    };
   }
 
   MedicineEntity toEntity() {
@@ -60,17 +72,5 @@ class MedicineModel {
       ngoName: ngoName,
       imageUrl: imageUrl,
     );
-  }
-
-  toJson() {
-    return {
-      'medicineName': medicineName,
-      'tabletCount': tabletCount,
-      'details': details,
-      'purchasedDate': purchasedDate,
-      'expiryDate': expiryDate,
-      'ngoName': ngoName,
-      'imageUrl': imageUrl,
-    };
   }
 }

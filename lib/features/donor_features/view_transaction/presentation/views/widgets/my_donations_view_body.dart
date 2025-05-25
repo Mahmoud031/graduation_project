@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit_cubit.dart';
 import 'package:graduation_project/core/widgets/custom_app_bar.dart';
+import 'package:graduation_project/features/donor_features/view_transaction/presentation/views/widgets/donation_card_view_bloc_builder.dart';
 
-import 'transaction_card.dart';
+import 'donation_card.dart';
 
-class ViewTransactionViewBody extends StatefulWidget {
-  const ViewTransactionViewBody({super.key});
+class MyDonationsViewBody extends StatefulWidget {
+  const MyDonationsViewBody({super.key});
 
   @override
-  State<ViewTransactionViewBody> createState() =>
-      _ViewTransactionViewBodyState();
+  State<MyDonationsViewBody> createState() => _MyDonationsViewBodyState();
 }
 
-class _ViewTransactionViewBodyState extends State<ViewTransactionViewBody> {
+class _MyDonationsViewBodyState extends State<MyDonationsViewBody> {
   String selectedStatus = 'All';
   String selectedMonth = 'April 2025';
 
@@ -29,6 +31,11 @@ class _ViewTransactionViewBodyState extends State<ViewTransactionViewBody> {
     'May 2025',
     'June 2025',
   ];
+  @override
+  void initState() {
+    context.read<MedicineCubit>().getMedicine();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,21 +123,11 @@ class _ViewTransactionViewBodyState extends State<ViewTransactionViewBody> {
             ),
           ),
           const SizedBox(height: 20),
-          TransactionCard(
-            ngoName: 'Hope Foundation',
-            date: 'April 15, 2025',
-            medicines: ['Paracetamol', 'Aspirin'],
-            status: 'Completed',
-            statusColor: Colors.green,
-            textColor: Colors.green,
-            purchasedDate: '1/4/2025',
-            expiryDate: '30/4/2025',
-            tabletCount: '5',
-            details: '5 tables of Aspirin ',
-          ),
+          DonationCardViewBlocBuilder(),
           const SizedBox(height: 16),
         ],
       ),
     );
   }
 }
+

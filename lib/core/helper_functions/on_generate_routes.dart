@@ -11,7 +11,7 @@ import 'package:graduation_project/features/ngo_features/Medicine_inventory/pres
 import 'package:graduation_project/features/ngo_features/ngo_home/presentation/views/ngo_home_view.dart';
 import 'package:graduation_project/features/donor_features/support_center/presentation/views/contact_support_view.dart';
 import 'package:graduation_project/features/donor_features/support_center/presentation/views/support_center_view.dart';
-import 'package:graduation_project/features/donor_features/view_transaction/presentation/views/view_transaction_view.dart';
+import 'package:graduation_project/features/donor_features/view_transaction/presentation/views/my_donations_view.dart';
 import 'package:graduation_project/features/ngo_features/reports/presentation/views/reports_view.dart';
 import 'package:graduation_project/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:graduation_project/features/splash/presentation/views/splash_view.dart';
@@ -34,9 +34,10 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const FindNgoView());
     case AddMedicineView.routeName:
       final String ngoName = settings.arguments as String? ?? '';
-      return MaterialPageRoute(builder: (_) => AddMedicineView(ngoName: ngoName));
-    case ViewTransactionView.routeName:
-      return MaterialPageRoute(builder: (_) => const ViewTransactionView());
+      return MaterialPageRoute(
+          builder: (_) => AddMedicineView(ngoName: ngoName));
+    case MyDonationsView.routeName:
+      return MaterialPageRoute(builder: (_) => const MyDonationsView());
     case HomeView.routeName:
       return MaterialPageRoute(builder: (_) => const HomeView());
     case SupportCenterView.routeName:

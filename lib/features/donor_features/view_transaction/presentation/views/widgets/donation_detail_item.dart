@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 
-class TransactionDetailItem extends StatelessWidget {
+class DonationDetailItem extends StatelessWidget {
   final String label;
-
   final String value;
-
-  const TransactionDetailItem({
+  const DonationDetailItem({
     super.key,
     required this.label,
     required this.value,
@@ -14,7 +12,7 @@ class TransactionDetailItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container( 
+    return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
