@@ -3,10 +3,20 @@ import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/core/widgets/custom_button.dart';
 
 class SuccessDialog extends StatefulWidget {
-  const SuccessDialog({super.key});
-
+  const SuccessDialog({super.key, required this.title, required this.subtitle});
+  final String title, subtitle;
   @override
   State<SuccessDialog> createState() => _SuccessDialogState();
+
+  void show(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return this;
+      },
+    );
+  }
 }
 
 class _SuccessDialogState extends State<SuccessDialog>
@@ -86,14 +96,15 @@ class _SuccessDialogState extends State<SuccessDialog>
             ),
             const SizedBox(height: 20),
             Text(
-              'Message Sent!',
+              widget.title,
               style: TextStyles.textstyle18.copyWith(
                 fontWeight: FontWeight.bold,
+                color: Colors.black,
               ),
             ),
             const SizedBox(height: 10),
             Text(
-              'Your message has been sent successfully. We\'ll get back to you soon.',
+              widget.subtitle,
               textAlign: TextAlign.center,
               style: TextStyles.textstyle16.copyWith(
                 color: Colors.grey[600],

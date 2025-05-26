@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/domain/entities/medicine_entity.dart';
-import 'package:graduation_project/features/donor_features/view_transaction/presentation/views/widgets/donation_detail_item.dart';
-
 import 'donation_card_items.dart';
 
 class DonationCard extends StatelessWidget {
