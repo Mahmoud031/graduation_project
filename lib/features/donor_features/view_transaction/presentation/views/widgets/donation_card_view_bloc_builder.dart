@@ -5,10 +5,10 @@ import 'package:graduation_project/core/helper_functions/get_dummy_medicine.dart
 import 'package:graduation_project/core/widgets/custom_error.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import 'donation_card.dart';
+import 'my_donation_card.dart';
 
-class DonationCardViewBlocBuilder extends StatelessWidget {
-  const DonationCardViewBlocBuilder({
+class MyDonationCardViewBlocBuilder extends StatelessWidget {
+  const MyDonationCardViewBlocBuilder({
     super.key,
   });
 
@@ -17,14 +17,14 @@ class DonationCardViewBlocBuilder extends StatelessWidget {
     return BlocBuilder<MedicineCubit, MedicineState>(
       builder: (context, state) {
         if (state is MedicineSuccess) {
-          return DonationCard(
+          return MyDonationsCard(
             medicine: state.medicines,
           );
         } else if (state is MedicineFailure) {
           return CustomError(text: state.errorMessage);
         } else {
           return Skeletonizer(
-              child: DonationCard(
+              child: MyDonationsCard(
             medicine: getDummyMedicineList(),
           ));
         }

@@ -1,24 +1,30 @@
 import 'package:flutter/material.dart';
 
-class DonationCard extends StatelessWidget {
-  final String title;
-  final String id;
+class NgoDonationCard extends StatelessWidget {
+  final String medicineName;
+  final String donorName;
   final String status;
   final IconData statusIcon;
   final Color statusColor;
-  final String donor;
-  final String date;
+  final String tabletCount;
+  final String purchasedDate;
+  final String expirtDate;
+  final String details;
+  final String? image;
   final String? location;
-  const DonationCard({
-    required this.title,
-    required this.id,
+  const NgoDonationCard({
+    required this.medicineName,
+    required this.donorName,
     required this.status,
     required this.statusIcon,
     required this.statusColor,
-    required this.donor,
-    required this.date,
+    required this.tabletCount,
+    required this.purchasedDate,
     this.location,
     super.key,
+    required this.expirtDate,
+    required this.details,
+    this.image,
   });
 
   @override
@@ -32,7 +38,7 @@ class DonationCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              title,
+              medicineName,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -43,7 +49,7 @@ class DonationCard extends StatelessWidget {
               children: [
                 Icon(Icons.badge, size: 18, color: Colors.red[400]),
                 const SizedBox(width: 4),
-                Text('ID: $id'),
+                Text('name: $donorName'),
                 const SizedBox(width: 12),
                 Icon(statusIcon, size: 18, color: statusColor),
                 const SizedBox(width: 4),
@@ -51,7 +57,7 @@ class DonationCard extends StatelessWidget {
                 const SizedBox(width: 12),
                 Icon(Icons.calendar_today, size: 16, color: Colors.grey[600]),
                 const SizedBox(width: 4),
-                Text(date),
+                Text('purchased: $purchasedDate'),
               ],
             ),
             const SizedBox(height: 8),
@@ -59,22 +65,42 @@ class DonationCard extends StatelessWidget {
               children: [
                 const Icon(Icons.person, size: 18, color: Colors.black54),
                 const SizedBox(width: 4),
-                Text('Donor: $donor'),
+                Text('Tablets: $tabletCount'),
+                const SizedBox(width: 12),
+                Icon(Icons.date_range, size: 16, color: Colors.grey[600]),
+                const SizedBox(width: 4),
+                Text('Expiry: $expirtDate'),
               ],
             ),
             if (location != null) ...[
               const SizedBox(height: 8),
               Row(
                 children: [
-                  const Icon(Icons.location_on, size: 18, color: Colors.black54),
+                  const Icon(Icons.location_on,
+                      size: 18, color: Colors.black54),
                   const SizedBox(width: 4),
                   Text(location!),
+                  SizedBox(width: 12),
+                  Image.network(
+                    image ?? '',
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                  ),
                 ],
               ),
             ],
+            const SizedBox(height: 8),
+            Text(
+              'Details: $details',
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.black54,
+              ),
+            ),
           ],
         ),
       ),
     );
   }
-} 
+}

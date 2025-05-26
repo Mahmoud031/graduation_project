@@ -121,11 +121,10 @@ class _MyDonationsViewBodyState extends State<MyDonationsViewBody> {
             ),
           ),
           const SizedBox(height: 20),
-          DonationCardViewBlocBuilder(),
+          MyDonationCardViewBlocBuilder(),
           const SizedBox(height: 16),
         ],
       ),
     );
   }
 }
-

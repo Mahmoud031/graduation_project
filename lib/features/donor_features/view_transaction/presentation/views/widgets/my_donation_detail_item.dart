@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 
-class DonationDetailItem extends StatelessWidget {
+class MyDonationDetailItem extends StatelessWidget {
   final String label;
   final String value;
-  const DonationDetailItem({
+  const MyDonationDetailItem({
     super.key,
     required this.label,
     required this.value,

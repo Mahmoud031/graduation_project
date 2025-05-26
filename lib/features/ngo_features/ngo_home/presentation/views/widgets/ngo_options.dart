@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/features/ngo_features/Donation_Management/presentation/views/donation_management_view.dart';
-import 'package:graduation_project/features/ngo_features/Donations/presentation/views/donations_view.dart';
+import 'package:graduation_project/features/ngo_features/Donations/presentation/views/ngo_donations_view.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/views/medicine_inventory_view.dart';
 import 'package:graduation_project/features/ngo_features/reports/presentation/views/reports_view.dart';
 
@@ -25,7 +25,7 @@ class NgoOptions {
       title: 'Donations',
       imagePath: AppImages.ngoDonations,
       color: Colors.orangeAccent,
-      route: DonationsView.routeName,
+      route: NgoDonationsView.routeName,
     ),
     NgoOption(
       title: 'Medicine Inventory',

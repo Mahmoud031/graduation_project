@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/domain/entities/medicine_entity.dart';
-import 'donation_card_items.dart';
+import 'my_donation_card_items.dart';
 
-class DonationCard extends StatelessWidget {
+class MyDonationsCard extends StatelessWidget {
   final List<MedicineEntity> medicine;
 
-  const DonationCard({
+  const MyDonationsCard({
     super.key,
     required this.medicine,
   });
@@ -19,7 +19,7 @@ class DonationCard extends StatelessWidget {
         itemCount: medicine.length,
         itemBuilder: (context, index) => Padding(
           padding: const EdgeInsets.only(bottom: 16),
-          child: DonationsCardItems(
+          child: MyDonationsCardItems(
             medicineEntity: medicine[index],
           ),
         ),

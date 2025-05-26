@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/domain/entities/medicine_entity.dart';
 
-class DonationsCardItems extends StatelessWidget {
-  const DonationsCardItems({
+class MyDonationsCardItems extends StatelessWidget {
+  const MyDonationsCardItems({
     super.key,
     required this.medicineEntity,
   });
@@ -101,7 +101,7 @@ class DonationsCardItems extends StatelessWidget {
                         width: 80,
                         height: 80,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius .circular(8),
+                          borderRadius: BorderRadius.circular(8),
                           color: Colors.grey.shade200,
                         ),
                         child: const Icon(Icons.image,
