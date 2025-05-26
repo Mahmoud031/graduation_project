@@ -1,11 +1,40 @@
 import 'package:flutter/material.dart';
+
 import 'package:graduation_project/core/helper_functions/get_user.dart';
+
 import 'package:graduation_project/core/utils/app_text_styles.dart';
+
 import 'package:graduation_project/features/donor_features/find_ngo/presentation/views/find_ngo_view.dart';
 import 'package:graduation_project/features/donor_features/view_transaction/presentation/views/my_donations_view.dart';
 
 class CustomSideBar extends StatelessWidget {
   const CustomSideBar({super.key});
+
+  Future<void>  _showLogoutConfirmationDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Logout'),
+          content: const Text('Are you sure you want to log out?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Logout'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +125,7 @@ class CustomSideBar extends StatelessWidget {
                   ),
                   _buildDrawerItem(
                     icon: Icons.receipt_long_outlined,
-                    title: 'View Transaction',
+                    title: 'My Donations',
                     onTap: () {
                       Navigator.pushNamed(
                         context,
@@ -131,7 +160,9 @@ class CustomSideBar extends StatelessWidget {
                       'log out',
                       style: TextStyles.textstyle25,
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      _showLogoutConfirmationDialog(context);
+                    },
                   ),
                 ],
               ),

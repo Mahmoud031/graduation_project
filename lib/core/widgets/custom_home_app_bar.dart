@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project/features/profile/presentation/views/profile_view.dart';
 
 import '../../features/auth/presentation/views/sign_in_view.dart';
 
@@ -40,7 +41,9 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, ProfileView.routeName);
+          },
           icon: const Icon(
             Icons.person_outline,
             color: Colors.black87,
