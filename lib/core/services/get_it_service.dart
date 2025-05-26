@@ -9,6 +9,8 @@ import 'package:graduation_project/features/donor_features/add_medicine/domain/r
 import 'package:graduation_project/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
 import 'package:graduation_project/features/donor_features/find_ngo/presentation/cubits/search_ngo_cubit/search_ngo_cubit.dart';
+import 'package:graduation_project/features/donor_features/support_center/data/repositories/message_repo_imp.dart';
+import 'package:graduation_project/features/donor_features/support_center/domain/repos/message_repo.dart';
 
 import 'firebase_auth_service.dart';
 import 'firestore_service.dart';
@@ -35,4 +37,10 @@ void setupGetit() {
   getIt.registerFactory<SearchNgoCubit>(
     () => SearchNgoCubit(getIt<DatabaseService>()),
   );
+  getIt.registerSingleton<MessageRepo>(
+    MessageRepoImp(
+      databaseService: getIt<DatabaseService>(),
+    ),
+  );
+
 }

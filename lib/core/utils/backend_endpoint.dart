@@ -6,4 +6,5 @@ class BackendEndpoint {
   static const images = 'images';
   static const addMedicine = 'medicine';
   static const getMedicine = 'medicine';
+  static const sendMessage = 'messages';
 }

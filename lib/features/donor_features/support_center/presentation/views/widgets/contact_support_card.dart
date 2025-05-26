@@ -5,11 +5,8 @@ import 'package:graduation_project/features/donor_features/support_center/presen
 import '../contact_support_view.dart';
 
 class ContactSupportCard extends StatefulWidget {
-  
-
   const ContactSupportCard({
     super.key,
-    
   });
 
   @override

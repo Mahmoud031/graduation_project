@@ -11,7 +11,8 @@ MedicineEntity getDummyMedicine() {
     expiryDate: '2025-10-01',
     imageUrl: null, // Replace with a valid file path
     ngoName: 'Health NGO',
-    imageFile: File(''), // Replace with a valid file path
+    imageFile: File(''),
+    userId: '43eX6no7yndodn565OkKdXfRLAo1',
   );
 }
 

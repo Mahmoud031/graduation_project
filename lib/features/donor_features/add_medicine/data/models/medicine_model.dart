@@ -10,6 +10,7 @@ class MedicineModel {
   final String expiryDate;
   final File imageFile;
   final String ngoName;
+  final String userId;
   String? imageUrl;
 
   MedicineModel({
@@ -20,6 +21,7 @@ class MedicineModel {
     required this.expiryDate,
     required this.imageFile,
     required this.ngoName,
+    required this.userId,
     this.imageUrl,
   });
 
@@ -32,19 +34,21 @@ class MedicineModel {
       expiryDate: addNewMedicineEntity.expiryDate,
       imageFile: addNewMedicineEntity.imageFile,
       ngoName: addNewMedicineEntity.ngoName,
+      userId: addNewMedicineEntity.userId,
       imageUrl: addNewMedicineEntity.imageUrl,
     );
   }
 
   factory MedicineModel.fromJson(Map<String, dynamic> json) {
     return MedicineModel(
-      medicineName: json['medicineName'] ,
-      tabletCount: json['tabletCount'] ,
-      details: json['details'] ,
-      purchasedDate: json['purchasedDate'] ,
-      expiryDate: json['expiryDate'] ,
+      medicineName: json['medicineName'],
+      tabletCount: json['tabletCount'],
+      details: json['details'],
+      purchasedDate: json['purchasedDate'],
+      expiryDate: json['expiryDate'],
       imageFile: File(json['imageUrl']),
-      ngoName: json['ngoName'] ,
+      ngoName: json['ngoName'],
+      userId: json['userId'],
       imageUrl: json['imageUrl'],
     );
   }
@@ -58,6 +62,7 @@ class MedicineModel {
       'expiryDate': expiryDate,
       'imageUrl': imageUrl,
       'ngoName': ngoName,
+      'userId': userId,
     };
   }
 
@@ -70,6 +75,7 @@ class MedicineModel {
       expiryDate: expiryDate,
       imageFile: imageFile,
       ngoName: ngoName,
+      userId: userId,
       imageUrl: imageUrl,
     );
   }

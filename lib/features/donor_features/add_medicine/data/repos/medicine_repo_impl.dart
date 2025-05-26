@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:graduation_project/core/errors/failures.dart';
+import 'package:graduation_project/core/helper_functions/get_user.dart';
 import 'package:graduation_project/core/services/database_service.dart';
 import 'package:graduation_project/core/utils/backend_endpoint.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/domain/entities/medicine_entity.dart';
@@ -41,14 +42,21 @@ class MedicineRepoImpl implements MedicineRepo {
         return right([]);
       }
 
-      List<MedicineEntity> medicine = data.map((e) {
-        try {
-          return MedicineModel.fromJson(e).toEntity();
-        } catch (e) {
-          log('Error converting medicine data: $e');
-          rethrow;
-        }
-      }).toList();
+      // Get current user's ID
+      final currentUser = getUser();
+      
+      // Filter medicines by current user's ID
+      List<MedicineEntity> medicine = data
+          .where((e) => e['userId'] == currentUser.uId)
+          .map((e) {
+            try {
+              return MedicineModel.fromJson(e).toEntity();
+            } catch (e) {
+              log('Error converting medicine data: $e');
+              rethrow;
+            }
+          })
+          .toList();
 
       log('Successfully converted ${medicine.length} medicines');
       return right(medicine);

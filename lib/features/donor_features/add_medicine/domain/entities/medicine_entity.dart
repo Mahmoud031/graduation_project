@@ -8,6 +8,7 @@ class MedicineEntity {
   final String expiryDate;
   final File imageFile;
   final String ngoName;
+  final String userId;
   String? imageUrl;
 
   MedicineEntity({
@@ -18,6 +19,7 @@ class MedicineEntity {
     required this.expiryDate,
     required this.imageFile,
     required this.ngoName,
+    required this.userId,
     this.imageUrl,
   });
 }
