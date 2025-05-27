@@ -7,4 +7,6 @@ abstract class MedicineRepo {
       MedicineEntity addNewMedicineEntity);
 
   Future<Either<Failure, List<MedicineEntity>>> getMedicine();
+  
+  Future<Either<Failure, List<MedicineEntity>>> getMedicineByNgoUId(String ngoUId);
 }

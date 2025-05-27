@@ -65,4 +65,39 @@ class MedicineRepoImpl implements MedicineRepo {
       return left(ServerFailure('Failed to get medicines: ${e.toString()}'));
     }
   }
+
+  @override
+  Future<Either<Failure, List<MedicineEntity>>> getMedicineByNgoUId(String ngoUId) async {
+    try {
+      log('Fetching medicines for NGO from Firestore...');
+      var data = await databaseService.getData(
+          path: BackendEndpoint.getMedicine) as List<Map<String, dynamic>>;
+      
+      log('Received data from Firestore: $data');
+      
+      if (data.isEmpty) {
+        log('No medicines found in Firestore');
+        return right([]);
+      }
+      
+      // Filter medicines by NGO UID
+      List<MedicineEntity> medicine = data
+          .where((e) => e['ngoUId'] == ngoUId)
+          .map((e) {
+            try {
+              return MedicineModel.fromJson(e).toEntity();
+            } catch (e) {
+              log('Error converting medicine data: $e');
+              rethrow;
+            }
+          })
+          .toList();
+ 
+      log('Successfully converted ${medicine.length} medicines for NGO');
+      return right(medicine);
+    } catch (e) {
+      log('Error getting medicines for NGO: $e');
+      return left(ServerFailure('Failed to get medicines for NGO: ${e.toString()}'));
+    }
+  }
 }

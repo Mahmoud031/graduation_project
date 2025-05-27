@@ -10,6 +10,7 @@ class MedicineEntity {
   final String ngoName;
   final String userId;
   final String ngoUId;
+  final String donorName;
   String? imageUrl;
 
   MedicineEntity({
@@ -22,6 +23,7 @@ class MedicineEntity {
     required this.ngoName,
     required this.userId,
     required this.ngoUId,
+    required this.donorName,
     this.imageUrl,
   });
 }

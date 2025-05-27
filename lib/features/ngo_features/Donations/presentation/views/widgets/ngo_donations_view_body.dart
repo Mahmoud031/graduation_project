@@ -1,10 +1,51 @@
 import 'package:flutter/material.dart';
-import '../../../../../../core/widgets/summary_card.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit.dart';
+import 'package:graduation_project/core/helper_functions/get_user.dart';
+import 'package:graduation_project/core/services/database_service.dart';
+import 'package:graduation_project/core/services/get_it_service.dart';
+import 'package:graduation_project/core/utils/backend_endpoint.dart';
+import 'package:graduation_project/core/widgets/summary_card.dart';
 import 'ngo_donation_card.dart';
 import 'ngo_donation_header.dart';
 
-class NgoDonationsViewBody extends StatelessWidget {
+class NgoDonationsViewBody extends StatefulWidget {
   const NgoDonationsViewBody({super.key});
+
+  @override
+  State<NgoDonationsViewBody> createState() => _NgoDonationsViewBodyState();
+}
+
+class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
+  final DatabaseService _databaseService = getIt<DatabaseService>();
+  Map<String, String> _userAddresses = {};
+
+  @override
+  void initState() {
+    super.initState();
+    // Get the NGO's UID and fetch their medicines
+    final ngo = getNgo();
+    context.read<MedicineCubit>().getMedicineByNgoUId(ngo.uId);
+  }
+
+  Future<String> _getUserAddress(String userId) async {
+    if (_userAddresses.containsKey(userId)) {
+      return _userAddresses[userId]!;
+    }
+
+    try {
+      final userData = await _databaseService.getData(
+        path: BackendEndpoint.getUserData,
+        documentId: userId,
+      ) as Map<String, dynamic>;
+
+      final address = userData['address'] as String? ?? 'Address not available';
+      _userAddresses[userId] = address;
+      return address;
+    } catch (e) {
+      return 'Address not available';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,22 +102,40 @@ class NgoDonationsViewBody extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Expanded(
-            child: ListView(
-              children: const [
-                NgoDonationCard(
-                    medicineName: 'Congestal',
-                    donorName: "Mahmoud Rady",
-                    status: "completed",
-                    statusIcon: Icons.check,
-                    statusColor: Colors.green,
-                    tabletCount: '5',
-                    purchasedDate: '2023-01-01',
-                    expirtDate: '2024-01-01',
-                    details: 'This is a detailed description of the donation .',
-                    image:
-                        'https://media.istockphoto.com/id/1778918997/photo/background-of-a-large-group-of-assorted-capsules-pills-and-blisters.jpg?s=612x612&w=0&k=20&c=G6aeWKN1kHyaTxiNdToVW8_xGY0hcenWYIjjG_xwF_Q=',
-                    location: 'Cairo, Egypt'),
-              ],
+            child: BlocBuilder<MedicineCubit, MedicineState>(
+              builder: (context, state) {
+                if (state is MedicineLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is MedicineFailure) {
+                  return Center(child: Text(state.errorMessage));
+                } else if (state is MedicineSuccess) {
+                  return ListView.builder(
+                    itemCount: state.medicines.length,
+                    itemBuilder: (context, index) {
+                      final medicine = state.medicines[index];
+                      return FutureBuilder<String>(
+                        future: _getUserAddress(medicine.userId),
+                        builder: (context, snapshot) {
+                          return NgoDonationCard(
+                            medicineName: medicine.medicineName,
+                            donorName: medicine.donorName,
+                            status: "completed",
+                            statusIcon: Icons.check,
+                            statusColor: Colors.green,
+                            tabletCount: medicine.tabletCount,
+                            purchasedDate: medicine.purchasedDate,
+                            expirtDate: medicine.expiryDate,
+                            details: medicine.details,
+                            image: medicine.imageUrl,
+                            location: snapshot.data ?? 'Loading address...',
+                          );
+                        },
+                      );
+                    },
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             ),
           ),
         ],
