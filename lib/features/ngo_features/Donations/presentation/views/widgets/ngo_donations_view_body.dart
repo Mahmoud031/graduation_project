@@ -5,7 +5,6 @@ import 'package:graduation_project/core/helper_functions/get_user.dart';
 import 'package:graduation_project/core/services/database_service.dart';
 import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/core/utils/backend_endpoint.dart';
-import 'package:graduation_project/core/widgets/summary_card.dart';
 import 'ngo_donation_card.dart';
 import 'ngo_donation_header.dart';
 
@@ -18,7 +17,7 @@ class NgoDonationsViewBody extends StatefulWidget {
 
 class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
   final DatabaseService _databaseService = getIt<DatabaseService>();
-  Map<String, String> _userAddresses = {};
+  final Map<String, String> _userAddresses = {};
 
   @override
   void initState() {

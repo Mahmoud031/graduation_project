@@ -1,9 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit.dart';
+import 'package:graduation_project/core/helper_functions/get_user.dart';
+import 'package:graduation_project/core/services/database_service.dart';
+import 'package:graduation_project/core/services/get_it_service.dart';
+import 'package:graduation_project/core/utils/app_text_styles.dart';
+import 'package:graduation_project/core/utils/backend_endpoint.dart';
 import '../../../../../../core/widgets/summary_card.dart';
-import 'shipment_card.dart';
+import 'recieved_donations_card.dart';
 
-class DonationManagementViewBody extends StatelessWidget {
+class DonationManagementViewBody extends StatefulWidget {
   const DonationManagementViewBody({super.key});
+
+  @override
+  State<DonationManagementViewBody> createState() => _DonationManagementViewBodyState();
+}
+
+class _DonationManagementViewBodyState extends State<DonationManagementViewBody> {
+  final DatabaseService _databaseService = getIt<DatabaseService>();
+  final Map<String, String> _userAddresses = {};
+
+  @override
+  void initState() {
+    super.initState();
+    // Get the NGO's UID and fetch their medicines
+    final ngo = getNgo();
+    context.read<MedicineCubit>().getMedicineByNgoUId(ngo.uId);
+  }
+
+  Future<String> _getUserAddress(String userId) async {
+    if (_userAddresses.containsKey(userId)) {
+      return _userAddresses[userId]!;
+    }
+
+    try {
+      final userData = await _databaseService.getData(
+        path: BackendEndpoint.getUserData,
+        documentId: userId,
+      ) as Map<String, dynamic>;
+
+      final address = userData['address'] as String? ?? 'Address not available';
+      _userAddresses[userId] = address;
+      return address;
+    } catch (e) {
+      return 'Address not available';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,54 +89,46 @@ class DonationManagementViewBody extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24),
-          const Text(
-            'Shipment History',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text('Received Donations',
+              style: TextStyles.textstyle25.copyWith(color: Colors.black)),
           const SizedBox(height: 12),
           Expanded(
-            child: ListView(
-              children: const [
-                ShipmentCard(
-                  shipmentNumber: 'Shipment #2345',
-                  location: 'New York, NY',
-                  dateTime: 'April 21, 2024 14:30',
-                  status: 'In Transit',
-                  icon: Icons.local_shipping,
-                  iconColor: Color(0xFF23B3A7),
-                  statusColor: Color(0xFF23B3A7),
-                ),
-                ShipmentCard(
-                  shipmentNumber: 'Shipment #2344',
-                  location: 'Los Angeles, CA',
-                  dateTime: 'April 20, 2024 09:45',
-                  status: 'Delivered',
-                  icon: Icons.check_circle,
-                  iconColor: Color(0xFF3DC88F),
-                  statusColor: Color(0xFF3DC88F),
-                ),
-                ShipmentCard(
-                  shipmentNumber: 'Shipment #2343',
-                  location: 'Chicago, IL',
-                  dateTime: 'April 18, 2024 16:20',
-                  status: 'Cancelled',
-                  icon: Icons.cancel,
-                  iconColor: Color(0xFFF26A5B),
-                  statusColor: Color(0xFFF26A5B),
-                ),
-                ShipmentCard(
-                  shipmentNumber: 'Shipment #2342',
-                  location: 'Houston, TX',
-                  dateTime: 'April 17, 2024 11:10',
-                  status: 'Delivered',
-                  icon: Icons.check_circle,
-                  iconColor: Color(0xFF3DC88F),
-                  statusColor: Color(0xFF3DC88F),
-                ),
-              ],
+            child: BlocBuilder<MedicineCubit, MedicineState>(
+              builder: (context, state) {
+                if (state is MedicineLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is MedicineSuccess) {
+                  if (state.medicines.isEmpty) {
+                    return const Center(
+                      child: Text('No donations received yet'),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: state.medicines.length,
+                    itemBuilder: (context, index) {
+                      final medicine = state.medicines[index];
+                      return FutureBuilder<String>(
+                        future: _getUserAddress(medicine.userId),
+                        builder: (context, snapshot) {
+                          return RecievdDonationsCard(
+                            medicineName: medicine.medicineName,
+                            donorName: medicine.donorName,
+                            address: snapshot.data ?? 'Loading address...',
+                            expiryDate: medicine.expiryDate,
+                            purchasedDate: medicine.purchasedDate,
+                            image: medicine.imageUrl ?? 'https://media.istockphoto.com/id/1778918997/photo/background-of-a-large-group-of-assorted-capsules-pills-and-blisters.jpg?s=612x612&w=0&k=20&c=G6aeWKN1kHyaTxiNdToVW8_xGY0hcenWYIjjG_xwF_Q=',
+                          );
+                        },
+                      );
+                    },
+                  );
+                } else if (state is MedicineFailure) {
+                  return Center(
+                    child: Text('Error: ${state.errorMessage}'),
+                  );
+                }
+                return const SizedBox();
+              },
             ),
           ),
         ],
