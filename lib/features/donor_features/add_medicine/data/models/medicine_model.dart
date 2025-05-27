@@ -11,6 +11,7 @@ class MedicineModel {
   final File imageFile;
   final String ngoName;
   final String userId;
+  final String ngoUId;
   String? imageUrl;
 
   MedicineModel({
@@ -22,6 +23,7 @@ class MedicineModel {
     required this.imageFile,
     required this.ngoName,
     required this.userId,
+    required this.ngoUId,
     this.imageUrl,
   });
 
@@ -35,6 +37,7 @@ class MedicineModel {
       imageFile: addNewMedicineEntity.imageFile,
       ngoName: addNewMedicineEntity.ngoName,
       userId: addNewMedicineEntity.userId,
+      ngoUId: addNewMedicineEntity.ngoUId,
       imageUrl: addNewMedicineEntity.imageUrl,
     );
   }
@@ -49,6 +52,7 @@ class MedicineModel {
       imageFile: File(json['imageUrl']),
       ngoName: json['ngoName'],
       userId: json['userId'],
+      ngoUId: json['ngoUId'],
       imageUrl: json['imageUrl'],
     );
   }
@@ -63,6 +67,7 @@ class MedicineModel {
       'imageUrl': imageUrl,
       'ngoName': ngoName,
       'userId': userId,
+      'ngoUId': ngoUId,
     };
   }
 
@@ -76,6 +81,7 @@ class MedicineModel {
       imageFile: imageFile,
       ngoName: ngoName,
       userId: userId,
+      ngoUId: ngoUId,
       imageUrl: imageUrl,
     );
   }

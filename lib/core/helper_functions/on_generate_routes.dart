@@ -34,9 +34,11 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
     case FindNgoView.routeName:
       return MaterialPageRoute(builder: (_) => const FindNgoView());
     case AddMedicineView.routeName:
-      final String ngoName = settings.arguments as String? ?? '';
+      final Map<String, String> args = settings.arguments as Map<String, String>? ?? {};
+      final String ngoName = args['ngoName'] ?? '';
+      final String ngoUId = args['ngoUId'] ?? '';
       return MaterialPageRoute(
-          builder: (_) => AddMedicineView(ngoName: ngoName));
+          builder: (_) => AddMedicineView(ngoName: ngoName, ngoUId: ngoUId));
     case MyDonationsView.routeName:
       return MaterialPageRoute(builder: (_) => const MyDonationsView());
     case HomeView.routeName:

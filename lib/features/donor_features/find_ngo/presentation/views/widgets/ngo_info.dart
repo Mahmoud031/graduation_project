@@ -73,7 +73,10 @@ class NgoInfo extends StatelessWidget {
                   Navigator.pushNamed(
                     context,
                     AddMedicineView.routeName,
-                    arguments: ngo.name ,
+                    arguments: {
+                      'ngoName': ngo.name,
+                      'ngoUId': ngo.uId,
+                    },
                   );
                 },
               ),

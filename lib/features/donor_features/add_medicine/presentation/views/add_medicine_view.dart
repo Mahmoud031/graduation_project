@@ -10,7 +10,8 @@ import 'widgets/add_new_medicine_view_body_bloc_consumer.dart';
 
 class AddMedicineView extends StatelessWidget {
   final String ngoName;
-  const AddMedicineView({super.key, required this.ngoName});
+  final String ngoUId;
+  const AddMedicineView({super.key, required this.ngoName, required this.ngoUId});
   static const String routeName = 'add_medicine_view';
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class AddMedicineView extends StatelessWidget {
           bottomNavigationBar: CustomBottomNavigationBar(),
           backgroundColor: Color(0xFFC2E1E3),
           drawer: const CustomSideBar(),
-          body: AddNewMedicineViewBodyBlocConsumer(ngoName: ngoName),
+          body: AddNewMedicineViewBodyBlocConsumer(ngoName: ngoName, ngoUId: ngoUId),
         ),
       ),
     );

@@ -16,7 +16,8 @@ import 'image_field.dart';
 
 class AddNewMedicineViewBody extends StatefulWidget {
   final String ngoName;
-  const AddNewMedicineViewBody({super.key, required this.ngoName});
+  final String ngoUId;
+  const AddNewMedicineViewBody({super.key, required this.ngoName, required this.ngoUId});
 
   @override
   State<AddNewMedicineViewBody> createState() => _AddNewMedicineViewBodyState();
@@ -164,6 +165,7 @@ class _AddNewMedicineViewBodyState extends State<AddNewMedicineViewBody> {
                           imageFile: imageFile!,
                           ngoName: widget.ngoName,
                           userId: currentUser.uId,
+                          ngoUId: widget.ngoUId,
                         );
                         print('Adding medicine for NGO: ${input.ngoName}');
                         context.read<AddMedicineCubit>().addMedicine(input);
