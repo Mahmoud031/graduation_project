@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit_cubit.dart';
+import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit.dart';
 import 'package:graduation_project/core/widgets/custom_app_bar.dart';
-import 'package:graduation_project/features/donor_features/view_transaction/presentation/views/widgets/donation_card_view_bloc_builder.dart';
+import 'package:graduation_project/features/donor_features/my_donations/presentation/views/widgets/my_donation_card_view_bloc_builder.dart';
 
 class MyDonationsViewBody extends StatefulWidget {
   const MyDonationsViewBody({super.key});

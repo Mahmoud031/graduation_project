@@ -72,7 +72,7 @@ class NgoDonationsViewBody extends StatelessWidget {
                     tabletCount: '5',
                     purchasedDate: '2023-01-01',
                     expirtDate: '2024-01-01',
-                    details: 'This is a detailed description of the donation.',
+                    details: 'This is a detailed description of the donation .',
                     image:
                         'https://media.istockphoto.com/id/1778918997/photo/background-of-a-large-group-of-assorted-capsules-pills-and-blisters.jpg?s=612x612&w=0&k=20&c=G6aeWKN1kHyaTxiNdToVW8_xGY0hcenWYIjjG_xwF_Q=',
                     location: 'Cairo, Egypt'),

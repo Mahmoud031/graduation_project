@@ -11,7 +11,7 @@ import 'package:graduation_project/features/ngo_features/Medicine_inventory/pres
 import 'package:graduation_project/features/ngo_features/ngo_home/presentation/views/ngo_home_view.dart';
 import 'package:graduation_project/features/donor_features/support_center/presentation/views/contact_support_view.dart';
 import 'package:graduation_project/features/donor_features/support_center/presentation/views/support_center_view.dart';
-import 'package:graduation_project/features/donor_features/view_transaction/presentation/views/my_donations_view.dart';
+import 'package:graduation_project/features/donor_features/my_donations/presentation/views/my_donations_view.dart';
 import 'package:graduation_project/features/ngo_features/reports/presentation/views/reports_view.dart';
 import 'package:graduation_project/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:graduation_project/features/profile/presentation/views/profile_view.dart';

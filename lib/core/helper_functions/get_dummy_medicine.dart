@@ -12,7 +12,7 @@ MedicineEntity getDummyMedicine() {
     imageUrl: null, // Replace with a valid file path
     ngoName: 'Health NGO',
     imageFile: File(''),
-    userId: '43eX6no7yndodn565OkKdXfRLAo1',
+    userId: '43eX6no7yndodn565OkKdXfRLAo1', 
   );
 }
 

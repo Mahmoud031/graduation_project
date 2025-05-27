@@ -3,7 +3,7 @@ import 'package:graduation_project/features/donor_features/add_medicine/domain/e
 import 'package:graduation_project/features/donor_features/add_medicine/domain/repos/medicine_repo.dart';
 import 'package:meta/meta.dart';
 
-part 'medicine_cubit_state.dart';
+part 'medicine_state.dart';
 
 class MedicineCubit extends Cubit<MedicineState> {
   MedicineCubit(this.medicineRepo) : super(MedicineInitial());

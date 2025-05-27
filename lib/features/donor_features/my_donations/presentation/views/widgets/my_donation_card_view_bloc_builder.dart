@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit_cubit.dart';
+import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit.dart';
 import 'package:graduation_project/core/helper_functions/get_dummy_medicine.dart';
 import 'package:graduation_project/core/widgets/custom_error.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-
 import 'my_donation_card.dart';
 
 class MyDonationCardViewBlocBuilder extends StatelessWidget {

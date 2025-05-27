@@ -1,4 +1,4 @@
-part of 'medicine_cubit_cubit.dart';
+part of 'medicine_cubit.dart';
 
 @immutable
 sealed class MedicineState {}

@@ -57,7 +57,7 @@ class MedicineRepoImpl implements MedicineRepo {
             }
           })
           .toList();
-
+ 
       log('Successfully converted ${medicine.length} medicines');
       return right(medicine);
     } catch (e) {
