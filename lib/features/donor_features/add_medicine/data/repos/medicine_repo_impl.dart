@@ -136,4 +136,17 @@ class MedicineRepoImpl implements MedicineRepo {
         return MedicineModel.fromJson(data).toEntity();
       }).toList());
   }
+
+  @override
+  Stream<List<MedicineEntity>> getMedicineByUserIdStream(String userId) {
+    return FirebaseFirestore.instance
+      .collection(BackendEndpoint.getMedicine)
+      .where('userId', isEqualTo: userId)
+      .snapshots()
+      .map((snapshot) => snapshot.docs.map((doc) {
+        final data = doc.data();
+        data['id'] = doc.id;
+        return MedicineModel.fromJson(data).toEntity();
+      }).toList());
+  }
 }

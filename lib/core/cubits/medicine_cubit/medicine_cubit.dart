@@ -11,6 +11,7 @@ class MedicineCubit extends Cubit<MedicineState> {
   final MedicineRepo medicineRepo;
   String? _currentNgoUId;
   StreamSubscription? _medicineSubscription;
+  StreamSubscription? _donorMedicineSubscription;
   
   Future<void> getMedicine() async {
     emit(MedicineLoading());
@@ -31,6 +32,15 @@ class MedicineCubit extends Cubit<MedicineState> {
     );
   }
 
+  void listenToDonorMedicines(String userId) {
+    _donorMedicineSubscription?.cancel();
+    emit(MedicineLoading());
+    _donorMedicineSubscription = medicineRepo.getMedicineByUserIdStream(userId).listen(
+      (medicines) => emit(MedicineSuccess(medicines)),
+      onError: (e) => emit(MedicineFailure(e.toString())),
+    );
+  }
+
   Future<void> updateMedicineStatus(String medicineId, String status) async {
     // emit(MedicineLoading()); // Removed to prevent loading state lock
     var result = await medicineRepo.updateMedicineStatus(medicineId, status);
@@ -45,6 +55,7 @@ class MedicineCubit extends Cubit<MedicineState> {
   @override
   Future<void> close() {
     _medicineSubscription?.cancel();
+    _donorMedicineSubscription?.cancel();
     return super.close();
   }
 }

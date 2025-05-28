@@ -13,4 +13,6 @@ abstract class MedicineRepo {
   Future<Either<Failure, void>> updateMedicineStatus(String medicineId, String status);
 
   Stream<List<MedicineEntity>> getMedicineByNgoUIdStream(String ngoUId);
+
+  Stream<List<MedicineEntity>> getMedicineByUserIdStream(String userId);
 }
