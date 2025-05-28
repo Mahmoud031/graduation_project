@@ -1,6 +1,7 @@
 import 'dart:io';
 
 class MedicineEntity {
+  final String id;
   final String medicineName;
   final String tabletCount;
   final String details;
@@ -12,8 +13,10 @@ class MedicineEntity {
   final String ngoUId;
   final String donorName;
   String? imageUrl;
+  String status;
 
   MedicineEntity({
+    required this.id,
     required this.medicineName,
     required this.tabletCount,
     required this.details,
@@ -25,5 +28,6 @@ class MedicineEntity {
     required this.ngoUId,
     required this.donorName,
     this.imageUrl,
+    this.status = 'pending',
   });
 }

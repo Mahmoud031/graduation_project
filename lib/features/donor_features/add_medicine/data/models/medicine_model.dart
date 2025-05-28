@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:graduation_project/features/donor_features/add_medicine/domain/entities/medicine_entity.dart';
 
 class MedicineModel {
+  final String id;
   final String medicineName;
   final String tabletCount;
   final String details;
@@ -14,8 +15,10 @@ class MedicineModel {
   final String ngoUId;
   final String donorName;
   String? imageUrl;
+  String status;
 
   MedicineModel({
+    required this.id,
     required this.medicineName,
     required this.tabletCount,
     required this.details,
@@ -27,10 +30,12 @@ class MedicineModel {
     required this.ngoUId,
     required this.donorName,
     this.imageUrl,
+    this.status = 'pending',
   });
 
   factory MedicineModel.fromEntity(MedicineEntity addNewMedicineEntity) {
     return MedicineModel(
+      id: addNewMedicineEntity.id,
       medicineName: addNewMedicineEntity.medicineName,
       tabletCount: addNewMedicineEntity.tabletCount,
       details: addNewMedicineEntity.details,
@@ -42,11 +47,13 @@ class MedicineModel {
       ngoUId: addNewMedicineEntity.ngoUId,
       donorName: addNewMedicineEntity.donorName,
       imageUrl: addNewMedicineEntity.imageUrl,
+      status: addNewMedicineEntity.status,
     );
   }
 
   factory MedicineModel.fromJson(Map<String, dynamic> json) {
     return MedicineModel(
+      id: json['id'] ?? '',
       medicineName: json['medicineName'],
       tabletCount: json['tabletCount'],
       details: json['details'],
@@ -58,11 +65,13 @@ class MedicineModel {
       ngoUId: json['ngoUId'],
       donorName: json['donorName'],
       imageUrl: json['imageUrl'],
+      status: json['status'] ?? 'pending',
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'medicineName': medicineName,
       'tabletCount': tabletCount,
       'details': details,
@@ -73,11 +82,13 @@ class MedicineModel {
       'userId': userId,
       'ngoUId': ngoUId,
       'donorName': donorName,
+      'status': status,
     };
   }
 
   MedicineEntity toEntity() {
     return MedicineEntity(
+      id: id,
       medicineName: medicineName,
       tabletCount: tabletCount,
       details: details,
@@ -89,6 +100,7 @@ class MedicineModel {
       ngoUId: ngoUId,
       donorName: donorName,
       imageUrl: imageUrl,
+      status: status,
     );
   }
 }

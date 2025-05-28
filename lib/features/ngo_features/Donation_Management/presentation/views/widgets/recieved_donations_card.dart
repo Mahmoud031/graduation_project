@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit.dart';
 import 'received_donations/donation_status.dart';
 import 'received_donations/status_icon.dart';
 import 'received_donations/status_dropdown.dart';
@@ -10,6 +12,8 @@ class RecievdDonationsCard extends StatefulWidget {
   final String expiryDate;
   final String purchasedDate;
   final String image;
+  final String medicineId;
+  final String status;
 
   const RecievdDonationsCard({
     super.key,
@@ -19,6 +23,8 @@ class RecievdDonationsCard extends StatefulWidget {
     required this.expiryDate,
     required this.purchasedDate,
     required this.image,
+    required this.medicineId,
+    required this.status,
   });
 
   @override
@@ -26,10 +32,9 @@ class RecievdDonationsCard extends StatefulWidget {
 }
 
 class _RecievdDonationsCardState extends State<RecievdDonationsCard> {
-  DonationStatus _currentStatus = DonationStatus.pending;
-
   @override
   Widget build(BuildContext context) {
+    final DonationStatus currentStatus = _parseStatus(widget.status);
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       elevation: 4,
@@ -39,9 +44,9 @@ class _RecievdDonationsCardState extends State<RecievdDonationsCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(),
+            _buildHeader(currentStatus),
             const SizedBox(height: 16),
-            _buildFooter(),
+            _buildFooter(currentStatus),
             const SizedBox(height: 16),
           ],
         ),
@@ -49,11 +54,11 @@ class _RecievdDonationsCardState extends State<RecievdDonationsCard> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(DonationStatus currentStatus) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        StatusIcon(status: _currentStatus),
+        StatusIcon(status: currentStatus),
         const SizedBox(width: 16),
         const SizedBox(width: 16),
         Expanded(
@@ -104,31 +109,38 @@ class _RecievdDonationsCardState extends State<RecievdDonationsCard> {
     );
   }
 
-  Widget _buildFooter() {
+  Widget _buildFooter(DonationStatus currentStatus) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Expiry Date: ${widget.expiryDate}',
-              style: const TextStyle(fontSize: 14, color: Colors.black54),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'Purchased: ${widget.purchasedDate}',
-              style: const TextStyle(fontSize: 14, color: Colors.black54),
-            ),
-          ],
+        Text(
+          'Expiry Date: ${widget.expiryDate}\nPurchased: ${widget.purchasedDate}',
+          style: const TextStyle(fontSize: 14, color: Colors.black54),
         ),
         StatusDropdown(
-          currentStatus: _currentStatus,
+          currentStatus: currentStatus,
           onStatusChanged: (newStatus) {
-            setState(() => _currentStatus = newStatus);
+            context.read<MedicineCubit>().updateMedicineStatus(
+              widget.medicineId,
+              newStatus.name,
+            );
           },
         ),
       ],
     );
+  }
+}
+
+DonationStatus _parseStatus(String status) {
+  switch (status.toLowerCase()) {
+    case 'approved':
+      return DonationStatus.approved;
+    case 'rejected':
+      return DonationStatus.rejected;
+    case 'delivered':
+      return DonationStatus.delivered;
+    case 'pending':
+    default:
+      return DonationStatus.pending;
   }
 }

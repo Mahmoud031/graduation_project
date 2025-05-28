@@ -153,6 +153,7 @@ class _AddNewMedicineViewBodyState extends State<AddNewMedicineViewBody> {
                         _formKey.currentState!.save();
                         final currentUser = getUser();
                         MedicineEntity input = MedicineEntity(
+                          id: DateTime.now().millisecondsSinceEpoch.toString(),
                           medicineName: medicineName,
                           tabletCount: tabletCount,
                           details: details,

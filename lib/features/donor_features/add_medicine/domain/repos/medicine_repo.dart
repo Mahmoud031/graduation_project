@@ -9,4 +9,8 @@ abstract class MedicineRepo {
   Future<Either<Failure, List<MedicineEntity>>> getMedicine();
   
   Future<Either<Failure, List<MedicineEntity>>> getMedicineByNgoUId(String ngoUId);
+
+  Future<Either<Failure, void>> updateMedicineStatus(String medicineId, String status);
+
+  Stream<List<MedicineEntity>> getMedicineByNgoUIdStream(String ngoUId);
 }

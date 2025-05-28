@@ -23,9 +23,9 @@ class _DonationManagementViewBodyState extends State<DonationManagementViewBody>
   @override
   void initState() {
     super.initState();
-    // Get the NGO's UID and fetch their medicines
+    // Get the NGO's UID and listen to their medicines in real-time
     final ngo = getNgo();
-    context.read<MedicineCubit>().getMedicineByNgoUId(ngo.uId);
+    context.read<MedicineCubit>().listenToNgoMedicines(ngo.uId);
   }
 
   Future<String> _getUserAddress(String userId) async {
@@ -92,44 +92,39 @@ class _DonationManagementViewBodyState extends State<DonationManagementViewBody>
           Text('Received Donations',
               style: TextStyles.textstyle25.copyWith(color: Colors.black)),
           const SizedBox(height: 12),
-          Expanded(
-            child: BlocBuilder<MedicineCubit, MedicineState>(
-              builder: (context, state) {
-                if (state is MedicineLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (state is MedicineSuccess) {
-                  if (state.medicines.isEmpty) {
-                    return const Center(
-                      child: Text('No donations received yet'),
+          BlocBuilder<MedicineCubit, MedicineState>(
+            builder: (context, state) {
+              if (state is MedicineLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is MedicineSuccess) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: state.medicines.length,
+                  itemBuilder: (context, index) {
+                    final medicine = state.medicines[index];
+                    return FutureBuilder<String>(
+                      future: _getUserAddress(medicine.userId),
+                      builder: (context, snapshot) {
+                        return RecievdDonationsCard(
+                          medicineName: medicine.medicineName,
+                          donorName: medicine.donorName,
+                          address: snapshot.data ?? 'Address not available',
+                          expiryDate: medicine.expiryDate,
+                          purchasedDate: medicine.purchasedDate,
+                          image: medicine.imageUrl ?? '',
+                          medicineId: medicine.id,
+                          status: medicine.status,
+                        );
+                      },
                     );
-                  }
-                  return ListView.builder(
-                    itemCount: state.medicines.length,
-                    itemBuilder: (context, index) {
-                      final medicine = state.medicines[index];
-                      return FutureBuilder<String>(
-                        future: _getUserAddress(medicine.userId),
-                        builder: (context, snapshot) {
-                          return RecievdDonationsCard(
-                            medicineName: medicine.medicineName,
-                            donorName: medicine.donorName,
-                            address: snapshot.data ?? 'Loading address...',
-                            expiryDate: medicine.expiryDate,
-                            purchasedDate: medicine.purchasedDate,
-                            image: medicine.imageUrl ?? 'https://media.istockphoto.com/id/1778918997/photo/background-of-a-large-group-of-assorted-capsules-pills-and-blisters.jpg?s=612x612&w=0&k=20&c=G6aeWKN1kHyaTxiNdToVW8_xGY0hcenWYIjjG_xwF_Q=',
-                          );
-                        },
-                      );
-                    },
-                  );
-                } else if (state is MedicineFailure) {
-                  return Center(
-                    child: Text('Error: ${state.errorMessage}'),
-                  );
-                }
-                return const SizedBox();
-              },
-            ),
+                  },
+                );
+              } else if (state is MedicineFailure) {
+                return Center(child: Text(state.errorMessage));
+              }
+              return const SizedBox();
+            },
           ),
         ],
       ),

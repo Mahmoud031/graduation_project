@@ -5,6 +5,7 @@ import 'package:graduation_project/core/helper_functions/get_user.dart';
 import 'package:graduation_project/core/services/database_service.dart';
 import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/core/utils/backend_endpoint.dart';
+import 'package:graduation_project/features/ngo_features/Donation_Management/presentation/views/widgets/received_donations/donation_status.dart';
 import 'ngo_donation_card.dart';
 import 'ngo_donation_header.dart';
 
@@ -22,9 +23,9 @@ class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
   @override
   void initState() {
     super.initState();
-    // Get the NGO's UID and fetch their medicines
+    // Get the NGO's UID and listen to their medicines in real-time
     final ngo = getNgo();
-    context.read<MedicineCubit>().getMedicineByNgoUId(ngo.uId);
+    context.read<MedicineCubit>().listenToNgoMedicines(ngo.uId);
   }
 
   Future<String> _getUserAddress(String userId) async {
@@ -118,9 +119,9 @@ class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
                           return NgoDonationCard(
                             medicineName: medicine.medicineName,
                             donorName: medicine.donorName,
-                            status: "completed",
-                            statusIcon: Icons.check,
-                            statusColor: Colors.green,
+                            status: medicine.status,
+                            statusIcon: DonationStatusUtils.getStatusIcon(_parseStatus(medicine.status)),
+                            statusColor: DonationStatusUtils.getStatusColor(_parseStatus(medicine.status)),
                             tabletCount: medicine.tabletCount,
                             purchasedDate: medicine.purchasedDate,
                             expirtDate: medicine.expiryDate,
@@ -140,5 +141,19 @@ class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
         ],
       ),
     );
+  }
+}
+
+DonationStatus _parseStatus(String status) {
+  switch (status.toLowerCase()) {
+    case 'approved':
+      return DonationStatus.approved;
+    case 'rejected':
+      return DonationStatus.rejected;
+    case 'delivered':
+      return DonationStatus.delivered;
+    case 'pending':
+    default:
+      return DonationStatus.pending;
   }
 }

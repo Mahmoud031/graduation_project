@@ -8,6 +8,22 @@ class MyDonationsCardItems extends StatelessWidget {
     required this.medicineEntity,
   });
   final MedicineEntity medicineEntity;
+
+  Color _getStatusColor(String status) {
+    switch (status.toLowerCase()) {
+      case 'pending':
+        return Colors.orange;
+      case 'approved':
+        return Colors.green;
+      case 'rejected':
+        return Colors.red;
+      case 'delivered':
+        return Colors.blue;
+      default:
+        return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,14 +72,16 @@ class MyDonationsCardItems extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: Colors.green.shade50,
+                    color: _getStatusColor(medicineEntity.status).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.green.shade200),
+                    border: Border.all(
+                      color: _getStatusColor(medicineEntity.status).withOpacity(0.3),
+                    ),
                   ),
                   child: Text(
-                    'completed',
+                    medicineEntity.status,
                     style: TextStyle(
-                      color: Colors.green.shade700,
+                      color: _getStatusColor(medicineEntity.status),
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
