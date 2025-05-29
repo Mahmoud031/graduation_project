@@ -125,6 +125,7 @@ class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
                             tabletCount: medicine.tabletCount,
                             purchasedDate: medicine.purchasedDate,
                             expirtDate: medicine.expiryDate,
+                            receivedDate: medicine.receivedDate,
                             details: medicine.details,
                             image: medicine.imageUrl,
                             location: snapshot.data ?? 'Loading address...',

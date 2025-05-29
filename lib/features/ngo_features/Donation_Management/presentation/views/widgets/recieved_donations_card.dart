@@ -14,6 +14,8 @@ class RecievdDonationsCard extends StatefulWidget {
   final String image;
   final String medicineId;
   final String status;
+  final String details;
+  final String receivedDate;
 
   const RecievdDonationsCard({
     super.key,
@@ -25,6 +27,8 @@ class RecievdDonationsCard extends StatefulWidget {
     required this.image,
     required this.medicineId,
     required this.status,
+    required this.details,
+    required this.receivedDate,
   });
 
   @override
@@ -85,6 +89,13 @@ class _RecievdDonationsCardState extends State<RecievdDonationsCard> {
                 widget.address,
                 style: const TextStyle(fontSize: 14, color: Colors.black54),
               ),
+              const SizedBox(height: 4),
+              Text(
+                'Details: ${widget.details}',
+                style: const TextStyle(fontSize: 14, color: Colors.black54),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
             ],
           ),
         ),
@@ -113,9 +124,22 @@ class _RecievdDonationsCardState extends State<RecievdDonationsCard> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          'Expiry Date: ${widget.expiryDate}\nPurchased: ${widget.purchasedDate}',
-          style: const TextStyle(fontSize: 14, color: Colors.black54),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Expiry Date: ${widget.expiryDate}',
+              style: const TextStyle(fontSize: 14, color: Colors.black54),
+            ),
+            Text(
+              'Purchased: ${widget.purchasedDate}',
+              style: const TextStyle(fontSize: 14, color: Colors.black54),
+            ),
+            Text(
+              'Received: ${widget.receivedDate}',
+              style: const TextStyle(fontSize: 14, color: Colors.black54),
+            ),
+          ],
         ),
         StatusDropdown(
           currentStatus: currentStatus,

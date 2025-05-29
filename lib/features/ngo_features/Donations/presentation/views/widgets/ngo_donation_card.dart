@@ -9,6 +9,7 @@ class NgoDonationCard extends StatelessWidget {
   final String tabletCount;
   final String purchasedDate;
   final String expirtDate;
+  final String receivedDate;
   final String details;
   final String? image;
   final String? location;
@@ -20,6 +21,7 @@ class NgoDonationCard extends StatelessWidget {
     required this.statusColor,
     required this.tabletCount,
     required this.purchasedDate,
+    required this.receivedDate,
     this.location,
     super.key,
     required this.expirtDate,
@@ -187,47 +189,53 @@ class NgoDonationCard extends StatelessWidget {
                         children: [
                           Expanded(
                             child: _buildInfoRow(
-                              Icons.numbers_outlined,
-                              'Tablets',
-                              tabletCount,
+                              Icons.calendar_month_outlined,
+                              'Received',
+                              receivedDate,
                               Colors.green,
                             ),
                           ),
-                          if (location != null) ...[
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: _buildInfoRow(
+                              Icons.numbers_outlined,
+                              'Tablets',
+                              tabletCount,
+                              Colors.blue,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      if (location != null)
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: Colors.purple.shade50,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Icon(
+                                Icons.location_on_outlined,
+                                size: 16,
+                                color: Colors.purple.shade700,
+                              ),
+                            ),
                             const SizedBox(width: 8),
                             Expanded(
-                              child: Row(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(6),
-                                    decoration: BoxDecoration(
-                                      color: Colors.purple.shade50,
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    child: Icon(
-                                      Icons.location_on_outlined,
-                                      size: 16,
-                                      color: Colors.purple.shade700,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Expanded(
-                                    child: Text(
-                                      location!,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.black87,
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ],
+                              child: Text(
+                                location!,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black87,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ],
-                        ],
-                      ),
+                        ),
                     ],
                   ),
                 ),
@@ -328,3 +336,4 @@ class NgoDonationCard extends StatelessWidget {
     );
   }
 }
+

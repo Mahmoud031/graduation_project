@@ -92,39 +92,41 @@ class _DonationManagementViewBodyState extends State<DonationManagementViewBody>
           Text('Received Donations',
               style: TextStyles.textstyle25.copyWith(color: Colors.black)),
           const SizedBox(height: 12),
-          BlocBuilder<MedicineCubit, MedicineState>(
-            builder: (context, state) {
-              if (state is MedicineLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is MedicineSuccess) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.medicines.length,
-                  itemBuilder: (context, index) {
-                    final medicine = state.medicines[index];
-                    return FutureBuilder<String>(
-                      future: _getUserAddress(medicine.userId),
-                      builder: (context, snapshot) {
-                        return RecievdDonationsCard(
-                          medicineName: medicine.medicineName,
-                          donorName: medicine.donorName,
-                          address: snapshot.data ?? 'Address not available',
-                          expiryDate: medicine.expiryDate,
-                          purchasedDate: medicine.purchasedDate,
-                          image: medicine.imageUrl ?? '',
-                          medicineId: medicine.id,
-                          status: medicine.status,
-                        );
-                      },
-                    );
-                  },
-                );
-              } else if (state is MedicineFailure) {
-                return Center(child: Text(state.errorMessage));
-              }
-              return const SizedBox();
-            },
+          Expanded(
+            child: BlocBuilder<MedicineCubit, MedicineState>(
+              builder: (context, state) {
+                if (state is MedicineLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is MedicineSuccess) {
+                  return ListView.builder(
+                    itemCount: state.medicines.length,
+                    itemBuilder: (context, index) {
+                      final medicine = state.medicines[index];
+                      return FutureBuilder<String>(
+                        future: _getUserAddress(medicine.userId),
+                        builder: (context, snapshot) {
+                          return RecievdDonationsCard(
+                            medicineName: medicine.medicineName,
+                            donorName: medicine.donorName,
+                            address: snapshot.data ?? 'Address not available',
+                            expiryDate: medicine.expiryDate,
+                            purchasedDate: medicine.purchasedDate,
+                            image: medicine.imageUrl ?? '',
+                            medicineId: medicine.id,
+                            status: medicine.status,
+                            details: medicine.details,
+                            receivedDate: medicine.receivedDate,
+                          );
+                        },
+                      );
+                    },
+                  );
+                } else if (state is MedicineFailure) {
+                  return Center(child: Text(state.errorMessage));
+                }
+                return const SizedBox();
+              },
+            ),
           ),
         ],
       ),
