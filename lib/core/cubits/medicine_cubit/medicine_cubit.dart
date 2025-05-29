@@ -12,7 +12,7 @@ class MedicineCubit extends Cubit<MedicineState> {
   String? _currentNgoUId;
   StreamSubscription? _medicineSubscription;
   StreamSubscription? _donorMedicineSubscription;
-  
+
   Future<void> getMedicine() async {
     emit(MedicineLoading());
     var result = await medicineRepo.getMedicine();
@@ -26,19 +26,21 @@ class MedicineCubit extends Cubit<MedicineState> {
     _currentNgoUId = ngoUId;
     _medicineSubscription?.cancel();
     emit(MedicineLoading());
-    _medicineSubscription = medicineRepo.getMedicineByNgoUIdStream(ngoUId).listen(
-      (medicines) => emit(MedicineSuccess(medicines)),
-      onError: (e) => emit(MedicineFailure(e.toString())),
-    );
+    _medicineSubscription =
+        medicineRepo.getMedicineByNgoUIdStream(ngoUId).listen(
+              (medicines) => emit(MedicineSuccess(medicines)),
+              onError: (e) => emit(MedicineFailure(e.toString())),
+            );
   }
 
   void listenToDonorMedicines(String userId) {
     _donorMedicineSubscription?.cancel();
     emit(MedicineLoading());
-    _donorMedicineSubscription = medicineRepo.getMedicineByUserIdStream(userId).listen(
-      (medicines) => emit(MedicineSuccess(medicines)),
-      onError: (e) => emit(MedicineFailure(e.toString())),
-    );
+    _donorMedicineSubscription =
+        medicineRepo.getMedicineByUserIdStream(userId).listen(
+              (medicines) => emit(MedicineSuccess(medicines)),
+              onError: (e) => emit(MedicineFailure(e.toString())),
+            );
   }
 
   Future<void> updateMedicineStatus(String medicineId, String status) async {
