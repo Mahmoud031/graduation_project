@@ -7,6 +7,7 @@ class MedicineEntity {
   final String details;
   final String purchasedDate;
   final String expiryDate;
+  final String receivedDate;
   final File imageFile;
   final String ngoName;
   final String userId;
@@ -22,6 +23,7 @@ class MedicineEntity {
     required this.details,
     required this.purchasedDate,
     required this.expiryDate,
+    required this.receivedDate,
     required this.imageFile,
     required this.ngoName,
     required this.userId,

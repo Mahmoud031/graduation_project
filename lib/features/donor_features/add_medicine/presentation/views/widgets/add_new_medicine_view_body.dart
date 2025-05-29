@@ -163,6 +163,7 @@ class _AddNewMedicineViewBodyState extends State<AddNewMedicineViewBody> {
                           expiryDate: _formService.expiryDate != null
                               ? '${_formService.expiryDate!.day}/${_formService.expiryDate!.month}/${_formService.expiryDate!.year}'
                               : '',
+                          receivedDate: '${_formService.receivedDate.day}/${_formService.receivedDate.month}/${_formService.receivedDate.year}',
                           imageFile: imageFile!,
                           ngoName: widget.ngoName,
                           userId: currentUser.uId,

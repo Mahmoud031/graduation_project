@@ -13,7 +13,8 @@ MedicineEntity getDummyMedicine() {
     ngoName: 'Health NGO',
     imageFile: File(''),
     userId: '43eX6no7yndodn565OkKdXfRLAo1',
-    ngoUId: '43eX6no7yndodn565OkKdXfRLAo1', donorName: 'Mahmoud Rady', id: '43eX6no7yndodn565OkKdXfRLAo1',
+    ngoUId: '43eX6no7yndodn565OkKdXfRLAo1', donorName: 'Mahmoud Rady',
+    id: '43eX6no7yndodn565OkKdXfRLAo1', receivedDate: '2023-10-01',
   );
 }
 

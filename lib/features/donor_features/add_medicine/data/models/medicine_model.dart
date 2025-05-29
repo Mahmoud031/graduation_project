@@ -9,6 +9,7 @@ class MedicineModel {
   final String details;
   final String purchasedDate;
   final String expiryDate;
+  final String receivedDate;
   final File imageFile;
   final String ngoName;
   final String userId;
@@ -24,6 +25,7 @@ class MedicineModel {
     required this.details,
     required this.purchasedDate,
     required this.expiryDate,
+    required this.receivedDate,
     required this.imageFile,
     required this.ngoName,
     required this.userId,
@@ -41,6 +43,7 @@ class MedicineModel {
       details: addNewMedicineEntity.details,
       purchasedDate: addNewMedicineEntity.purchasedDate,
       expiryDate: addNewMedicineEntity.expiryDate,
+      receivedDate: addNewMedicineEntity.receivedDate,
       imageFile: addNewMedicineEntity.imageFile,
       ngoName: addNewMedicineEntity.ngoName,
       userId: addNewMedicineEntity.userId,
@@ -59,6 +62,7 @@ class MedicineModel {
       details: json['details'],
       purchasedDate: json['purchasedDate'],
       expiryDate: json['expiryDate'],
+      receivedDate: json['receivedDate'],
       imageFile: File(json['imageUrl']),
       ngoName: json['ngoName'],
       userId: json['userId'],
@@ -77,6 +81,7 @@ class MedicineModel {
       'details': details,
       'purchasedDate': purchasedDate,
       'expiryDate': expiryDate,
+      'receivedDate': receivedDate,
       'imageUrl': imageUrl,
       'ngoName': ngoName,
       'userId': userId,
@@ -94,6 +99,7 @@ class MedicineModel {
       details: details,
       purchasedDate: purchasedDate,
       expiryDate: expiryDate,
+      receivedDate: receivedDate,
       imageFile: imageFile,
       ngoName: ngoName,
       userId: userId,

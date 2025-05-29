@@ -4,11 +4,13 @@ class MedicineFormService {
   DateTime? _purchasedDate;
   DateTime? _expiryDate;
   String? _expiryError;
+  final DateTime _receivedDate = DateTime.now(); // Automatically set to current date
 
   // Getters
   DateTime? get purchasedDate => _purchasedDate;
   DateTime? get expiryDate => _expiryDate;
   String? get expiryError => _expiryError;
+  DateTime get receivedDate => _receivedDate;
 
   Future<void> selectDate(BuildContext context, bool isPurchasedDate) async {
     final DateTime? picked = await showDatePicker(
