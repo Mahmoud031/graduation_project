@@ -6,12 +6,11 @@ import 'package:graduation_project/features/donor_features/add_medicine/presenta
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/domain/entities/medicine_invnetory_entity.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/cubit/add_medicine_to_inventory_cubit/add_medicine_to_inventory_cubit.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/widgets/medicine_form_fields.dart';
-
 import '../../../../../donor_features/find_ngo/presentation/views/widgets/custom_home_button.dart';
 
 class AddMedicineDialog extends StatefulWidget {
   const AddMedicineDialog({super.key});
-
+  
   @override
   State<AddMedicineDialog> createState() => _AddMedicineDialogState();
 }

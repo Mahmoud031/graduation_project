@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/cubit/medicine_invnetory_cubit/medicine_inventory_cubit.dart';
 import '../../../../../../core/widgets/summary_card.dart';
-import 'medicine_card.dart';
+import 'medicine_inventory_card_bloc_builder.dart';
 
-class MedicineInventoryViewBody extends StatelessWidget {
+
+class MedicineInventoryViewBody extends StatefulWidget {
   const MedicineInventoryViewBody({super.key});
+
+  @override
+  State<MedicineInventoryViewBody> createState() =>
+      _MedicineInventoryViewBodyState();
+}
+
+class _MedicineInventoryViewBodyState extends State<MedicineInventoryViewBody> {
+  @override
+  void initState() {
+    context.read<MedicineInventoryCubit>().getMedicineInventory();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,20 +99,7 @@ class MedicineInventoryViewBody extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Expanded(
-            child: ListView(
-              children: const [
-                MedicineCard(
-                  name: 'Paracetamol 500mg',
-                  type: 'Pain Relief',
-                  stock: 120,
-                  expiry: '2025-09-15',
-                  donor: '#302',
-                  received: '2024-05-12',
-                  condition: 'Unopened, original pack',
-                ),
-              
-              ],
-            ),
+            child: MedicineInventoryCardBlocBuilder(),
           ),
         ],
       ),

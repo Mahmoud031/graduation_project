@@ -35,9 +35,26 @@ class MedicineInvnetoryRepoImpl implements MedicineInvnetoryRepo {
 
   @override
   Future<Either<Failure, List<MedicineInvnetoryEntity>>>
-      getMedicineInventory() {
-    // TODO: implement getMedicineInventory
-    throw UnimplementedError();
+      getMedicineInventory() async{
+    try {
+      log('Fetching medicine inventory from Firestore...');
+      var data = await databaseService.getData(
+          path: BackendEndpoint.getMedicineInventory) as List<Map<String, dynamic>>;
+      log('Received data from Firestore: $data');
+      if (data.isEmpty) {
+        log('No medicine inventory found in Firestore');
+        return right([]);
+      }
+      List<MedicineInvnetoryEntity> medicineInventory = data
+          .map((e) => MedicineInvnetoryModel.fromJson(e).toEntity())
+          .toList();
+      log('Successfully converted ${medicineInventory.length} medicines for NGO');
+      return right(medicineInventory);
+    } catch (e) {
+      log('Error getting medicine inventory: $e');
+      return Left(ServerFailure('Failed to get medicine inventory: ${e.toString()}'));
+    }
+    
   }
 
   @override
