@@ -6,9 +6,11 @@ class CustomHomeButton extends StatelessWidget {
     super.key,
     this.onPressed,
     required this.text,
+    this.style,
   });
   final void Function()? onPressed;
   final String text;
+  final TextStyle? style;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -22,7 +24,8 @@ class CustomHomeButton extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: TextStyles.textstyle14,
+        style: style ??
+            TextStyles.textstyle14
       ),
     );
   }

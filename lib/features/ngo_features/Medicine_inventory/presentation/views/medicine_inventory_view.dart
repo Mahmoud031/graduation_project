@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/core/services/get_it_service.dart';
+import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/cubit/add_medicine_to_inventory_cubit/add_medicine_to_inventory_cubit.dart';
+import '../../domain/repositories/medicine_invnetory_repo.dart';
 import 'widgets/add_medicine_dialog.dart';
+import 'widgets/add_medicine_dialog_bloc_consumer.dart';
 import 'widgets/medicine_inventory_view_body.dart';
 
 class MedicineInventoryView extends StatelessWidget {
@@ -9,7 +14,12 @@ class MedicineInventoryView extends StatelessWidget {
   void _showAddMedicineDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => const AddMedicineDialog(),
+      builder: (context) => BlocProvider(
+        create: (context) => AddMedicineToInventoryCubit(
+          getIt.get<MedicineInvnetoryRepo>(),
+        ),
+        child: AddMedicineDialogBlocConsumer(),
+      ),
     );
   }
 
@@ -27,3 +37,5 @@ class MedicineInventoryView extends StatelessWidget {
     );
   }
 }
+
+

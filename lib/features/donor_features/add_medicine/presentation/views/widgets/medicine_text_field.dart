@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class MedicineTextField extends StatelessWidget {
   final String hintText;
   final IconData prefixIcon;
+  final String? labelText;
   final TextInputType? keyboardType;
   final int? maxLines;
   final bool isDateField;
@@ -22,6 +23,7 @@ class MedicineTextField extends StatelessWidget {
     required TextEditingController controller,
     this.onSaved,
     String? Function(String? p1)? validator,
+    this.labelText,
   });
 
   @override
@@ -66,6 +68,7 @@ class MedicineTextField extends StatelessWidget {
               color: Colors.grey[600],
               fontSize: 16,
             ),
+            labelText: labelText,
             prefixIcon: Icon(
               prefixIcon,
               color: Theme.of(context).primaryColor,

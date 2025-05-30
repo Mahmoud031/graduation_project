@@ -3,6 +3,7 @@ import 'package:graduation_project/features/donor_features/add_medicine/presenta
 
 class DateFieldWidget extends StatelessWidget {
   final String hintText;
+  final String? labelText;
   final IconData icon;
   final bool isPurchasedDate;
   final DateTime? selectedDate;
@@ -16,13 +17,14 @@ class DateFieldWidget extends StatelessWidget {
     required this.isPurchasedDate,
     required this.selectedDate,
     required this.onDateTap,
-    this.onSaved,
+    this.onSaved, this.labelText,
   });
 
   @override
   Widget build(BuildContext context) {
     return MedicineTextField(
       hintText: hintText,
+      labelText: labelText,
       prefixIcon: icon,
       isDateField: true,
       selectedDate: selectedDate,
