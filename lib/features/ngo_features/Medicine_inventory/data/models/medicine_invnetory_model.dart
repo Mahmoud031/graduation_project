@@ -2,6 +2,7 @@ import '../../domain/entities/medicine_invnetory_entity.dart';
 
 class MedicineInvnetoryModel {
   final String id;
+  final String? documentId;
   final String medicineName;
   final String category;
   final String quantityAvailable;
@@ -13,22 +14,25 @@ class MedicineInvnetoryModel {
   final String physicalCondition;
   final String notes;
 
-  MedicineInvnetoryModel(
-      {required this.id,
-      required this.medicineName,
-      required this.category,
-      required this.quantityAvailable,
-      required this.recievedDate,
-      required this.prurchasedDate,
-      required this.expiryDate,
-      required this.status,
-      required this.donorInfo,
-      required this.physicalCondition,
-      required this.notes});
-      factory MedicineInvnetoryModel.fromEntity(
-      MedicineInvnetoryEntity medicineInvnetoryEntity) {
+  MedicineInvnetoryModel({
+    required this.id,
+    this.documentId,
+    required this.medicineName,
+    required this.category,
+    required this.quantityAvailable,
+    required this.recievedDate,
+    required this.prurchasedDate,
+    required this.expiryDate,
+    required this.status,
+    required this.donorInfo,
+    required this.physicalCondition,
+    required this.notes
+  });
+
+  factory MedicineInvnetoryModel.fromEntity(MedicineInvnetoryEntity medicineInvnetoryEntity) {
     return MedicineInvnetoryModel(
       id: medicineInvnetoryEntity.id,
+      documentId: medicineInvnetoryEntity.documentId,
       medicineName: medicineInvnetoryEntity.medicineName,
       category: medicineInvnetoryEntity.category,
       quantityAvailable: medicineInvnetoryEntity.quantityAvailable,
@@ -41,9 +45,11 @@ class MedicineInvnetoryModel {
       notes: medicineInvnetoryEntity.notes,
     );
   }
+
   factory MedicineInvnetoryModel.fromJson(Map<String, dynamic> json) {
     return MedicineInvnetoryModel(
       id: json['id'] ?? '',
+      documentId: json['documentId'],
       medicineName: json['medicineName'],
       category: json['category'],
       quantityAvailable: json['quantityAvailable'],
@@ -56,9 +62,11 @@ class MedicineInvnetoryModel {
       notes: json['notes'],
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      if (documentId != null) 'documentId': documentId,
       'medicineName': medicineName,
       'category': category,
       'quantityAvailable': quantityAvailable,
@@ -71,9 +79,11 @@ class MedicineInvnetoryModel {
       'notes': notes,
     };
   }
+
   MedicineInvnetoryEntity toEntity() {
     return MedicineInvnetoryEntity(
       id: id,
+      documentId: documentId,
       medicineName: medicineName,
       category: category,
       quantityAvailable: quantityAvailable,

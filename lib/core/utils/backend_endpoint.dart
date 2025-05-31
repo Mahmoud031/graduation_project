@@ -9,4 +9,6 @@ class BackendEndpoint {
   static const sendMessage = 'messages';
   static const addMedicinetoInvnetory = 'medicine_inventory';
   static const getMedicineInventory = 'medicine_inventory';
+  static const deleteMedicineInventory = 'medicine_inventory';
+  static const updateMedicineInventory = 'medicine_inventory';
 }

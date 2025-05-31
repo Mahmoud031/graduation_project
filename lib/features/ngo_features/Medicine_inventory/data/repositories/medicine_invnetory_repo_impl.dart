@@ -28,9 +28,17 @@ class MedicineInvnetoryRepoImpl implements MedicineInvnetoryRepo {
   }
 
   @override
-  Future<Either<Failure, void>> deleteMedicineInventory(String medicineId) {
-    // TODO: implement deleteMedicineInventory
-    throw UnimplementedError();
+  Future<Either<Failure, void>> deleteMedicineInventory(String medicineId) async{
+    try {
+      log('Deleting medicine with ID: $medicineId from Firestore...');
+      await databaseService.deleteData(
+          path: BackendEndpoint.deleteMedicineInventory, documentId: medicineId);
+      log('Successfully deleted medicine with ID: $medicineId from Firestore');
+      return Right(null);
+    } catch (e) {
+      log('Error deleting medicine with ID: $medicineId from Firestore: $e');
+      return Left(ServerFailure('Failed to delete medicine: ${e.toString()}'));
+        }
   }
 
   @override

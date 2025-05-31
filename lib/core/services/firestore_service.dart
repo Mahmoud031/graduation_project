@@ -39,4 +39,14 @@ class FirestoreService implements DatabaseService {
   }) async {
     await firestore.collection(path).doc(documentId).update(data);
   }
+  
+  @override
+  Future<void> deleteData({required String path, String? documentId}) {
+    if (documentId != null) {
+      return firestore.collection(path).doc(documentId).delete();
+    } else {
+      throw Exception('Document ID must be provided for deletion');
+    }
+  }
+ 
 }

@@ -17,4 +17,12 @@ class MedicineInventoryCubit extends Cubit<MedicineInventoryState> {
       (medicines) => emit(MedicineInventorySuccess(medicines)),
     );
   }
+  Future<void> deleteMedicineInventory(String medicineId) async {
+    emit(MedicineInventoryLoading());
+    var result = await medicineInvnetoryRepo.deleteMedicineInventory(medicineId);
+    result.fold(
+      (failure) => emit(MedicineInventoryFailure(failure.message)),
+      (_) => getMedicineInventory(),
+    );
+  }
 }
