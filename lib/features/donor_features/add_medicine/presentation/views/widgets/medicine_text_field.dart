@@ -10,6 +10,7 @@ class MedicineTextField extends StatelessWidget {
   final DateTime? selectedDate;
   final VoidCallback? onDateTap;
   final void Function(String?)? onSaved;
+  final TextEditingController? controller;
 
   const MedicineTextField({
     super.key,
@@ -20,7 +21,7 @@ class MedicineTextField extends StatelessWidget {
     this.isDateField = false,
     this.selectedDate,
     this.onDateTap,
-    required TextEditingController controller,
+    this.controller,
     this.onSaved,
     String? Function(String? p1)? validator,
     this.labelText,
@@ -57,7 +58,7 @@ class MedicineTextField extends StatelessWidget {
                       ? '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}'
                       : '',
                 )
-              : null,
+              : controller,
           style: const TextStyle(
             fontSize: 16,
             color: Colors.black87,

@@ -25,4 +25,13 @@ class MedicineInventoryCubit extends Cubit<MedicineInventoryState> {
       (_) => getMedicineInventory(),
     );
   }
+
+  Future<void> updateMedicineInventory(MedicineInvnetoryEntity medicine) async {
+    emit(MedicineInventoryLoading());
+    var result = await medicineInvnetoryRepo.updateMedicineInventory(medicine);
+    result.fold(
+      (failure) => emit(MedicineInventoryFailure(failure.message)),
+      (_) => getMedicineInventory(),
+    );
+  }
 }

@@ -67,8 +67,21 @@ class MedicineInvnetoryRepoImpl implements MedicineInvnetoryRepo {
 
   @override
   Future<Either<Failure, void>> updateMedicineInventory(
-      MedicineInvnetoryEntity medicineInvnetoryEntity) {
-    // TODO: implement updateMedicineInventory
-    throw UnimplementedError();
+      MedicineInvnetoryEntity medicineInvnetoryEntity) async {
+    try {
+      if (medicineInvnetoryEntity.documentId == null) {
+        return Left(ServerFailure('Document ID is required for update'));
+      }
+      
+      await databaseService.updateData(
+        path: BackendEndpoint.updateMedicineInventory,
+        documentId: medicineInvnetoryEntity.documentId!,
+        data: MedicineInvnetoryModel.fromEntity(medicineInvnetoryEntity).toJson(),
+      );
+      return Right(null);
+    } catch (e) {
+      log('Error updating medicine inventory: $e');
+      return Left(ServerFailure('Failed to update medicine inventory: ${e.toString()}'));
+    }
   }
 }
