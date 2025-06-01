@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/cubit/medicine_invnetory_cubit/medicine_inventory_cubit.dart';
-import '../../../../../../core/widgets/summary_card.dart';
 import 'medicine_inventory_card_bloc_builder.dart';
+import 'medicine_inventory_header.dart';
 
 class MedicineInventoryViewBody extends StatefulWidget {
   const MedicineInventoryViewBody({super.key});
@@ -34,31 +34,7 @@ class _MedicineInventoryViewBodyState extends State<MedicineInventoryViewBody> {
             ),
           ),
           const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              SummaryCard(
-                color: Color(0xFF23B3A7),
-                count: '120',
-                label: 'Types\nMedicine ',
-              ),
-              SummaryCard(
-                color: Color(0xFF3DC88F),
-                count: '650',
-                label: 'Units\nIn Stock',
-              ),
-              SummaryCard(
-                color: Color(0xFFF7B84B),
-                count: '20',
-                label: 'Units\nLow Stock',
-              ),
-              SummaryCard(
-                color: Color(0xFFF26A5B),
-                count: '15',
-                label: 'Uniting\nExpiring Soon',
-              ),
-            ],
-          ),
+          MedicineInventoryHeader(),
           const SizedBox(height: 20),
           Row(
             children: [
