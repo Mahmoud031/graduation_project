@@ -19,6 +19,8 @@ class NgoDonationsViewBody extends StatefulWidget {
 class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
   final DatabaseService _databaseService = getIt<DatabaseService>();
   final Map<String, String> _userAddresses = {};
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -26,6 +28,12 @@ class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
     // Get the NGO's UID and listen to their medicines in real-time
     final ngo = getNgo();
     context.read<MedicineCubit>().listenToNgoMedicines(ngo.uId);
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   Future<String> _getUserAddress(String userId) async {
@@ -45,6 +53,18 @@ class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
     } catch (e) {
       return 'Address not available';
     }
+  }
+
+  List<dynamic> _filterMedicines(List<dynamic> medicines) {
+    if (_searchQuery.isEmpty) return medicines;
+    
+    return medicines.where((medicine) {
+      final medicineName = medicine.medicineName.toLowerCase();
+      final donorName = medicine.donorName.toLowerCase();
+      final query = _searchQuery.toLowerCase();
+      
+      return medicineName.contains(query) || donorName.contains(query);
+    }).toList();
   }
 
   @override
@@ -68,6 +88,12 @@ class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
             children: [
               Expanded(
                 child: TextField(
+                  controller: _searchController,
+                  onChanged: (value) {
+                    setState(() {
+                      _searchQuery = value;
+                    });
+                  },
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search),
                     hintText: 'Search',
@@ -109,10 +135,24 @@ class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
                 } else if (state is MedicineFailure) {
                   return Center(child: Text(state.errorMessage));
                 } else if (state is MedicineSuccess) {
+                  final filteredMedicines = _filterMedicines(state.medicines);
+                  
+                  if (filteredMedicines.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'No donations found',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    );
+                  }
+                  
                   return ListView.builder(
-                    itemCount: state.medicines.length,
+                    itemCount: filteredMedicines.length,
                     itemBuilder: (context, index) {
-                      final medicine = state.medicines[index];
+                      final medicine = filteredMedicines[index];
                       return FutureBuilder<String>(
                         future: _getUserAddress(medicine.userId),
                         builder: (context, snapshot) {

@@ -13,10 +13,31 @@ class MedicineInventoryViewBody extends StatefulWidget {
 }
 
 class _MedicineInventoryViewBodyState extends State<MedicineInventoryViewBody> {
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+
   @override
   void initState() {
     context.read<MedicineInventoryCubit>().getMedicineInventory();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  List<dynamic> _filterMedicines(List<dynamic> medicines) {
+    if (_searchQuery.isEmpty) return medicines;
+    
+    return medicines.where((medicine) {
+      final medicineName = medicine.medicineName.toLowerCase();
+      final category = medicine.category.toLowerCase();
+      final query = _searchQuery.toLowerCase();
+      
+      return medicineName.contains(query) || category.contains(query);
+    }).toList();
   }
 
   @override
@@ -40,6 +61,12 @@ class _MedicineInventoryViewBodyState extends State<MedicineInventoryViewBody> {
             children: [
               Expanded(
                 child: TextField(
+                  controller: _searchController,
+                  onChanged: (value) {
+                    setState(() {
+                      _searchQuery = value;
+                    });
+                  },
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search),
                     hintText: 'Search',
@@ -74,7 +101,34 @@ class _MedicineInventoryViewBodyState extends State<MedicineInventoryViewBody> {
           ),
           const SizedBox(height: 16),
           Expanded(
-            child: MedicineInventoryCardBlocBuilder(),
+            child: BlocBuilder<MedicineInventoryCubit, MedicineInventoryState>(
+              builder: (context, state) {
+                if (state is MedicineInventoryLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is MedicineInventoryFailure) {
+                  return Center(child: Text(state.message));
+                } else if (state is MedicineInventorySuccess) {
+                  final filteredMedicines = _filterMedicines(state.medicines);
+                  
+                  if (filteredMedicines.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'No medicines found',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    );
+                  }
+                  
+                  return MedicineInventoryCardBlocBuilder(
+                    medicines: filteredMedicines,
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
           ),
         ],
       ),
