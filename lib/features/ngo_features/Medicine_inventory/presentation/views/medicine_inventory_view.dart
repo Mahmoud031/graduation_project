@@ -4,7 +4,6 @@ import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/cubit/add_medicine_to_inventory_cubit/add_medicine_to_inventory_cubit.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/cubit/medicine_invnetory_cubit/medicine_inventory_cubit.dart';
 import '../../domain/repositories/medicine_invnetory_repo.dart';
-import 'widgets/add_medicine_dialog.dart';
 import 'widgets/add_medicine_dialog_bloc_consumer.dart';
 import 'widgets/medicine_inventory_view_body.dart';
 

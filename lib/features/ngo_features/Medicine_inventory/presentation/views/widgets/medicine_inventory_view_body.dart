@@ -4,7 +4,6 @@ import 'package:graduation_project/features/ngo_features/Medicine_inventory/pres
 import '../../../../../../core/widgets/summary_card.dart';
 import 'medicine_inventory_card_bloc_builder.dart';
 
-
 class MedicineInventoryViewBody extends StatefulWidget {
   const MedicineInventoryViewBody({super.key});
 
