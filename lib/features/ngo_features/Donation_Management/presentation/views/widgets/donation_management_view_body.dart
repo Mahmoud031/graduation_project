@@ -7,16 +7,19 @@ import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/core/utils/backend_endpoint.dart';
 import '../../../../../../core/widgets/summary_card.dart';
+import 'donation_management_header.dart';
 import 'recieved_donations_card.dart';
 
 class DonationManagementViewBody extends StatefulWidget {
   const DonationManagementViewBody({super.key});
 
   @override
-  State<DonationManagementViewBody> createState() => _DonationManagementViewBodyState();
+  State<DonationManagementViewBody> createState() =>
+      _DonationManagementViewBodyState();
 }
 
-class _DonationManagementViewBodyState extends State<DonationManagementViewBody> {
+class _DonationManagementViewBodyState
+    extends State<DonationManagementViewBody> {
   final DatabaseService _databaseService = getIt<DatabaseService>();
   final Map<String, String> _userAddresses = {};
 
@@ -63,31 +66,7 @@ class _DonationManagementViewBodyState extends State<DonationManagementViewBody>
             ),
           ),
           const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              SummaryCard(
-                color: Color(0xFF23B3A7),
-                count: '20',
-                label: 'Total\nShipments',
-              ),
-              SummaryCard(
-                color: Color(0xFF6B6BD6),
-                count: '12',
-                label: 'Shipments\nin Transit',
-              ),
-              SummaryCard(
-                color: Color(0xFFF7B84B),
-                count: '18',
-                label: 'Delivered\nShipments',
-              ),
-              SummaryCard(
-                color: Color(0xFFF26A5B),
-                count: '5',
-                label: 'Cancelled\nShipments',
-              ),
-            ],
-          ),
+          DonationManagementHeader(),
           const SizedBox(height: 24),
           Text('Received Donations',
               style: TextStyles.textstyle25.copyWith(color: Colors.black)),
