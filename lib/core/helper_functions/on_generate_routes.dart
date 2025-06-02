@@ -13,6 +13,7 @@ import 'package:graduation_project/features/donor_features/support_center/presen
 import 'package:graduation_project/features/donor_features/support_center/presentation/views/support_center_view.dart';
 import 'package:graduation_project/features/donor_features/my_donations/presentation/views/my_donations_view.dart';
 import 'package:graduation_project/features/ngo_features/reports/presentation/views/reports_view.dart';
+import 'package:graduation_project/features/ngo_features/reports/presentation/views/widgets/charts/donor_performance_report.dart';
 import 'package:graduation_project/features/ngo_features/reports/presentation/views/widgets/charts/medicine_inventory_donations_report.dart';
 import 'package:graduation_project/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:graduation_project/features/profile/presentation/views/profile_view.dart';
@@ -67,6 +68,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
         return MaterialPageRoute(builder: (_) => const MedicineInventoryDonationsReport());
     case DonationsByCategoryReport.routeName:
       return MaterialPageRoute(builder: (_) => const DonationsByCategoryReport());
+    case DonorPerformanceReport.routeName:
+      return MaterialPageRoute(builder: (_) => const DonorPerformanceReport());
     default:
       return MaterialPageRoute(builder: (_) => const SplashView());
   }
