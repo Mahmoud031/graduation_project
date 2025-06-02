@@ -13,6 +13,7 @@ class MedicineInvnetoryModel {
   final String donorInfo;
   final String physicalCondition;
   final String notes;
+  final String ngoUId;
 
   MedicineInvnetoryModel({
     required this.id,
@@ -26,7 +27,8 @@ class MedicineInvnetoryModel {
     required this.status,
     required this.donorInfo,
     required this.physicalCondition,
-    required this.notes
+    required this.notes,
+    required this.ngoUId,
   });
 
   factory MedicineInvnetoryModel.fromEntity(MedicineInvnetoryEntity medicineInvnetoryEntity) {
@@ -43,6 +45,7 @@ class MedicineInvnetoryModel {
       donorInfo: medicineInvnetoryEntity.donorInfo,
       physicalCondition: medicineInvnetoryEntity.physicalCondition,
       notes: medicineInvnetoryEntity.notes,
+      ngoUId: medicineInvnetoryEntity.ngoUId,
     );
   }
 
@@ -60,6 +63,7 @@ class MedicineInvnetoryModel {
       donorInfo: json['donorInfo'],
       physicalCondition: json['physicalCondition'],
       notes: json['notes'],
+      ngoUId: json['ngoUId'],
     );
   }
 
@@ -77,6 +81,7 @@ class MedicineInvnetoryModel {
       'donorInfo': donorInfo,
       'physicalCondition': physicalCondition,
       'notes': notes,
+      'ngoUId': ngoUId,
     };
   }
 
@@ -94,6 +99,7 @@ class MedicineInvnetoryModel {
       donorInfo: donorInfo,
       physicalCondition: physicalCondition,
       notes: notes,
+      ngoUId: ngoUId,
     );
   }
 }

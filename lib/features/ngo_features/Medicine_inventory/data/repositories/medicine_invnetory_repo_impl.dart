@@ -7,6 +7,7 @@ import 'package:graduation_project/core/utils/backend_endpoint.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/data/models/medicine_invnetory_model.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/domain/entities/medicine_invnetory_entity.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/domain/repositories/medicine_invnetory_repo.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MedicineInvnetoryRepoImpl implements MedicineInvnetoryRepo {
   final DatabaseService databaseService;
@@ -83,5 +84,18 @@ class MedicineInvnetoryRepoImpl implements MedicineInvnetoryRepo {
       log('Error updating medicine inventory: $e');
       return Left(ServerFailure('Failed to update medicine inventory: ${e.toString()}'));
     }
+  }
+
+  @override
+  Stream<List<MedicineInvnetoryEntity>> getMedicineInventoryByNgoUIdStream(String ngoUId) {
+    return FirebaseFirestore.instance
+        .collection(BackendEndpoint.getMedicineInventory)
+        .where('ngoUId', isEqualTo: ngoUId)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) {
+              final data = doc.data();
+              data['id'] = doc.id;
+              return MedicineInvnetoryModel.fromJson(data).toEntity();
+            }).toList());
   }
 }

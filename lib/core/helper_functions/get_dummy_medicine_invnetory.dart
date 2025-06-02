@@ -12,7 +12,7 @@ MedicineInvnetoryEntity getDummyMedicineInventory() {
     status: 'opened',
     donorInfo: 'mahmoud rady',
     physicalCondition: 'good condition', 
-    notes: 'No special notes',
+    notes: 'No special notes', ngoUId: '43eX6no7yndodn565OkKdXfRLAo1',
   );
 
 }

@@ -8,6 +8,7 @@ import 'package:graduation_project/features/ngo_features/Medicine_inventory/pres
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/utils/medicine_inventory_utils.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/widgets/medicine_form_fields.dart';
 import '../../domain/entities/medicine_invnetory_entity.dart';
+import 'package:graduation_project/core/helper_functions/get_user.dart';
 
 class MedicineInventoryDialogs {
   static void showDeleteDialog(BuildContext context, MedicineInvnetoryEntity medicineEntity) {
@@ -288,6 +289,7 @@ class MedicineInventoryDialogs {
                             donorInfo: _donorInfoController.text,
                             physicalCondition: _selectedCondition ?? '',
                             notes: _notesController.text,
+                            ngoUId: getNgo().uId,
                           );
                           cubit.updateMedicineInventory(updatedMedicine);
                           Navigator.pop(context);

@@ -4,6 +4,7 @@ import 'package:graduation_project/features/ngo_features/Medicine_inventory/doma
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/cubit/add_medicine_to_inventory_cubit/add_medicine_to_inventory_cubit.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/utils/medicine_inventory_utils.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/widgets/add_medicine_dialog_widgets.dart';
+import 'package:graduation_project/core/helper_functions/get_user.dart';
 
 import '../../cubit/medicine_invnetory_cubit/medicine_inventory_cubit.dart';
 
@@ -111,7 +112,7 @@ class _AddMedicineDialogState extends State<AddMedicineDialog> {
     if (_formKey.currentState!.validate() && _validateDates()) {
       _formKey.currentState!.save();
       final cubit = context.read<AddMedicineToInventoryCubit>();
-
+      final ngo = getNgo();
       MedicineInvnetoryEntity input = MedicineInvnetoryEntity(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         medicineName: medicineName,
@@ -130,8 +131,8 @@ class _AddMedicineDialogState extends State<AddMedicineDialog> {
         donorInfo: donorInfo,
         physicalCondition: _selectedCondition ?? '',
         notes: notes,
+        ngoUId: ngo.uId,
       );
-
       cubit.addMedicineToInventory(input);
     }
   }

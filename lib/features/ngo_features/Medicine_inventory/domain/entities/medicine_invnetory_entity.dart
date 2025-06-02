@@ -11,6 +11,7 @@ class MedicineInvnetoryEntity {
   final String donorInfo;
   final String physicalCondition;
   final String notes;
+  final String ngoUId;
 
   MedicineInvnetoryEntity({
     required this.id,
@@ -24,6 +25,7 @@ class MedicineInvnetoryEntity {
     required this.status,
     required this.donorInfo,
     required this.physicalCondition,
-    required this.notes
+    required this.notes,
+    required this.ngoUId,
   });
 }

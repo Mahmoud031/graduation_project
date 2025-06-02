@@ -10,4 +10,5 @@ abstract class MedicineInvnetoryRepo {
   Future<Either<Failure, void>> updateMedicineInventory(
       MedicineInvnetoryEntity medicineInvnetoryEntity);
   Future<Either<Failure, void>> deleteMedicineInventory(String medicineId);
+  Stream<List<MedicineInvnetoryEntity>> getMedicineInventoryByNgoUIdStream(String ngoUId);
 }
