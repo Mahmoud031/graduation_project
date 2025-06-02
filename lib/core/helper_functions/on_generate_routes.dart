@@ -16,11 +16,12 @@ import 'package:graduation_project/features/ngo_features/reports/presentation/vi
 import 'package:graduation_project/features/ngo_features/reports/presentation/views/widgets/charts/donor_performance_report.dart';
 import 'package:graduation_project/features/ngo_features/reports/presentation/views/widgets/charts/medicine_inventory_donations_report.dart';
 import 'package:graduation_project/features/on_boarding/presentation/views/on_boarding_view.dart';
-import 'package:graduation_project/features/profile/presentation/views/profile_view.dart';
+import 'package:graduation_project/features/profile/presentation/views/donor_profile_view.dart';
 import 'package:graduation_project/features/splash/presentation/views/splash_view.dart';
 
 import '../../features/ngo_features/Donation_Management/presentation/views/donation_management_view.dart';
 import '../../features/ngo_features/reports/presentation/views/widgets/charts/donations_by_category_report.dart';
+import '../../features/profile/presentation/views/ngo_profile_view.dart';
 
 Route<dynamic> onGenerateRoutes(RouteSettings settings) {
   switch (settings.name) {
@@ -37,7 +38,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
     case FindNgoView.routeName:
       return MaterialPageRoute(builder: (_) => const FindNgoView());
     case AddMedicineView.routeName:
-      final Map<String, String> args = settings.arguments as Map<String, String>? ?? {};
+      final Map<String, String> args =
+          settings.arguments as Map<String, String>? ?? {};
       final String ngoName = args['ngoName'] ?? '';
       final String ngoUId = args['ngoUId'] ?? '';
       return MaterialPageRoute(
@@ -62,12 +64,16 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const MedicineInventoryView());
     case ReportsView.routeName:
       return MaterialPageRoute(builder: (_) => const ReportsView());
-    case ProfileView.routeName:
-      return MaterialPageRoute(builder: (_) => const ProfileView());
+    case DonorProfileView.routeName:
+      return MaterialPageRoute(builder: (_) => const DonorProfileView());
+    case NgoProfileView.routeName:
+      return MaterialPageRoute(builder: (_) => const NgoProfileView());
     case MedicineInventoryDonationsReport.routeName:
-        return MaterialPageRoute(builder: (_) => const MedicineInventoryDonationsReport());
+      return MaterialPageRoute(
+          builder: (_) => const MedicineInventoryDonationsReport());
     case DonationsByCategoryReport.routeName:
-      return MaterialPageRoute(builder: (_) => const DonationsByCategoryReport());
+      return MaterialPageRoute(
+          builder: (_) => const DonationsByCategoryReport());
     case DonorPerformanceReport.routeName:
       return MaterialPageRoute(builder: (_) => const DonorPerformanceReport());
     default:

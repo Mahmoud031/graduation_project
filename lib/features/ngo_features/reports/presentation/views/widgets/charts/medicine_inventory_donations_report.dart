@@ -5,7 +5,6 @@ import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit.dar
 import 'package:graduation_project/core/helper_functions/get_user.dart';
 import 'package:get_it/get_it.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/domain/repos/medicine_repo.dart';
-
 class MedicineInventoryDonationsReport extends StatelessWidget {
   const MedicineInventoryDonationsReport({super.key});
   static const routeName = 'medicine-inventory-donations-report';
@@ -25,16 +24,13 @@ class MedicineInventoryDonationsReport extends StatelessWidget {
             if (state is MedicineLoading) {
               return const Center(child: CircularProgressIndicator());
             }
-
             if (state is MedicineFailure) {
               return Center(child: Text('Error: ${state.errorMessage}'));
             }
-
             if (state is MedicineSuccess) {
               // Filter medicines for current NGO only
               final ngoMedicines =
                   state.medicines.where((m) => m.ngoUId == ngo.uId).toList();
-
               // Filter medicines by status
               final pendingDonations =
                   ngoMedicines.where((m) => m.status == 'pending').length;
@@ -44,10 +40,8 @@ class MedicineInventoryDonationsReport extends StatelessWidget {
                   ngoMedicines.where((m) => m.status == 'delivered').length;
               final rejectedDonations =
                   ngoMedicines.where((m) => m.status == 'rejected').length;
-
               // Calculate total donations for this NGO
               final totalDonations = ngoMedicines.length;
-
               return SingleChildScrollView(
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -155,7 +149,6 @@ class MedicineInventoryDonationsReport extends StatelessWidget {
                 ),
               );
             }
-
             return const Center(child: Text('No data available'));
           },
         ),

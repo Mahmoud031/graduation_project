@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/features/profile/presentation/views/profile_view.dart';
-
 import '../../features/auth/presentation/views/sign_in_view.dart';
 
 class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomHomeAppBar({
     super.key,
-    required this.title,
+    required this.title, this.onPressed,
   });
-
+  final void Function()? onPressed;
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
   final String title;
@@ -41,9 +39,7 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         IconButton(
-          onPressed: () {
-            Navigator.pushNamed(context, ProfileView.routeName);
-          },
+          onPressed: onPressed,
           icon: const Icon(
             Icons.person_outline,
             color: Colors.black87,

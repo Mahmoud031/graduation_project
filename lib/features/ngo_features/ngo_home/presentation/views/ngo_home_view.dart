@@ -5,6 +5,7 @@ import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit.dar
 import 'package:graduation_project/core/services/database_service.dart';
 import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/data/repos/medicine_repo_impl.dart';
+import '../../../../profile/presentation/views/ngo_profile_view.dart';
 import 'widgets/ngo_home_view_body.dart';
 
 class NgoHomeView extends StatelessWidget {
@@ -17,6 +18,9 @@ class NgoHomeView extends StatelessWidget {
       child: Scaffold(
         backgroundColor: const Color(0xFFFFF3E0),
         appBar: CustomHomeAppBar(
+          onPressed: () {
+            Navigator.pushNamed(context, NgoProfileView.routeName);
+          },
           title: 'Home View',
         ),
         body: const SafeArea(
