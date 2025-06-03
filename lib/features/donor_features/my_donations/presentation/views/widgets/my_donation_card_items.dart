@@ -50,12 +50,15 @@ class MyDonationsCardItems extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: _getStatusColor(medicineEntity.status).withOpacity(0.1),
+                    color:
+                        _getStatusColor(medicineEntity.status).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: _getStatusColor(medicineEntity.status).withOpacity(0.3),
+                      color: _getStatusColor(medicineEntity.status)
+                          .withOpacity(0.3),
                     ),
                   ),
                   child: Text(
@@ -69,7 +72,8 @@ class MyDonationsCardItems extends StatelessWidget {
                 ),
               ],
             ),
-            if (medicineEntity.status.toLowerCase() == 'rejected' && medicineEntity.rejectionMessage != null)
+            if (medicineEntity.status.toLowerCase() == 'rejected' &&
+                medicineEntity.rejectionMessage != null)
               Padding(
                 padding: const EdgeInsets.only(top: 12.0),
                 child: Container(
@@ -120,6 +124,14 @@ class MyDonationsCardItems extends StatelessWidget {
                           color: Colors.black54,
                         ),
                       ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Details: ${medicineEntity.details}',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black54,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -136,7 +148,8 @@ class MyDonationsCardItems extends StatelessWidget {
                           width: 60,
                           height: 60,
                           color: Colors.grey[300],
-                          child: const Icon(Icons.error_outline, color: Colors.grey),
+                          child: const Icon(Icons.error_outline,
+                              color: Colors.grey),
                         );
                       },
                     ),
@@ -154,6 +167,19 @@ class MyDonationsCardItems extends StatelessWidget {
                     color: Colors.black54,
                   ),
                 ),
+                Text(
+                  'Received: ${medicineEntity.receivedDate}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.black54,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
                 Text(
                   'Expiry: ${medicineEntity.expiryDate}',
                   style: const TextStyle(
