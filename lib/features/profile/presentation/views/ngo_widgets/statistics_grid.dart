@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit.dart';
-import 'package:graduation_project/features/donor_features/add_medicine/domain/entities/medicine_entity.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/core/utils/string_utils.dart';
 

@@ -31,5 +31,5 @@ abstract class AuthRepo {
   Future <NgoEntity> getNgoData({required String uId});
   Future saveUserData({required UserEntity user});
   Future saveNgoData({required NgoEntity ngo});
-
+  Future updateNgoData({required NgoEntity ngo});
 }

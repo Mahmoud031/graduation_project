@@ -21,6 +21,7 @@ import 'package:graduation_project/features/splash/presentation/views/splash_vie
 
 import '../../features/ngo_features/Donation_Management/presentation/views/donation_management_view.dart';
 import '../../features/ngo_features/reports/presentation/views/widgets/charts/donations_by_category_report.dart';
+import '../../features/profile/presentation/views/edit_ngo_profile_view.dart';
 import '../../features/profile/presentation/views/ngo_profile_view.dart';
 
 Route<dynamic> onGenerateRoutes(RouteSettings settings) {
@@ -68,6 +69,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const DonorProfileView());
     case NgoProfileView.routeName:
       return MaterialPageRoute(builder: (_) => const NgoProfileView());
+    case EditNgoProfileView.routeName:
+      return MaterialPageRoute(builder: (_) => const EditNgoProfileView());
     case MedicineInventoryDonationsReport.routeName:
       return MaterialPageRoute(
           builder: (_) => const MedicineInventoryDonationsReport());

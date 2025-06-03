@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/helper_functions/get_user.dart';
-import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/features/auth/domain/entities/ngo_entity.dart';
 import 'profile_header.dart';
 import 'contact_info_section.dart';
 import 'quick_actions_section.dart';
 import 'statistics_grid.dart';
-import 'edit_profile_button.dart';
+import '../widgets/edit_profile_button.dart';
 
 
 class NgoProfileViewBody extends StatelessWidget {
