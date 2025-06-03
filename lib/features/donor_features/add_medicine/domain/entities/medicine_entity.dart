@@ -15,6 +15,7 @@ class MedicineEntity {
   final String donorName;
   String? imageUrl;
   String status;
+  String? rejectionMessage;
 
   MedicineEntity({
     required this.id,
@@ -31,5 +32,6 @@ class MedicineEntity {
     required this.donorName,
     this.imageUrl,
     this.status = 'pending',
+    this.rejectionMessage,
   });
 }

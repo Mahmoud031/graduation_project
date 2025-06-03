@@ -108,13 +108,21 @@ class MedicineRepoImpl implements MedicineRepo {
   }
 
   @override
-  Future<Either<Failure, void>> updateMedicineStatus(String medicineId, String status) async {
+  Future<Either<Failure, void>> updateMedicineStatus(
+    String medicineId,
+    String status, {
+    String? rejectionMessage,
+  }) async {
     try {
       log('Updating medicine status for ID: $medicineId with status: $status');
+      final data = {'status': status};
+      if (rejectionMessage != null) {
+        data['rejectionMessage'] = rejectionMessage;
+      }
       await databaseService.updateData(
         path: BackendEndpoint.getMedicine,
         documentId: medicineId,
-        data: {'status': status},
+        data: data,
       );
       log('Successfully updated medicine status');
       return Right(null);

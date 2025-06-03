@@ -17,6 +17,7 @@ class MedicineModel {
   final String donorName;
   String? imageUrl;
   String status;
+  String? rejectionMessage;
 
   MedicineModel({
     required this.id,
@@ -33,6 +34,7 @@ class MedicineModel {
     required this.donorName,
     this.imageUrl,
     this.status = 'pending',
+    this.rejectionMessage,
   });
 
   factory MedicineModel.fromEntity(MedicineEntity addNewMedicineEntity) {
@@ -51,6 +53,7 @@ class MedicineModel {
       donorName: addNewMedicineEntity.donorName,
       imageUrl: addNewMedicineEntity.imageUrl,
       status: addNewMedicineEntity.status,
+      rejectionMessage: addNewMedicineEntity.rejectionMessage,
     );
   }
 
@@ -70,6 +73,7 @@ class MedicineModel {
       donorName: json['donorName'],
       imageUrl: json['imageUrl'],
       status: json['status'] ?? 'pending',
+      rejectionMessage: json['rejectionMessage'],
     );
   }
 
@@ -88,6 +92,7 @@ class MedicineModel {
       'ngoUId': ngoUId,
       'donorName': donorName,
       'status': status,
+      'rejectionMessage': rejectionMessage,
     };
   }
 
@@ -107,6 +112,7 @@ class MedicineModel {
       donorName: donorName,
       imageUrl: imageUrl,
       status: status,
+      rejectionMessage: rejectionMessage,
     );
   }
 }

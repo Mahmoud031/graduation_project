@@ -4,6 +4,7 @@ import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit.dar
 import 'received_donations/donation_status.dart';
 import 'received_donations/status_icon.dart';
 import 'received_donations/status_dropdown.dart';
+import 'received_donations/rejection_reason_dialog.dart';
 
 class RecievdDonationsCard extends StatefulWidget {
   final String medicineName;
@@ -16,6 +17,7 @@ class RecievdDonationsCard extends StatefulWidget {
   final String status;
   final String details;
   final String receivedDate;
+  final String? rejectionMessage;
 
   const RecievdDonationsCard({
     super.key,
@@ -29,6 +31,7 @@ class RecievdDonationsCard extends StatefulWidget {
     required this.status,
     required this.details,
     required this.receivedDate,
+    this.rejectionMessage,
   });
 
   @override
@@ -36,6 +39,32 @@ class RecievdDonationsCard extends StatefulWidget {
 }
 
 class _RecievdDonationsCardState extends State<RecievdDonationsCard> {
+  void _handleStatusChange(DonationStatus newStatus) {
+    if (newStatus == DonationStatus.rejected) {
+      showDialog(
+        context: context,
+        builder: (context) => RejectionReasonDialog(
+          onConfirm: (reason) {
+            context.read<MedicineCubit>().updateMedicineStatus(
+              widget.medicineId,
+              newStatus.name,
+              rejectionMessage: reason,
+            );
+            Navigator.pop(context);
+          },
+          onCancel: () {
+            Navigator.pop(context);
+          },
+        ),
+      );
+    } else {
+      context.read<MedicineCubit>().updateMedicineStatus(
+        widget.medicineId,
+        newStatus.name,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final DonationStatus currentStatus = _parseStatus(widget.status);
@@ -49,6 +78,35 @@ class _RecievdDonationsCardState extends State<RecievdDonationsCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildHeader(currentStatus),
+            if (currentStatus == DonationStatus.rejected && widget.rejectionMessage != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Rejection Reason:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        widget.rejectionMessage!,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             const SizedBox(height: 16),
             _buildFooter(currentStatus),
             const SizedBox(height: 16),
@@ -143,12 +201,7 @@ class _RecievdDonationsCardState extends State<RecievdDonationsCard> {
         ),
         StatusDropdown(
           currentStatus: currentStatus,
-          onStatusChanged: (newStatus) {
-            context.read<MedicineCubit>().updateMedicineStatus(
-              widget.medicineId,
-              newStatus.name,
-            );
-          },
+          onStatusChanged: _handleStatusChange,
         ),
       ],
     );

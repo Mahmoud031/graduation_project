@@ -43,9 +43,12 @@ class MedicineCubit extends Cubit<MedicineState> {
             );
   }
 
-  Future<void> updateMedicineStatus(String medicineId, String status) async {
-    // emit(MedicineLoading()); // Removed to prevent loading state lock
-    var result = await medicineRepo.updateMedicineStatus(medicineId, status);
+  Future<void> updateMedicineStatus(String medicineId, String status, {String? rejectionMessage}) async {
+    var result = await medicineRepo.updateMedicineStatus(
+      medicineId,
+      status,
+      rejectionMessage: rejectionMessage,
+    );
     result.fold(
       (failure) => emit(MedicineFailure(failure.message)),
       (_) {
