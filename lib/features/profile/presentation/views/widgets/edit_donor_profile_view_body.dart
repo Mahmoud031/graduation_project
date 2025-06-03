@@ -6,18 +6,17 @@ import 'package:graduation_project/core/helper_functions/get_user.dart';
 import 'package:graduation_project/features/profile/presentation/cubits/donor_profile_edit_cubit.dart';
 import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
-import 'package:graduation_project/features/profile/presentation/views/ngo_widgets/custom_profile_text_field.dart';
 import 'package:graduation_project/features/profile/presentation/views/ngo_widgets/password_change_section.dart';
 import 'package:graduation_project/features/profile/presentation/views/ngo_widgets/profile_form_actions.dart';
 import 'package:graduation_project/features/donor_features/home/presentation/views/home_view.dart';
-import 'package:graduation_project/features/auth/presentation/views/widgets/donor_type_drop_down.dart';
+import 'form_header.dart';
+import 'profile_form_fields.dart';
 
 class EditDonorProfileViewBody extends StatefulWidget {
   const EditDonorProfileViewBody({super.key});
 
   @override
-  State<EditDonorProfileViewBody> createState() =>
-      _EditDonorProfileViewBodyState();
+  State<EditDonorProfileViewBody> createState() => _EditDonorProfileViewBodyState();
 }
 
 class _EditDonorProfileViewBodyState extends State<EditDonorProfileViewBody> {
@@ -123,90 +122,15 @@ class _EditDonorProfileViewBodyState extends State<EditDonorProfileViewBody> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Personal Details',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              'Update your personal information below',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16,
-                              ),
-                            ),
-                            const SizedBox(height: 32),
-                            CustomProfileTextField(
-                              controller: nameController,
-                              label: 'Full Name',
-                              icon: Icons.person,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your name';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 20),
-                            CustomProfileTextField(
-                              controller: nationalIdController,
-                              label: 'National ID',
-                              icon: Icons.perm_identity,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your national ID';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 20),
-                            CustomProfileTextField(
-                              controller: ageController,
-                              label: 'Age',
-                              icon: Icons.calendar_today,
-                              keyboardType: TextInputType.number,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your age';
-                                }
-                                if (int.tryParse(value) == null) {
-                                  return 'Please enter a valid age';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 20),
-                            CustomProfileTextField(
-                              controller: phoneController,
-                              label: 'Phone',
-                              icon: Icons.phone,
-                              keyboardType: TextInputType.phone,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your phone number';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 20),
-                            CustomProfileTextField(
-                              controller: addressController,
-                              label: 'Address',
-                              icon: Icons.location_on,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your address';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 20),
-                            DonorTypeDropdown(
-                              initialValue: selectedType,
-                              onSaved: (value) {
+                            const FormHeader(),
+                            ProfileFormFields(
+                              nameController: nameController,
+                              phoneController: phoneController,
+                              addressController: addressController,
+                              nationalIdController: nationalIdController,
+                              ageController: ageController,
+                              selectedType: selectedType,
+                              onTypeChanged: (value) {
                                 setState(() {
                                   selectedType = value;
                                 });
