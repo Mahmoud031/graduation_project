@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/cubit/medicine_invnetory_cubit/medicine_inventory_cubit.dart';
+import 'package:graduation_project/core/helper_functions/get_user.dart';
 import '../../utils/medicine_filter_utils.dart';
 import 'medicine_inventory_card_bloc_builder.dart';
 import 'medicine_inventory_header.dart';
@@ -23,8 +24,9 @@ class _MedicineInventoryViewBodyState extends State<MedicineInventoryViewBody> {
 
   @override
   void initState() {
-    context.read<MedicineInventoryCubit>().getMedicineInventory();
     super.initState();
+    final ngo = getNgo();
+    context.read<MedicineInventoryCubit>().listenToNgoInventory(ngo.uId);
   }
 
   @override
