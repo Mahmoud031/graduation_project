@@ -5,8 +5,8 @@ import 'package:graduation_project/features/ngo_features/Medicine_inventory/pres
 import 'package:graduation_project/features/ngo_features/Donation_Management/presentation/views/donation_management_view.dart';
 import 'package:graduation_project/features/ngo_features/reports/presentation/views/reports_view.dart';
 
-class QuickActionsSection extends StatelessWidget {
-  const QuickActionsSection({super.key});
+class NgoQuickActionsSection extends StatelessWidget {
+  const NgoQuickActionsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,21 +35,24 @@ class QuickActionsSection extends StatelessWidget {
                   context,
                   'Donations',
                   Icons.card_giftcard,
-                  () => Navigator.pushNamed(context, NgoDonationsView.routeName),
+                  () =>
+                      Navigator.pushNamed(context, NgoDonationsView.routeName),
                   color: Colors.orangeAccent,
                 ),
                 _buildActionButton(
                   context,
                   'Inventory',
                   Icons.medical_services,
-                  () => Navigator.pushNamed(context, MedicineInventoryView.routeName),
+                  () => Navigator.pushNamed(
+                      context, MedicineInventoryView.routeName),
                   color: Colors.greenAccent.shade400,
                 ),
                 _buildActionButton(
                   context,
                   'Management',
                   Icons.manage_accounts,
-                  () => Navigator.pushNamed(context, DonationManagementView.routeName),
+                  () => Navigator.pushNamed(
+                      context, DonationManagementView.routeName),
                   color: Colors.purpleAccent.shade100,
                 ),
                 _buildActionButton(
@@ -100,4 +103,4 @@ class QuickActionsSection extends StatelessWidget {
       ],
     );
   }
-} 
+}

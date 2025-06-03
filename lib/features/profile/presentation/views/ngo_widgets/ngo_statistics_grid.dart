@@ -4,8 +4,8 @@ import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit.dar
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/core/utils/string_utils.dart';
 
-class StatisticsGrid extends StatelessWidget {
-  const StatisticsGrid({super.key});
+class NgoStatisticsGrid extends StatelessWidget {
+  const NgoStatisticsGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +34,25 @@ class StatisticsGrid extends StatelessWidget {
                 } else if (state is MedicineFailure) {
                   return Center(child: Text(state.errorMessage));
                 } else if (state is MedicineSuccess) {
-                  final ngoUId = state.medicines.isNotEmpty ? state.medicines.first.ngoUId : '';
-                  final medicines = state.medicines.where((m) => m.ngoUId == ngoUId).toList();
-                  final approved = medicines.where((m) => m.status.toLowerCase() == 'approved').toList();
+                  final ngoUId = state.medicines.isNotEmpty
+                      ? state.medicines.first.ngoUId
+                      : '';
+                  final medicines =
+                      state.medicines.where((m) => m.ngoUId == ngoUId).toList();
+                  final approved = medicines
+                      .where((m) => m.status.toLowerCase() == 'approved')
+                      .toList();
                   final totalDonations = medicines.length;
-                  final pendingRequests = medicines.where((m) => m.status.toLowerCase() == 'pending').length;
-                  final activeInventory = approved.fold<int>(0, (sum, m) => sum + extractLeadingNumber(m.tabletCount));
-                  final numberOfDonors = medicines.map((m) => m.donorName).toSet().where((d) => d.isNotEmpty).length;
+                  final pendingRequests = medicines
+                      .where((m) => m.status.toLowerCase() == 'pending')
+                      .length;
+                  final activeInventory = approved.fold<int>(
+                      0, (sum, m) => sum + extractLeadingNumber(m.tabletCount));
+                  final numberOfDonors = medicines
+                      .map((m) => m.donorName)
+                      .toSet()
+                      .where((d) => d.isNotEmpty)
+                      .length;
                   return GridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -49,10 +61,14 @@ class StatisticsGrid extends StatelessWidget {
                     crossAxisSpacing: 16,
                     childAspectRatio: 1.2,
                     children: [
-                      _StatCard('Total Donations', '$totalDonations', Icons.card_giftcard, Colors.orangeAccent),
-                      _StatCard('Active Inventory', '$activeInventory', Icons.medical_services, Colors.greenAccent.shade400),
-                      _StatCard('Number of Donors', '$numberOfDonors', Icons.people, Colors.purpleAccent.shade100),
-                      _StatCard('Pending Requests', '$pendingRequests', Icons.pending_actions, Colors.blueAccent.shade100),
+                      _StatCard('Total Donations', '$totalDonations',
+                          Icons.card_giftcard, Colors.orangeAccent),
+                      _StatCard('Active Inventory', '$activeInventory',
+                          Icons.medical_services, Colors.greenAccent.shade400),
+                      _StatCard('Number of Donors', '$numberOfDonors',
+                          Icons.people, Colors.purpleAccent.shade100),
+                      _StatCard('Pending Requests', '$pendingRequests',
+                          Icons.pending_actions, Colors.blueAccent.shade100),
                     ],
                   );
                 }
@@ -113,4 +129,4 @@ class _StatCard extends StatelessWidget {
       ),
     );
   }
-} 
+}

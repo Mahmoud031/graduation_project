@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/features/auth/domain/entities/ngo_entity.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 
-class ProfileHeader extends StatelessWidget {
+class NgoProfileHeader extends StatelessWidget {
   final NgoEntity ngo;
-  const ProfileHeader({super.key, required this.ngo});
+  const NgoProfileHeader({super.key, required this.ngo});
 
   @override
   Widget build(BuildContext context) {
@@ -63,4 +63,4 @@ class ProfileHeader extends StatelessWidget {
       ),
     );
   }
-} 
+}

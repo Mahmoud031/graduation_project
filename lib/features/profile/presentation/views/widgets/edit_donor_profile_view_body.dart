@@ -16,7 +16,8 @@ class EditDonorProfileViewBody extends StatefulWidget {
   const EditDonorProfileViewBody({super.key});
 
   @override
-  State<EditDonorProfileViewBody> createState() => _EditDonorProfileViewBodyState();
+  State<EditDonorProfileViewBody> createState() =>
+      _EditDonorProfileViewBodyState();
 }
 
 class _EditDonorProfileViewBodyState extends State<EditDonorProfileViewBody> {

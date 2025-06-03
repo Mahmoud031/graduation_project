@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/helper_functions/get_user.dart';
 import 'package:graduation_project/features/auth/domain/entities/ngo_entity.dart';
-import 'profile_header.dart';
+import '../edit_ngo_profile_view.dart';
+import 'ngo_profile_header.dart';
 import 'contact_info_section.dart';
-import 'quick_actions_section.dart';
-import 'statistics_grid.dart';
+import 'ngo_quick_actions_section.dart';
+import 'ngo_statistics_grid.dart';
 import '../widgets/edit_profile_button.dart';
-
 
 class NgoProfileViewBody extends StatelessWidget {
   const NgoProfileViewBody({super.key});
@@ -29,15 +29,19 @@ class NgoProfileViewBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ProfileHeader(ngo: ngo),
+              NgoProfileHeader(ngo: ngo),
               const SizedBox(height: 24),
               ContactInfoSection(ngo: ngo, theme: theme),
               const SizedBox(height: 20),
-              QuickActionsSection(),
+              NgoQuickActionsSection(),
               const SizedBox(height: 20),
-              StatisticsGrid(),
+              NgoStatisticsGrid(),
               const SizedBox(height: 28),
-              const EditProfileButton(),
+              EditProfileButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, EditNgoProfileView.routeName);
+                },
+              ),
               const SizedBox(height: 16),
             ],
           ),
@@ -46,7 +50,6 @@ class NgoProfileViewBody extends StatelessWidget {
     );
   }
 
-  
   int extractLeadingNumber(String value) {
     final match = RegExp(r'^(\d+)').firstMatch(value.trim());
     if (match != null) {
