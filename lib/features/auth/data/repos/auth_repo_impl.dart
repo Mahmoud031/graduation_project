@@ -254,4 +254,11 @@ class AuthRepoImpl extends AuthRepo {
       data: UserModel.fromEntity(user).toMap(),
     );
   }
+
+  @override
+  Future<void> signOut() async {
+    await firebaseAuthService.signOut();
+    await Prefs.setString(kUserData, '');
+    await Prefs.setString(kNgoData, '');
+  }
 }

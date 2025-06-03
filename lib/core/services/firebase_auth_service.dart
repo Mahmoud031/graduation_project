@@ -99,7 +99,10 @@ Future<User> signInWithFacebook() async {
 }
 bool isLoggedIn(){
   return FirebaseAuth.instance.currentUser != null;
-  
+}
+
+Future<void> signOut() async {
+  await FirebaseAuth.instance.signOut();
 }
 }
  

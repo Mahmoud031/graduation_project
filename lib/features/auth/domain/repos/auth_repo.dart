@@ -33,4 +33,5 @@ abstract class AuthRepo {
   Future saveNgoData({required NgoEntity ngo});
   Future updateNgoData({required NgoEntity ngo});
   Future updateUserData({required UserEntity user});
+  Future<void> signOut();
 }

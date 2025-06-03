@@ -1,36 +1,59 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/core/helper_functions/build_error_bar.dart';
 import 'package:graduation_project/core/helper_functions/get_user.dart';
-
+import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
-
+import 'package:graduation_project/features/auth/presentation/cubits/logout_cubit/logout_cubit.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
 import 'package:graduation_project/features/donor_features/find_ngo/presentation/views/find_ngo_view.dart';
 import 'package:graduation_project/features/donor_features/my_donations/presentation/views/my_donations_view.dart';
 
 class CustomSideBar extends StatelessWidget {
   const CustomSideBar({super.key});
 
-  Future<void>  _showLogoutConfirmationDialog(BuildContext context) async {
+  Future<void> _showLogoutConfirmationDialog(BuildContext context) async {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Logout'),
-          content: const Text('Are you sure you want to log out?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: const Text('Logout'),
-            ),
-          ],
+        return BlocProvider(
+          create: (context) => getIt<LogoutCubit>(),
+          child: BlocConsumer<LogoutCubit, LogoutState>(
+            listener: (context, state) {
+              if (state is LogoutSuccess) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SigninView()),
+                  (route) => false,
+                );
+              } else if (state is LogoutFailure) {
+                buildErrorBar(context, state.message);
+              }
+            },
+            builder: (context, state) {
+              return AlertDialog(
+                title: const Text('Logout'),
+                content: const Text('Are you sure you want to log out?'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      context.read<LogoutCubit>().signOut();
+                    },
+                    child: state is LogoutLoading
+                        ? const CircularProgressIndicator()
+                        : const Text('Logout'),
+                  ),
+                ],
+              );
+            },
+          ),
         );
       },
     );
@@ -38,159 +61,62 @@ class CustomSideBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = getUser();
     return Drawer(
-      backgroundColor: const Color(0xFF071A26),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 16),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const CircleAvatar(
-                        radius: 30,
-                        backgroundColor: Color(0xFF071A26),
-                        child: Icon(
-                          Icons.account_circle_outlined,
-                          size: 50,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              getUser().name,
-                              style: TextStyles.textstyle25.copyWith(
-                                color: Colors.white,
-                              ),
-                              overflow: TextOverflow.visible,
-                              softWrap: true,
-                            ),
-                            Text(
-                              getUser().email,
-                              style: TextStyles.textstyle18.copyWith(
-                                color: Colors.white,
-                              ),
-                              overflow: TextOverflow.visible,
-                              softWrap: true,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: Text(user.name),
+            accountEmail: Text(user.email),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Text(
+                user.name[0].toUpperCase(),
+                style: const TextStyle(
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.bold,
                 ),
-                Positioned(
-                  top: 16,
-                  right: 0,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                      size: MediaQuery.of(context).size.width * 0.09,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const Divider(
-              color: Colors.white24,
-              thickness: 1,
-              indent: 16,
-              endIndent: 16,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              child: Column(
-                children: [
-                  _buildDrawerItem(
-                    icon: Icons.medical_services_outlined,
-                    title: 'Donate Medicine',
-                    onTap: () {
-                      Navigator.pushNamed(context, FindNgoView.routeName);
-                    },
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                  ),
-                  _buildDrawerItem(
-                    icon: Icons.receipt_long_outlined,
-                    title: 'My Donations',
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        MyDonationsView.routeName,
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                  ),
-                  _buildDrawerItem(
-                    icon: Icons.lock_outline,
-                    title: 'Change Password',
-                    onTap: () {},
-                  ),
-                ],
               ),
             ),
-            const Spacer(),
-            Container(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  const Divider(color: Colors.white24),
-                  ListTile(
-                    leading: const Icon(
-                      Icons.logout,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                    title: const Text(
-                      'log out',
-                      style: TextStyles.textstyle25,
-                    ),
-                    onTap: () {
-                      _showLogoutConfirmationDialog(context);
-                    },
-                  ),
-                ],
-              ),
+            decoration: const BoxDecoration(
+              color: Color(0xFFE3F0FF),
             ),
-          ],
-        ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.home),
+            title: const Text('Home'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.search),
+            title: const Text('Find NGO'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, FindNgoView.routeName);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.favorite),
+            title: const Text('My Donations'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, MyDonationsView.routeName);
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () {
+              Navigator.pop(context);
+              _showLogoutConfirmationDialog(context);
+            },
+          ),
+        ],
       ),
-    );
-  }
-
-  Widget _buildDrawerItem({
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-  }) {
-    return ListTile(
-      leading: Icon(
-        icon,
-        color: Colors.white,
-        size: 24,
-      ),
-      title: Text(
-        title,
-        style: TextStyles.textstyle25.copyWith(
-          color: Colors.white,
-        ),
-      ),
-      onTap: onTap,
     );
   }
 }

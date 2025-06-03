@@ -8,14 +8,14 @@ import 'package:graduation_project/features/donor_features/add_medicine/domain/r
 import 'package:graduation_project/features/donor_features/add_medicine/domain/repos/medicine_repo.dart';
 import 'package:graduation_project/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
+import 'package:graduation_project/features/auth/presentation/cubits/logout_cubit/logout_cubit.dart';
 import 'package:graduation_project/features/donor_features/find_ngo/presentation/cubits/search_ngo_cubit/search_ngo_cubit.dart';
 import 'package:graduation_project/features/donor_features/support_center/data/repositories/message_repo_imp.dart';
 import 'package:graduation_project/features/donor_features/support_center/domain/repos/message_repo.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/data/repositories/medicine_invnetory_repo_impl.dart';
-
-import '../../features/ngo_features/Medicine_inventory/domain/repositories/medicine_invnetory_repo.dart';
-import 'firebase_auth_service.dart';
-import 'firestore_service.dart';
+import 'package:graduation_project/features/ngo_features/Medicine_inventory/domain/repositories/medicine_invnetory_repo.dart';
+import 'package:graduation_project/core/services/firebase_auth_service.dart';
+import 'package:graduation_project/core/services/firestore_service.dart';
 
 final getIt = GetIt.instance;
 void setupGetit() {
@@ -48,5 +48,8 @@ void setupGetit() {
     MedicineInvnetoryRepoImpl(
       databaseService: getIt<DatabaseService>(),
     ),
+  );
+  getIt.registerFactory<LogoutCubit>(
+    () => LogoutCubit(getIt<AuthRepo>()),
   );
 }
