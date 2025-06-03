@@ -2,19 +2,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/features/auth/domain/entities/ngo_entity.dart';
 import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
 
-part 'profile_edit_state.dart';
+part 'ngo_profile_edit_state.dart';
 
-class ProfileEditCubit extends Cubit<ProfileEditState> {
+class NgoProfileEditCubit extends Cubit<NgoProfileEditState> {
   final AuthRepo authRepo;
-  ProfileEditCubit(this.authRepo) : super(ProfileEditInitial());
+  NgoProfileEditCubit(this.authRepo) : super(NgoProfileEditInitial());
 
   Future<void> updateNgoProfile(NgoEntity ngo) async {
-    emit(ProfileEditLoading());
+    emit(NgoProfileEditLoading());
     try {
       await authRepo.updateNgoData(ngo: ngo);
-      emit(ProfileEditSuccess(ngo));
+      emit(NgoProfileEditSuccess(ngo));
     } catch (e) {
-      emit(ProfileEditFailure(e.toString()));
+      emit(NgoProfileEditFailure(e.toString()));
     }
   }
-} 
+}

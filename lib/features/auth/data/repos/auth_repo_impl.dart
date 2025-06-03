@@ -245,4 +245,13 @@ class AuthRepoImpl extends AuthRepo {
       data: NgoModel.fromEntity(ngo).toMap(),
     );
   }
+
+  @override
+  Future updateUserData({required UserEntity user}) async {
+    await databaseService.updateData(
+      path: BackendEndpoint.addUserData,
+      documentId: user.uId,
+      data: UserModel.fromEntity(user).toMap(),
+    );
+  }
 }

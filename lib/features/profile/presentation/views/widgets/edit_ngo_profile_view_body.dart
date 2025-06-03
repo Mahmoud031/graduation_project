@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/helper_functions/build_error_bar.dart';
 import 'package:graduation_project/features/auth/domain/entities/ngo_entity.dart';
 import 'package:graduation_project/core/helper_functions/get_user.dart';
-import 'package:graduation_project/features/profile/presentation/cubits/profile_edit_cubit.dart';
+import 'package:graduation_project/features/profile/presentation/cubits/ngo_profile_edit_cubit.dart';
 import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
 import 'package:graduation_project/features/profile/presentation/views/ngo_widgets/custom_profile_text_field.dart';
@@ -55,17 +55,17 @@ class _EditNgoProfileViewBodyState extends State<EditNgoProfileViewBody> {
         ngoId: ngoIdController.text.trim(),
         address: addressController.text.trim(),
       );
-      context.read<ProfileEditCubit>().updateNgoProfile(updatedNgo);
+      context.read<NgoProfileEditCubit>().updateNgoProfile(updatedNgo);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ProfileEditCubit(getIt()),
-      child: BlocConsumer<ProfileEditCubit, ProfileEditState>(
+      create: (_) => NgoProfileEditCubit(getIt()),
+      child: BlocConsumer<NgoProfileEditCubit, NgoProfileEditState>(
         listener: (context, state) async {
-          if (state is ProfileEditSuccess) {
+          if (state is NgoProfileEditSuccess) {
             await getIt<AuthRepo>().saveNgoData(ngo: state.updatedNgo);
             buildErrorBar(context, 'Profile updated successfully');
             Navigator.pushReplacement(
@@ -74,12 +74,12 @@ class _EditNgoProfileViewBodyState extends State<EditNgoProfileViewBody> {
                 builder: (context) => const NgoHomeView(),
               ),
             );
-          } else if (state is ProfileEditFailure) {
+          } else if (state is NgoProfileEditFailure) {
             buildErrorBar(context, 'Failed to update profile: ${state.error}');
           }
         },
         builder: (context, state) {
-          final isLoading = state is ProfileEditLoading;
+          final isLoading = state is NgoProfileEditLoading;
           return Scaffold(
             appBar: AppBar(
               title: const Text(

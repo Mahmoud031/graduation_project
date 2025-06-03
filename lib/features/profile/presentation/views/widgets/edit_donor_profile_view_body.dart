@@ -1,40 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/helper_functions/build_error_bar.dart';
-import 'package:graduation_project/features/auth/domain/entities/ngo_entity.dart';
+import 'package:graduation_project/features/auth/domain/entities/user_entity.dart';
 import 'package:graduation_project/core/helper_functions/get_user.dart';
-import 'package:graduation_project/features/profile/presentation/cubits/ngo_profile_edit_cubit.dart';
+import 'package:graduation_project/features/profile/presentation/cubits/donor_profile_edit_cubit.dart';
 import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
 import 'package:graduation_project/features/profile/presentation/views/ngo_widgets/custom_profile_text_field.dart';
 import 'package:graduation_project/features/profile/presentation/views/ngo_widgets/password_change_section.dart';
 import 'package:graduation_project/features/profile/presentation/views/ngo_widgets/profile_form_actions.dart';
+import 'package:graduation_project/features/donor_features/home/presentation/views/home_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/widgets/donor_type_drop_down.dart';
 
-import '../../../../ngo_features/ngo_home/presentation/views/ngo_home_view.dart';
-
-class EditNgoProfileViewBody extends StatefulWidget {
-  const EditNgoProfileViewBody({super.key});
+class EditDonorProfileViewBody extends StatefulWidget {
+  const EditDonorProfileViewBody({super.key});
 
   @override
-  State<EditNgoProfileViewBody> createState() => _EditNgoProfileViewBodyState();
+  State<EditDonorProfileViewBody> createState() => _EditDonorProfileViewBodyState();
 }
 
-class _EditNgoProfileViewBodyState extends State<EditNgoProfileViewBody> {
+class _EditDonorProfileViewBodyState extends State<EditDonorProfileViewBody> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController nameController;
   late TextEditingController phoneController;
   late TextEditingController addressController;
-  late TextEditingController ngoIdController;
-  late NgoEntity ngo;
+  late TextEditingController nationalIdController;
+  late TextEditingController ageController;
+  late UserEntity user;
+  String? selectedType;
 
   @override
   void initState() {
     super.initState();
-    ngo = getNgo();
-    nameController = TextEditingController(text: ngo.name);
-    phoneController = TextEditingController(text: ngo.phone);
-    addressController = TextEditingController(text: ngo.address);
-    ngoIdController = TextEditingController(text: ngo.ngoId);
+    user = getUser();
+    nameController = TextEditingController(text: user.name);
+    phoneController = TextEditingController(text: user.phone);
+    addressController = TextEditingController(text: user.address);
+    nationalIdController = TextEditingController(text: user.nationalId);
+    ageController = TextEditingController(text: user.age.toString());
+    selectedType = user.type;
   }
 
   @override
@@ -42,49 +46,52 @@ class _EditNgoProfileViewBodyState extends State<EditNgoProfileViewBody> {
     nameController.dispose();
     phoneController.dispose();
     addressController.dispose();
-    ngoIdController.dispose();
+    nationalIdController.dispose();
+    ageController.dispose();
     super.dispose();
   }
 
   void onSave(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      final updatedNgo = NgoEntity(
-        uId: ngo.uId,
+      final updatedUser = UserEntity(
+        uId: user.uId,
         name: nameController.text.trim(),
-        email: ngo.email,
+        email: user.email,
         phone: phoneController.text.trim(),
-        ngoId: ngoIdController.text.trim(),
+        nationalId: nationalIdController.text.trim(),
         address: addressController.text.trim(),
+        age: int.parse(ageController.text.trim()),
+        type: selectedType ?? user.type,
       );
-      context.read<NgoProfileEditCubit>().updateNgoProfile(updatedNgo);
+      context.read<DonorProfileEditCubit>().updateDonorProfile(updatedUser);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => NgoProfileEditCubit(getIt()),
-      child: BlocConsumer<NgoProfileEditCubit, NgoProfileEditState>(
+      create: (_) => DonorProfileEditCubit(getIt()),
+      child: BlocConsumer<DonorProfileEditCubit, DonorProfileEditState>(
         listener: (context, state) async {
-          if (state is NgoProfileEditSuccess) {
-            await getIt<AuthRepo>().saveNgoData(ngo: state.updatedNgo);
+          if (state is DonorProfileEditSuccess) {
+            await getIt<AuthRepo>().saveUserData(user: state.updatedUser);
             buildErrorBar(context, 'Profile updated successfully');
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const NgoHomeView(),
+                builder: (context) => const HomeView(),
               ),
             );
-          } else if (state is NgoProfileEditFailure) {
+          } else if (state is DonorProfileEditFailure) {
             buildErrorBar(context, 'Failed to update profile: ${state.error}');
           }
         },
         builder: (context, state) {
-          final isLoading = state is NgoProfileEditLoading;
+          final isLoading = state is DonorProfileEditLoading;
           return Scaffold(
             appBar: AppBar(
               title: const Text(
-                'Edit NGO Profile',
+                'Edit Profile',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               centerTitle: true,
@@ -116,7 +123,7 @@ class _EditNgoProfileViewBodyState extends State<EditNgoProfileViewBody> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Organization Details',
+                              'Personal Details',
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -124,7 +131,7 @@ class _EditNgoProfileViewBodyState extends State<EditNgoProfileViewBody> {
                             ),
                             const SizedBox(height: 8),
                             const Text(
-                              'Update your organization information below',
+                              'Update your personal information below',
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
@@ -133,23 +140,39 @@ class _EditNgoProfileViewBodyState extends State<EditNgoProfileViewBody> {
                             const SizedBox(height: 32),
                             CustomProfileTextField(
                               controller: nameController,
-                              label: 'NGO Name',
-                              icon: Icons.business,
+                              label: 'Full Name',
+                              icon: Icons.person,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter NGO name';
+                                  return 'Please enter your name';
                                 }
                                 return null;
                               },
                             ),
                             const SizedBox(height: 20),
                             CustomProfileTextField(
-                              controller: ngoIdController,
-                              label: 'NGO ID',
+                              controller: nationalIdController,
+                              label: 'National ID',
                               icon: Icons.perm_identity,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter NGO ID';
+                                  return 'Please enter your national ID';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            CustomProfileTextField(
+                              controller: ageController,
+                              label: 'Age',
+                              icon: Icons.calendar_today,
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your age';
+                                }
+                                if (int.tryParse(value) == null) {
+                                  return 'Please enter a valid age';
                                 }
                                 return null;
                               },
@@ -162,7 +185,7 @@ class _EditNgoProfileViewBodyState extends State<EditNgoProfileViewBody> {
                               keyboardType: TextInputType.phone,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter phone number';
+                                  return 'Please enter your phone number';
                                 }
                                 return null;
                               },
@@ -174,9 +197,18 @@ class _EditNgoProfileViewBodyState extends State<EditNgoProfileViewBody> {
                               icon: Icons.location_on,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter address';
+                                  return 'Please enter your address';
                                 }
                                 return null;
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            DonorTypeDropdown(
+                              initialValue: selectedType,
+                              onSaved: (value) {
+                                setState(() {
+                                  selectedType = value;
+                                });
                               },
                             ),
                             const SizedBox(height: 32),
