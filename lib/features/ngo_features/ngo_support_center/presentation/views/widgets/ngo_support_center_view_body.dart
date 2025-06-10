@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
-import 'package:graduation_project/features/donor_features/support_center/presentation/views/widgets/contact_support_card.dart';
 import 'package:graduation_project/features/donor_features/support_center/presentation/views/widgets/faq_section.dart';
+
+import 'ngo_contact_support_card.dart';
 
 class NgoSupportCenterViewBody extends StatefulWidget {
   const NgoSupportCenterViewBody({super.key});
@@ -69,7 +70,7 @@ class _SupportCenterViewBodyState extends State<NgoSupportCenterViewBody> {
               ),
             ),
             const SizedBox(height: 20),
-            ContactSupportCard(),
+            NgoContactSupportCard(),
             const SizedBox(height: 30),
             FAQSection(faqItems: _faqItems),
           ],
