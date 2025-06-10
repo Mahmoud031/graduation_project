@@ -18,8 +18,9 @@ import 'package:graduation_project/features/ngo_features/reports/presentation/vi
 import 'package:graduation_project/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:graduation_project/features/profile/presentation/views/donor_profile_view.dart';
 import 'package:graduation_project/features/splash/presentation/views/splash_view.dart';
-
 import '../../features/ngo_features/Donation_Management/presentation/views/donation_management_view.dart';
+import '../../features/ngo_features/ngo_support_center/presentation/views/ngo_contact_support_view.dart';
+import '../../features/ngo_features/ngo_support_center/presentation/views/ngo_support_center_view.dart';
 import '../../features/ngo_features/reports/presentation/views/widgets/charts/donations_by_category_report.dart';
 import '../../features/profile/presentation/views/edit_donor_profile_view.dart';
 import '../../features/profile/presentation/views/edit_ngo_profile_view.dart';
@@ -54,6 +55,10 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const SupportCenterView());
     case ContactSupportView.routeName:
       return MaterialPageRoute(builder: (_) => const ContactSupportView());
+    case NgoContactSupportView.routeName:
+      return MaterialPageRoute(builder: (_) => const NgoContactSupportView());
+    case NgoSupportCenterView.routeName:
+      return MaterialPageRoute(builder: (_) => const NgoSupportCenterView());
     case DonationGuideView.routeName:
       return MaterialPageRoute(builder: (_) => const DonationGuideView());
     case NgoHomeView.routeName:
@@ -82,6 +87,7 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
           builder: (_) => const DonationsByCategoryReport());
     case DonorPerformanceReport.routeName:
       return MaterialPageRoute(builder: (_) => const DonorPerformanceReport());
+
     default:
       return MaterialPageRoute(builder: (_) => const SplashView());
   }
