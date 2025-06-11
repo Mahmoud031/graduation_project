@@ -45,4 +45,8 @@ abstract class AuthRepo {
   Future updateNgoData({required NgoEntity ngo});
   Future updateUserData({required UserEntity user});
   Future<void> signOut();
+  Future<Either<Failure, void>> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  });
 }

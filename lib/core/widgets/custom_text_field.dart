@@ -14,6 +14,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.initialValue,
     this.enabled = true,
+    this.controller,
   });
 
   final String hintText;
@@ -27,6 +28,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final String? initialValue;
   final bool enabled;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class CustomTextFormField extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.07,
       width: MediaQuery.of(context).size.width * 0.9,
       child: TextFormField(
+        controller: controller,
         initialValue: initialValue,
         enabled: enabled,
         onSaved: onSaved,

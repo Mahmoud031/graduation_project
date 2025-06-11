@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
 import 'package:graduation_project/features/auth/presentation/cubits/complete_profile_cubit/complete_profile_cubit.dart';
+import 'package:graduation_project/features/auth/presentation/views/change_password_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_up_ngo_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_up_view.dart';
@@ -101,6 +102,9 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
           builder: (_) => const DonationsByCategoryReport());
     case DonorPerformanceReport.routeName:
       return MaterialPageRoute(builder: (_) => const DonorPerformanceReport());
+    case ChangePasswordView.routeName:
+      return MaterialPageRoute(
+          builder: (_) => const ChangePasswordView());
 
     default:
       return MaterialPageRoute(builder: (_) => const SplashView());

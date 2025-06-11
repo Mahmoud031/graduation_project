@@ -6,9 +6,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:graduation_project/core/errors/exceptions.dart';
 
 class FirebaseAuthService {
-  Future deleteUser() async{
+  Future deleteUser() async {
     await FirebaseAuth.instance.currentUser!.delete();
   }
+
   Future<User> createUserWithEmailandPassword({
     required String email,
     required String password,
@@ -39,31 +40,29 @@ class FirebaseAuthService {
           message: 'An unknown error occurred. please try later.');
     }
   }
-   Future<User> signInWithEmailandPassword({
+
+  Future<User> signInWithEmailandPassword({
     required String email,
     required String password,
   }) async {
     try {
-      final credential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       return credential.user!;
     } on FirebaseAuthException catch (e) {
       log("Exception in FirebaseAuthService.signInWithEmailandPassword: ${e.toString()} and code is ${e.code}");
-      if (e.code == 'user-not-found') {
-        throw CustomException(message: ' email or password  is incorrect.Please try again.');
-      } else if (e.code == 'wrong-password') {
-        throw CustomException(message: 'email or password  is incorrect.Please try again.');
+      if (e.code == 'user-not-found' ||
+          e.code == 'wrong-password' ||
+          e.code == 'invalid-credential') {
+        throw CustomException(
+            message: 'The email or password is incorrect. Please try again.');
       } else if (e.code == 'network-request-failed') {
         throw CustomException(message: 'No internet connection');
-      } else if (e.code =='invalid-credentials'){
-         throw CustomException(message: 'the email or password is incorrect.Please try again.');
-      }
-      else {
+      } else {
         throw CustomException(
-            message: 'An unknown error occurred. please try later.');
+            message: 'An unknown error occurred. Please try later.');
       }
     } catch (e) {
       log("Exception in FirebaseAuthService.signInWithEmailandPassword: ${e.toString()}");
@@ -71,38 +70,75 @@ class FirebaseAuthService {
           message: 'An unknown error occurred. please try later.');
     }
   }
+
   Future<User> signInWithGoogle() async {
-  
-  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-  
-  final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
-  
-  final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
-    idToken: googleAuth?.idToken,
-  );
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
 
-  
-  return (await FirebaseAuth.instance.signInWithCredential(credential)).user!;
+    return (await FirebaseAuth.instance.signInWithCredential(credential)).user!;
+  }
+
+  Future<User> signInWithFacebook() async {
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
+
+    return (await FirebaseAuth.instance
+            .signInWithCredential(facebookAuthCredential))
+        .user!;
+  }
+
+  bool isLoggedIn() {
+    return FirebaseAuth.instance.currentUser != null;
+  }
+
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        throw CustomException(message: 'No user is currently signed in.');
+      }
+
+      // Reauthenticate user before changing password
+      final credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: currentPassword,
+      );
+      await user.reauthenticateWithCredential(credential);
+
+      // Change password
+      await user.updatePassword(newPassword);
+    } on FirebaseAuthException catch (e) {
+      log("Exception in FirebaseAuthService.changePassword: ${e.toString()} and code is ${e.code}");
+      if (e.code == 'wrong-password') {
+        throw CustomException(message: 'Current password is incorrect.');
+      } else if (e.code == 'weak-password') {
+        throw CustomException(message: 'The new password is too weak.');
+      } else if (e.code == 'network-request-failed') {
+        throw CustomException(message: 'No internet connection');
+      } else {
+        throw CustomException(
+            message: 'An unknown error occurred. Please try again later.');
+      }
+    } catch (e) {
+      log("Exception in FirebaseAuthService.changePassword: ${e.toString()}");
+      throw CustomException(
+          message: 'An unknown error occurred. Please try again later.');
+    }
+  }
 }
-Future<User> signInWithFacebook() async {
-  
-  final LoginResult loginResult = await FacebookAuth.instance.login();
-
-  
-  final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
-
-  
-  return (await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential)).user!;
-}
-bool isLoggedIn(){
-  return FirebaseAuth.instance.currentUser != null;
-}
-
-Future<void> signOut() async {
-  await FirebaseAuth.instance.signOut();
-}
-}
- 

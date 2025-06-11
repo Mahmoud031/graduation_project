@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project/features/auth/presentation/views/change_password_view.dart';
 
 class PasswordChangeSection extends StatelessWidget {
   const PasswordChangeSection({super.key});
@@ -16,21 +17,9 @@ class PasswordChangeSection extends StatelessWidget {
         subtitle: const Text('Update your account password'),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
         onTap: () {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Change Password'),
-              content: const Text('Password change functionality coming soon.'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
+          Navigator.pushNamed(context, ChangePasswordView.routeName);
         },
       ),
     );
   }
-} 
+}

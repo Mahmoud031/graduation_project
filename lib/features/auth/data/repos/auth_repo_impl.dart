@@ -392,4 +392,23 @@ class AuthRepoImpl extends AuthRepo {
     await Prefs.setString(kUserData, '');
     await Prefs.setString(kNgoData, '');
   }
+
+  @override
+  Future<Either<Failure, void>> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    try {
+      await firebaseAuthService.changePassword(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      );
+      return right(null);
+    } on CustomException catch (e) {
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.changePassword: ${e.toString()}');
+      return left(ServerFailure('An unknown error occurred. Please try again later.'));
+    }
+  }
 }
