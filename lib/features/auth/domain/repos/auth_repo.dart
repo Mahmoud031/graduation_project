@@ -20,8 +20,19 @@ abstract class AuthRepo {
       String email, String password);
   Future<Either<Failure, NgoEntity>> signInWithEmailAndPasswordNgo(
       String email, String password);
-  Future<Either<Failure, UserEntity>> signInWithGoogle();
+  Future<Either<Failure, Object>> signInWithGoogle();
   Future<Either<Failure, NgoEntity>> ngoSignInWithGoogle();
+  Future<Either<Failure, UserEntity>> completeGoogleSignInProfile({
+    required String uId,
+    required String email,
+    required String name,
+    required String address,
+    required String type,
+    required int age,
+    required String nationalId,
+    required String phone,
+    required bool isMember,
+  });
 
   Future<Either<Failure, UserEntity>> signInWithFacebook();
   Future<Either<Failure, NgoEntity>> ngoSignInFacebook();

@@ -6,9 +6,11 @@ class MemebrToggle extends StatelessWidget {
   const MemebrToggle({
     super.key,
     required this.isMemberSelected,
+    this.onToggle,
   });
 
   final bool isMemberSelected;
+  final Function(bool)? onToggle;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,11 @@ class MemebrToggle extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                Navigator.pushReplacementNamed(context, SignUpView.routeName);
+                if (onToggle != null) {
+                  onToggle!(true);
+                } else {
+                  Navigator.pushReplacementNamed(context, SignUpView.routeName);
+                }
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 10),
@@ -48,8 +54,12 @@ class MemebrToggle extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                Navigator.pushReplacementNamed(
-                    context, SignUpNgoView.routeName);
+                if (onToggle != null) {
+                  onToggle!(false);
+                } else {
+                  Navigator.pushReplacementNamed(
+                      context, SignUpNgoView.routeName);
+                }
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 10),

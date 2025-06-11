@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/core/services/get_it_service.dart';
+import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
+import 'package:graduation_project/features/auth/presentation/cubits/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_up_ngo_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_up_view.dart';
@@ -25,6 +29,8 @@ import '../../features/ngo_features/reports/presentation/views/widgets/charts/do
 import '../../features/profile/presentation/views/edit_donor_profile_view.dart';
 import '../../features/profile/presentation/views/edit_ngo_profile_view.dart';
 import '../../features/profile/presentation/views/ngo_profile_view.dart';
+import 'package:graduation_project/features/auth/domain/entities/user_entity.dart';
+import 'package:graduation_project/features/auth/presentation/views/complete_profile_view.dart'; // Import the new view
 
 Route<dynamic> onGenerateRoutes(RouteSettings settings) {
   switch (settings.name) {
@@ -79,6 +85,14 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const EditNgoProfileView());
       case EditDonorProfileView.routeName:
       return MaterialPageRoute(builder: (_) => const EditDonorProfileView());
+    case CompleteProfileView.routeName:
+      final userEntity = settings.arguments as UserEntity;
+      return MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => CompleteProfileCubit(getIt.get<AuthRepo>()),
+          child: CompleteProfileView(userEntity: userEntity),
+        ),
+      );
     case MedicineInventoryDonationsReport.routeName:
       return MaterialPageRoute(
           builder: (_) => const MedicineInventoryDonationsReport());

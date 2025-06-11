@@ -8,6 +8,7 @@ import 'package:graduation_project/features/auth/presentation/views/widgets/sign
 import 'package:graduation_project/features/donor_features/home/presentation/views/home_view.dart';
 import 'package:graduation_project/features/ngo_features/ngo_home/presentation/views/ngo_home_view.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:graduation_project/features/auth/presentation/views/complete_profile_view.dart';
 
 class SigninViewBodyBlocConsumer extends StatelessWidget {
   const SigninViewBodyBlocConsumer({
@@ -19,8 +20,13 @@ class SigninViewBodyBlocConsumer extends StatelessWidget {
     return BlocConsumer<SigninCubit, SigninState>(
       listener: (context, state) {
         if (state is SigninSuccess) {
-          // Check the type of entity to determine navigation
-          if (state.entity is NgoEntity) {
+          if (state.isGoogleSignIn) {
+            Navigator.pushReplacementNamed(
+              context,
+              CompleteProfileView.routeName,
+              arguments: state.entity,
+            );
+          } else if (state.entity is NgoEntity) {
             Navigator.pushReplacementNamed(context, NgoHomeView.routeName);
           } else if (state.entity is UserEntity) {
             Navigator.pushReplacementNamed(context, HomeView.routeName);

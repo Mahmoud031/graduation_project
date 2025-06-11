@@ -52,7 +52,7 @@ class MedicineInvnetoryModel {
   factory MedicineInvnetoryModel.fromJson(Map<String, dynamic> json) {
     return MedicineInvnetoryModel(
       id: json['id'] ?? '',
-      documentId: json['documentId'],
+      documentId: json['id'],
       medicineName: json['medicineName'],
       category: json['category'],
       quantityAvailable: json['quantityAvailable'],

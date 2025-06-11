@@ -95,6 +95,7 @@ class MedicineInvnetoryRepoImpl implements MedicineInvnetoryRepo {
         .map((snapshot) => snapshot.docs.map((doc) {
               final data = doc.data();
               data['id'] = doc.id;
+              data['documentId'] = doc.id;
               return MedicineInvnetoryModel.fromJson(data).toEntity();
             }).toList());
   }

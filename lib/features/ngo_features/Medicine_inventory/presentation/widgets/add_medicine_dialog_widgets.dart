@@ -33,6 +33,7 @@ class AddMedicineDialogWidgets {
     required Function(String?) onQuantitySaved,
     required Function(String?) onDonorInfoSaved,
     required Function(String?) onNotesSaved,
+    required BuildContext context,
   }) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20),
@@ -54,7 +55,7 @@ class AddMedicineDialogWidgets {
                 ),
                 IconButton(
                   icon: const Icon(Icons.close),
-                  onPressed: () => Navigator.pop(navigatorKey.currentContext!),
+                  onPressed: () => Navigator.pop(context),
                 ),
               ],
             ),
@@ -170,4 +171,4 @@ class AddMedicineDialogWidgets {
 }
 
 // Global key for accessing context
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>(); 
+// final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>(); 

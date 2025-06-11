@@ -114,7 +114,7 @@ class AuthRepoImpl extends AuthRepo {
           ServerFailure('An unknown error occurred. please try later.'));
     }
   }
-  
+
   @override
   Future<Either<Failure, NgoEntity>> signInWithEmailAndPasswordNgo(
       String email, String password) async {
@@ -134,16 +134,115 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Failure, UserEntity>> signInWithGoogle() async {
+  Future<Either<Failure, Object>> signInWithGoogle() async {
     User? user;
     try {
       user = await firebaseAuthService.signInWithGoogle();
-      var userEntity = UserModel.fromFirebaseUser(user);
-      await adduserData(user: userEntity);
-      return right(userEntity);
+      try {
+        // Try to get existing user data
+        var userEntity = await getUserData(uId: user.uid);
+        // If we get here, the user exists and has a complete profile
+        await saveUserData(user: userEntity);
+        return right(userEntity);
+      } on CustomException catch (e) {
+        if (e.message == 'Some requested document was not found.') {
+          // If User data not found, try to get existing NGO data
+          try {
+            var ngoEntity = await getNgoData(uId: user.uid);
+            await saveNgoData(ngo: ngoEntity);
+            return right(ngoEntity);
+          } on CustomException catch (e) {
+            if (e.message == 'Some requested document was not found.') {
+              // Neither User nor NGO data found, return basic user entity
+              var basicUserEntity = UserModel.fromFirebaseUser(user);
+              return right(basicUserEntity);
+            } else {
+              rethrow; // Re-throw other CustomExceptions from getNgoData
+            }
+          }
+        } else {
+          rethrow; // Re-throw other CustomExceptions from getUserData
+        }
+      }
     } catch (e) {
       await deleteUser(user);
       log('Exception in AuthRepoImpl.signInWithGoogle: ${e.toString()}');
+      return left(
+          ServerFailure('An unknown error occurred. please try later.'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> completeGoogleSignInProfile({
+    required String uId,
+    required String email,
+    required String name,
+    required String address,
+    required String type,
+    required int age,
+    required String nationalId,
+    required String phone,
+    required bool isMember,
+  }) async {
+    try {
+      if (isMember) {
+        UserEntity userEntity = UserEntity(
+          uId: uId,
+          email: email,
+          name: name,
+          address: address,
+          type: type,
+          age: age,
+          nationalId: nationalId,
+          phone: phone,
+        );
+        try {
+          await getUserData(uId: uId); // Check if document exists
+          await updateUserData(user: userEntity);
+        } on CustomException catch (e) {
+          if (e.message == 'Some requested document was not found.') {
+            await adduserData(user: userEntity);
+          } else {
+            rethrow; // Re-throw if it's another CustomException
+          }
+        }
+        await saveUserData(user: userEntity);
+        return right(userEntity);
+      } else {
+        NgoEntity ngoEntity = NgoEntity(
+          uId: uId,
+          email: email,
+          name: name,
+          address: address,
+          phone: phone,
+          ngoId: nationalId, // Using nationalId as ngoId
+        );
+        try {
+          await getNgoData(uId: uId); // Check if document exists
+          await updateNgoData(ngo: ngoEntity);
+        } on CustomException catch (e) {
+          if (e.message == 'Some requested document was not found.') {
+            await addNgoData(ngo: ngoEntity);
+          } else {
+            rethrow; // Re-throw if it's another CustomException
+          }
+        }
+        await saveNgoData(ngo: ngoEntity);
+        return right(UserEntity(
+          uId: uId,
+          email: email,
+          name: name,
+          address: address,
+          type: 'NGO',
+          age: 0,
+          nationalId: nationalId,
+          phone: phone,
+        ));
+      }
+    } on CustomException catch (e) {
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.completeGoogleSignInProfile: ${e.toString()}');
       return left(
           ServerFailure('An unknown error occurred. please try later.'));
     }
@@ -165,25 +264,42 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future addNgoData({required NgoEntity ngo}) async {
-    await databaseService.addData(
-        path: BackendEndpoint.addNgoData,
-        data: NgoModel.fromEntity(ngo).toMap(),
-        documentId: ngo.uId);
+  Future<void> adduserData({required UserEntity user}) async {
+    try {
+      log('Adding user data: ${UserModel.fromEntity(user).toMap()}');
+      await databaseService.addData(
+          path: BackendEndpoint.addUserData,
+          data: UserModel.fromEntity(user).toMap(),
+          documentId: user.uId);
+    } on CustomException catch (e) {
+      throw CustomException(message: e.message);
+    } catch (e) {
+      throw CustomException(message: e.toString());
+    }
   }
 
   @override
-  Future adduserData({required UserEntity user}) async {
-    await databaseService.addData(
-        path: BackendEndpoint.addUserData,
-        data: UserModel.fromEntity(user).toMap(),
-        documentId: user.uId);
+  Future<void> addNgoData({required NgoEntity ngo}) async {
+    try {
+      log('Adding NGO data: ${NgoModel.fromEntity(ngo).toMap()}');
+      await databaseService.addData(
+          path: BackendEndpoint.addNgoData,
+          data: NgoModel.fromEntity(ngo).toMap(),
+          documentId: ngo.uId);
+    } on CustomException catch (e) {
+      throw CustomException(message: e.message);
+    } catch (e) {
+      throw CustomException(message: e.toString());
+    }
   }
 
   @override
   Future<NgoEntity> getNgoData({required String uId}) async {
     var ngoData = await databaseService.getData(
         path: BackendEndpoint.getNgoData, documentId: uId);
+    if (ngoData == null) {
+      throw CustomException(message: 'Some requested document was not found.');
+    }
     return NgoModel.fromJson(ngoData);
   }
 
@@ -191,6 +307,9 @@ class AuthRepoImpl extends AuthRepo {
   Future<UserEntity> getUserData({required String uId}) async {
     var userData = await databaseService.getData(
         path: BackendEndpoint.getUserData, documentId: uId);
+    if (userData == null) {
+      throw CustomException(message: 'Some requested document was not found.');
+    }
     return UserModel.fromJson(userData);
   }
 
@@ -238,21 +357,33 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future updateNgoData({required NgoEntity ngo}) async {
-    await databaseService.updateData(
-      path: BackendEndpoint.addNgoData,
-      documentId: ngo.uId,
-      data: NgoModel.fromEntity(ngo).toMap(),
-    );
+  Future<void> updateUserData({required UserEntity user}) async {
+    try {
+      log('Updating user data: ${UserModel.fromEntity(user).toMap()}');
+      await databaseService.updateData(
+          path: BackendEndpoint.addUserData,
+          data: UserModel.fromEntity(user).toMap(),
+          documentId: user.uId);
+    } on CustomException catch (e) {
+      throw CustomException(message: e.message);
+    } catch (e) {
+      throw CustomException(message: e.toString());
+    }
   }
 
   @override
-  Future updateUserData({required UserEntity user}) async {
-    await databaseService.updateData(
-      path: BackendEndpoint.addUserData,
-      documentId: user.uId,
-      data: UserModel.fromEntity(user).toMap(),
-    );
+  Future<void> updateNgoData({required NgoEntity ngo}) async {
+    try {
+      log('Updating NGO data: ${NgoModel.fromEntity(ngo).toMap()}');
+      await databaseService.updateData(
+          path: BackendEndpoint.addNgoData,
+          data: NgoModel.fromEntity(ngo).toMap(),
+          documentId: ngo.uId);
+    } on CustomException catch (e) {
+      throw CustomException(message: e.message);
+    } catch (e) {
+      throw CustomException(message: e.toString());
+    }
   }
 
   @override

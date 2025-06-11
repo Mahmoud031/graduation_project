@@ -218,6 +218,7 @@ class _AddMedicineDialogState extends State<AddMedicineDialog> {
             notes = value ?? '';
           },
           onAddPressed: () => _handleAddMedicine(context),
+          context: context,
         ),
       ),
     );

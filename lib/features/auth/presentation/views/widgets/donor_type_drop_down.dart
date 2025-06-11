@@ -35,7 +35,6 @@ class _DonorTypeDropdownState extends State<DonorTypeDropdown> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      onSaved: widget.onSaved,
       decoration: InputDecoration(
         labelText: "Donor Type",
         labelStyle: TextStyles.textstyle18.copyWith(color: Colors.black),
@@ -57,6 +56,15 @@ class _DonorTypeDropdownState extends State<DonorTypeDropdown> {
         setState(() {
           selectedDonorType = value;
         });
+        if (widget.onSaved != null) {
+          widget.onSaved!(value);
+        }
+      },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please select a donor type';
+        }
+        return null;
       },
     );
   }

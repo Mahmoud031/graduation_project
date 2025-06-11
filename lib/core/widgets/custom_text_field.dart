@@ -9,8 +9,13 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.obscureText = false,
     this.labelText,
-    this.textInputType, this.onSaved, String? Function(String? p1)? validator,
+    this.textInputType,
+    this.onSaved,
+    this.validator,
+    this.initialValue,
+    this.enabled = true,
   });
+
   final String hintText;
   final double size;
   final IconData? prefixIcon;
@@ -19,14 +24,20 @@ class CustomTextFormField extends StatelessWidget {
   final String? labelText;
   final TextInputType? textInputType;
   final void Function(String?)? onSaved;
+  final String? Function(String?)? validator;
+  final String? initialValue;
+  final bool enabled;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.07,
       width: MediaQuery.of(context).size.width * 0.9,
       child: TextFormField(
+        initialValue: initialValue,
+        enabled: enabled,
         onSaved: onSaved,
-        validator: (value) {
+        validator: validator ?? (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter some text';
           }
