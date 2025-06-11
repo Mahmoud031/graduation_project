@@ -59,7 +59,6 @@ class LogoutButton extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
                       context.read<LogoutCubit>().signOut();
                     },
                     child: state is LogoutLoading
