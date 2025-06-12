@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/helper_functions/build_error_bar.dart';
 import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/features/auth/presentation/cubits/logout_cubit/logout_cubit.dart';
-import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_in/sign_in_view.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({super.key});

@@ -21,6 +21,8 @@ class ProfileFormActions extends StatelessWidget {
             onPressed: isLoading ? null : onSave,
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
+              backgroundColor: Colors.blue.shade700,
+              foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -37,6 +39,8 @@ class ProfileFormActions extends StatelessWidget {
             onPressed: isLoading ? null : onCancel,
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
+              foregroundColor: Colors.blue.shade700,
+              side: BorderSide(color: Colors.blue.shade700),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),

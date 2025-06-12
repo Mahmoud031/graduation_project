@@ -81,118 +81,95 @@ class _EditNgoProfileViewBodyState extends State<EditNgoProfileViewBody> {
         },
         builder: (context, state) {
           final isLoading = state is NgoProfileEditLoading;
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text(
-                'Edit NGO Profile',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              centerTitle: true,
-              elevation: 0,
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios_new),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
-            body: isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Theme.of(context).primaryColor.withOpacity(0.1),
-                          Theme.of(context).scaffoldBackgroundColor,
+          return isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.blue.shade50,
+                        Theme.of(context).scaffoldBackgroundColor,
+                      ],
+                    ),
+                  ),
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(24),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Update your NGO information below',
+                            style: TextStyle(
+                              color: Colors.blueGrey,
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(height: 32),
+                          CustomProfileTextField(
+                            controller: nameController,
+                            label: 'NGO Name',
+                            icon: Icons.business,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter NGO name';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          CustomProfileTextField(
+                            controller: ngoIdController,
+                            label: 'NGO ID',
+                            icon: Icons.perm_identity,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter NGO ID';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          CustomProfileTextField(
+                            controller: phoneController,
+                            label: 'Phone',
+                            icon: Icons.phone,
+                            keyboardType: TextInputType.phone,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter phone number';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          CustomProfileTextField(
+                            controller: addressController,
+                            label: 'Address',
+                            icon: Icons.location_on,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter address';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 32),
+                          const PasswordChangeSection(),
+                          const SizedBox(height: 40),
+                          ProfileFormActions(
+                            isLoading: isLoading,
+                            onSave: () => onSave(context),
+                            onCancel: () => Navigator.pop(context),
+                          ),
                         ],
                       ),
                     ),
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.all(24),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Organization Details',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              'Update your organization information below',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16,
-                              ),
-                            ),
-                            const SizedBox(height: 32),
-                            CustomProfileTextField(
-                              controller: nameController,
-                              label: 'NGO Name',
-                              icon: Icons.business,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter NGO name';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 20),
-                            CustomProfileTextField(
-                              controller: ngoIdController,
-                              label: 'NGO ID',
-                              icon: Icons.perm_identity,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter NGO ID';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 20),
-                            CustomProfileTextField(
-                              controller: phoneController,
-                              label: 'Phone',
-                              icon: Icons.phone,
-                              keyboardType: TextInputType.phone,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter phone number';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 20),
-                            CustomProfileTextField(
-                              controller: addressController,
-                              label: 'Address',
-                              icon: Icons.location_on,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter address';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 32),
-                            const PasswordChangeSection(),
-                            const SizedBox(height: 40),
-                            ProfileFormActions(
-                              isLoading: isLoading,
-                              onSave: () => onSave(context),
-                              onCancel: () => Navigator.pop(context),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
                   ),
-          );
+                );
         },
       ),
     );

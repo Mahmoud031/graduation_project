@@ -8,7 +8,7 @@ import 'package:graduation_project/core/widgets/custom_button.dart';
 import 'package:graduation_project/core/widgets/custom_text_field.dart';
 import 'package:graduation_project/features/auth/domain/entities/user_entity.dart';
 import 'package:graduation_project/features/auth/presentation/cubits/complete_profile_cubit/complete_profile_cubit.dart';
-import 'package:graduation_project/features/auth/presentation/views/widgets/donor_type_drop_down.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_up_member/donor_type_drop_down.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/member_ngo_toggle.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/terms_and_conditions.dart';
 import 'package:graduation_project/features/donor_features/home/presentation/views/home_view.dart';

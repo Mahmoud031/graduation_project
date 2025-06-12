@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
 import 'package:graduation_project/features/auth/presentation/cubits/complete_profile_cubit/complete_profile_cubit.dart';
-import 'package:graduation_project/features/auth/presentation/views/change_password_view.dart';
-import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
-import 'package:graduation_project/features/auth/presentation/views/sign_up_ngo_view.dart';
-import 'package:graduation_project/features/auth/presentation/views/sign_up_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/change_password/change_password_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_in/sign_in_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_up_ngo/sign_up_ngo_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_up_member/sign_up_view.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/presentation/views/add_medicine_view.dart';
 import 'package:graduation_project/features/donor_features/donation_guide/presentation/views/donation_guide_view.dart';
 import 'package:graduation_project/features/donor_features/find_ngo/presentation/views/find_ngo_view.dart';
@@ -31,7 +31,7 @@ import '../../features/profile/presentation/views/edit_donor_profile_view.dart';
 import '../../features/profile/presentation/views/edit_ngo_profile_view.dart';
 import '../../features/profile/presentation/views/ngo_profile_view.dart';
 import 'package:graduation_project/features/auth/domain/entities/user_entity.dart';
-import 'package:graduation_project/features/auth/presentation/views/complete_profile_view.dart'; // Import the new view
+import 'package:graduation_project/features/auth/presentation/views/widgets/complete_profile/complete_profile_view.dart'; // Import the new view
 
 Route<dynamic> onGenerateRoutes(RouteSettings settings) {
   switch (settings.name) {

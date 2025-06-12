@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/features/profile/presentation/views/ngo_widgets/custom_profile_text_field.dart';
-import 'package:graduation_project/features/auth/presentation/views/widgets/donor_type_drop_down.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_up_member/donor_type_drop_down.dart';
 
 class ProfileFormFields extends StatelessWidget {
   final TextEditingController nameController;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/core/widgets/custom_text_field.dart';
 import 'package:graduation_project/core/widgets/password_field.dart';
-import 'package:graduation_project/features/auth/presentation/views/widgets/donor_type_drop_down.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_up_member/donor_type_drop_down.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/terms_and_conditions.dart';
 
 class MemberFormFields extends StatelessWidget {

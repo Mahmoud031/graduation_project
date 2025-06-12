@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/constants.dart';
 import 'package:graduation_project/core/services/shared_preferences_singleton.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
-import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_in/sign_in_view.dart';
 
 import 'get_started_button.dart';
 import 'on_boarding_button.dart';

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../features/auth/presentation/views/sign_in_view.dart';
+import '../../features/auth/presentation/views/sign_in/sign_in_view.dart';
 
 class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomHomeAppBar({
     super.key,
-    required this.title, this.onPressed,
+    required this.title,
+    this.onPressed,
   });
   final void Function()? onPressed;
   @override
@@ -25,19 +26,6 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       backgroundColor: Colors.transparent,
       actions: [
-        IconButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SigninView(),
-                ));
-          },
-          icon: const Icon(
-            Icons.notifications_outlined,
-            color: Colors.black87,
-          ),
-        ),
         IconButton(
           onPressed: onPressed,
           icon: const Icon(

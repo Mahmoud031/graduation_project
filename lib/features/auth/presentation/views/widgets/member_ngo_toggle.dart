@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/features/auth/presentation/views/sign_up_ngo_view.dart';
-import 'package:graduation_project/features/auth/presentation/views/sign_up_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_up_ngo/sign_up_ngo_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_up_member/sign_up_view.dart';
 
 class MemebrToggle extends StatelessWidget {
   const MemebrToggle({

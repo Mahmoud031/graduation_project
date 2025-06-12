@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
-import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_in/sign_in_view.dart';
 
 class SignInLink extends StatelessWidget {
   const SignInLink({super.key});

@@ -4,51 +4,48 @@ import 'package:graduation_project/core/utils/app_colors.dart';
 import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/core/widgets/custom_button.dart';
-import 'package:graduation_project/features/auth/presentation/views/widgets/member_form_fields.dart';
-import 'package:graduation_project/features/auth/presentation/views/widgets/handlers/member_signup_handler.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/member_ngo_toggle.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_up_ngo/ngo_form_fields.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_up_ngo/ngo_signup_handler.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/sign_in_link.dart';
 
-class SignUpViewBody extends StatefulWidget {
-  const SignUpViewBody({super.key});
+class SignUpNgoViewBody extends StatefulWidget {
+  const SignUpNgoViewBody({super.key});
 
   @override
-  State<SignUpViewBody> createState() => _SignUpViewBodyState();
+  State<SignUpNgoViewBody> createState() => _SignUpNgoViewBodyState();
 }
 
-class _SignUpViewBodyState extends State<SignUpViewBody> {
+class _SignUpNgoViewBodyState extends State<SignUpNgoViewBody> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  late String email, password, name, phone, nationalId, type, address;
-  late int age;
+  late String email, password, name, phone, ngoId, address;
   late bool isChecked = false;
-  
 
   void _handleSignUp() {
-  if (!formKey.currentState!.validate()) return;
-  formKey.currentState!.save();
+      if (!formKey.currentState!.validate()) {
+      return;
+    }
 
-  if (!isChecked) {
-    buildErrorBar(context, 'Please accept the terms and conditions');
-    return;
+    formKey.currentState!.save();
+
+    if (!isChecked) {
+      buildErrorBar(context, 'Please accept the terms and conditions');
+      return;
+    }
+    final handler = NgoSignupHandler(
+      context: context,
+      formKey: formKey,
+      isChecked: isChecked,
+      email: email,
+      password: password,
+      name: name,
+      phone: phone,
+      ngoId: ngoId,
+      address: address,
+    );
+    handler.handleSignUp();
   }
-
-  final handler = MemberSignupHandler(
-    context: context,
-    formKey: formKey,
-    isChecked: isChecked,
-    password: password,
-    email: email,
-    name: name,
-    phone: phone,
-    nationalId: nationalId,
-    address: address,
-    type: type,
-    age: age,
-  );
-  handler.handleSignUp();
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +66,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 const SignInLink(),
                 const SizedBox(height: 33),
                 const MemebrToggle(
-                  isMemberSelected: true,
+                  isMemberSelected: false,
                 ),
                 const SizedBox(height: 20),
                 Stack(
@@ -88,15 +85,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                           autovalidateMode: autovalidateMode,
                           child: Column(
                             children: [
-                              MemberFormFields(
+                              NgoFormFields(
                                 onNameSaved: (value) => name = value!,
                                 onEmailSaved: (value) => email = value!,
-                                onAgeSaved: (value) => age = int.parse(value!),
                                 onPhoneSaved: (value) => phone = value!,
-                                onNationalIdSaved: (value) => nationalId = value!,
+                                onNgoIdSaved: (value) => ngoId = value!,
                                 onPasswordSaved: (value) => password = value!,
                                 onAddressSaved: (value) => address = value!,
-                                onTypeSaved: (value) => type = value!,
                                 onTermsChanged: (value) => isChecked = value,
                               ),
                               const SizedBox(height: 10),

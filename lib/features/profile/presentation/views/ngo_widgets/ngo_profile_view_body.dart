@@ -5,7 +5,7 @@ import 'package:graduation_project/features/auth/domain/entities/ngo_entity.dart
 import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
 import 'package:graduation_project/features/auth/presentation/cubits/logout_cubit/logout_cubit.dart';
 import 'package:graduation_project/core/services/get_it_service.dart';
-import 'package:graduation_project/features/auth/presentation/views/sign_in_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/sign_in/sign_in_view.dart';
 import '../edit_ngo_profile_view.dart';
 import 'ngo_profile_header.dart';
 import 'contact_info_section.dart';

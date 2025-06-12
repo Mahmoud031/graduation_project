@@ -8,7 +8,22 @@ class EditNgoProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      appBar: AppBar(
+              title: Text(
+                'Edit NGO Profile',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+              centerTitle: true,
+              elevation: 0,
+              backgroundColor: Colors.blue.shade50,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back_ios_new, color: Colors.blue.shade700),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ),
       body: const EditNgoProfileViewBody(),
     );
   }
