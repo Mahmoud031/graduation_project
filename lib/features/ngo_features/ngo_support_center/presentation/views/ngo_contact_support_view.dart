@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/services/get_it_service.dart';
+import 'package:graduation_project/core/widgets/custom_home_app_bar.dart';
 import 'package:graduation_project/features/donor_features/support_center/domain/repos/message_repo.dart';
 
 import '../send_ngo_message_cubit/send_ngo_message_cubit.dart';
@@ -14,9 +15,10 @@ class NgoContactSupportView extends StatelessWidget {
     return SafeArea(
       child: BlocProvider(
         create: (context) => SendNgoMessageCubit(
-           getIt.get<MessageRepo>(),
+          getIt.get<MessageRepo>(),
         ),
         child: Scaffold(
+          appBar: CustomHomeAppBar(title: 'Contact Support'),
           body: const NgoContactSupportViewBodyBlocConsumer(),
         ),
       ),

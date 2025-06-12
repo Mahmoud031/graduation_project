@@ -74,13 +74,6 @@ class _MedicineInventoryViewBodyState extends State<MedicineInventoryViewBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Medicine Inventory',
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
           const SizedBox(height: 16),
           MedicineInventoryHeader(),
           const SizedBox(height: 20),

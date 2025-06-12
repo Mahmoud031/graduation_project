@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../features/auth/presentation/views/sign_in/sign_in_view.dart';
 
 class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomHomeAppBar({

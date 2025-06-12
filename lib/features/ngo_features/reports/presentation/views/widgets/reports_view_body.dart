@@ -19,13 +19,7 @@ class ReportsViewBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Reports',
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          
           const SizedBox(height: 24),
           Expanded(
             child: ListView(

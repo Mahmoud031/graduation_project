@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/features/donor_features/support_center/presentation/views/widgets/faq_section.dart';
 
 import 'ngo_contact_support_card.dart';
@@ -61,14 +60,6 @@ class _SupportCenterViewBodyState extends State<NgoSupportCenterViewBody> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 20),
-            Text(
-              'Support Center',
-              style: TextStyles.textstyle25.copyWith(
-                fontWeight: FontWeight.bold,
-                color: const Color(0xFF071A26),
-              ),
-            ),
             const SizedBox(height: 20),
             NgoContactSupportCard(),
             const SizedBox(height: 30),

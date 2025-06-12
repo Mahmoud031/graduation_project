@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/helper_functions/get_user.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
-import 'package:graduation_project/core/widgets/custom_app_bar.dart';
 import 'package:graduation_project/core/widgets/custom_button.dart';
 import 'package:graduation_project/core/widgets/custom_text_field.dart';
-
 import '../../../domain/entities/ngo_message_entity.dart';
 import '../../send_ngo_message_cubit/send_ngo_message_cubit.dart';
 
@@ -28,9 +26,7 @@ class _NgoContactSupportViewBodyState extends State<NgoContactSupportViewBody> {
         autovalidateMode: autovalidateMode,
         child: Column(
           children: [
-            CustomAppBar(
-              title: 'Contact Support',
-            ),
+           
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(

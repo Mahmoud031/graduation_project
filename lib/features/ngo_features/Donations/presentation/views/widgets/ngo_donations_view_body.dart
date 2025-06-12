@@ -99,13 +99,6 @@ class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Donations',
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
           const SizedBox(height: 16),
           DonationsHeader(),
           const SizedBox(height: 20),
@@ -167,7 +160,7 @@ class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
                     selectedDateFilter: _selectedDateFilter,
                     selectedQuantityFilter: _selectedQuantityFilter,
                   );
-                  
+
                   if (filteredMedicines.isEmpty) {
                     return const Center(
                       child: Text(
@@ -179,7 +172,7 @@ class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
                       ),
                     );
                   }
-                  
+
                   return ListView.builder(
                     itemCount: filteredMedicines.length,
                     itemBuilder: (context, index) {
@@ -191,8 +184,10 @@ class _NgoDonationsViewBodyState extends State<NgoDonationsViewBody> {
                             medicineName: medicine.medicineName,
                             donorName: medicine.donorName,
                             status: medicine.status,
-                            statusIcon: DonationStatusUtils.getStatusIcon(_parseStatus(medicine.status)),
-                            statusColor: DonationStatusUtils.getStatusColor(_parseStatus(medicine.status)),
+                            statusIcon: DonationStatusUtils.getStatusIcon(
+                                _parseStatus(medicine.status)),
+                            statusColor: DonationStatusUtils.getStatusColor(
+                                _parseStatus(medicine.status)),
                             tabletCount: medicine.tabletCount,
                             purchasedDate: medicine.purchasedDate,
                             expirtDate: medicine.expiryDate,

@@ -56,14 +56,7 @@ class _DonationManagementViewBodyState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Donation Management',
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              height: 1.1,
-            ),
-          ),
+          
           const SizedBox(height: 16),
           DonationManagementHeader(),
           const SizedBox(height: 24),
