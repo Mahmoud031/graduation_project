@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/core/helper_functions/get_user.dart';
 import 'package:graduation_project/core/widgets/custom_home_app_bar.dart';
 import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit.dart';
 import 'package:graduation_project/core/services/database_service.dart';
@@ -13,6 +14,7 @@ class NgoHomeView extends StatelessWidget {
   static const routeName = 'ngoHomeView';
   @override
   Widget build(BuildContext context) {
+    final ngo = getNgo();
     return BlocProvider(
       create: (_) => MedicineCubit(MedicineRepoImpl(getIt<DatabaseService>())),
       child: Scaffold(
@@ -21,7 +23,7 @@ class NgoHomeView extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamed(context, NgoProfileView.routeName);
           },
-          title: 'Home View',
+          title: 'Welcome, ${ngo.name}',
         ),
         body: const SafeArea(
           child: NgoHomeViewBody(),

@@ -25,31 +25,31 @@ class NgoOptions {
     NgoOption(
       title: 'Donations',
       imagePath: AppImages.ngoDonations,
-      color: Colors.orangeAccent,
+      color: Color(0xFFEC8F5E),
       route: NgoDonationsView.routeName,
     ),
     NgoOption(
       title: 'Medicine Inventory',
       imagePath: AppImages.ngoMedicineInventory,
-      color: Colors.orangeAccent,
+      color: Color(0xFF9F8772),
       route: MedicineInventoryView.routeName,
     ),
     NgoOption(
       title: 'Donation Management',
       imagePath: AppImages.ngoDistributionManagement,
-      color: Colors.orangeAccent,
+      color: Color(0xFF9F8772),
       route: DonationManagementView.routeName,
     ),
     NgoOption(
       title: 'Reports',
       imagePath: AppImages.ngoReports,
-      color: Colors.orangeAccent,
+      color: Color(0xFFF3B664),
       route: ReportsView.routeName,
     ),
     NgoOption(
       title: 'Support Center',
       imagePath: AppImages.ngoSupportCenter,
-      color: Colors.orangeAccent,
+      color: Color(0xFFF3B664),
       route: NgoSupportCenterView.routeName,
     ),
   ];
