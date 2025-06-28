@@ -8,9 +8,7 @@ import 'package:graduation_project/core/services/supabase_storage.dart';
 import 'core/helper_functions/on_generate_routes.dart';
 import 'features/splash/presentation/views/splash_view.dart';
 import 'firebase_options.dart';
-import 'package:graduation_project/core/cubits/medicine_cubit/medicine_cubit.dart';
-import 'package:graduation_project/core/services/database_service.dart';
-import 'package:graduation_project/features/donor_features/add_medicine/data/repos/medicine_repo_impl.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,10 +23,7 @@ void main() async {
   await Prefs.init();
   setupGetit();
   runApp(
-    BlocProvider(
-      create: (_) => MedicineCubit(MedicineRepoImpl(getIt<DatabaseService>())),
-      child: const Medics(),
-    ),
+    const Medics(),
   );
 }
 

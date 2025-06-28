@@ -411,4 +411,16 @@ class AuthRepoImpl extends AuthRepo {
       return left(ServerFailure('An unknown error occurred. Please try again later.'));
     }
   }
+  
+  @override
+  Future<Either<Failure, void>> resetPassword(String email) {
+    // TODO: implement resetPassword
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, void>> resetPasswordNgo(String email) {
+    // TODO: implement resetPasswordNgo
+    throw UnimplementedError();
+  }
 }

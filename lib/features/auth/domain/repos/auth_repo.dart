@@ -49,4 +49,6 @@ abstract class AuthRepo {
     required String currentPassword,
     required String newPassword,
   });
+  Future<Either<Failure, void>> resetPassword(String email);
+  Future<Either<Failure, void>> resetPasswordNgo(String email);
 }
