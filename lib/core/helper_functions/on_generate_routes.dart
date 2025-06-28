@@ -4,6 +4,7 @@ import 'package:graduation_project/core/services/get_it_service.dart';
 import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
 import 'package:graduation_project/features/auth/presentation/cubits/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:graduation_project/features/auth/presentation/views/change_password/change_password_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/forgot_password/forgot_password_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_in/sign_in_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_up_ngo/sign_up_ngo_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_up_member/sign_up_view.dart';
@@ -41,6 +42,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const OnBoardingView());
     case SigninView.routeName:
       return MaterialPageRoute(builder: (_) => const SigninView());
+    case ForgotPasswordView.routeName:
+      return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
     case SignUpView.routeName:
       return MaterialPageRoute(builder: (_) => const SignUpView());
     case SignUpNgoView.routeName:

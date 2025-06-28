@@ -9,6 +9,7 @@ import 'package:graduation_project/core/widgets/dont_have_account.dart';
 import 'package:graduation_project/core/widgets/or_divider.dart';
 import 'package:graduation_project/core/widgets/password_field.dart';
 import '../../cubits/sign_in_cubit/signin_cubit.dart';
+import '../forgot_password/forgot_password_view.dart';
 import 'social_login.dart';
 
 class SigninViewBody extends StatefulWidget {
@@ -86,9 +87,17 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text(
-                                  'Forgot Password?',
-                                  style: TextStyles.textstyle14,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(context, ForgotPasswordView.routeName);
+                                  },
+                                  child: Text(
+                                    'Forgot Password?',
+                                    style: TextStyles.textstyle14.copyWith(
+                                      decoration: TextDecoration.underline,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),

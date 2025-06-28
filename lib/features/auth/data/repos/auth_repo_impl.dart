@@ -413,14 +413,28 @@ class AuthRepoImpl extends AuthRepo {
   }
   
   @override
-  Future<Either<Failure, void>> resetPassword(String email) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+  Future<Either<Failure, void>> resetPassword(String email) async {
+    try {
+      await firebaseAuthService.sendPasswordResetEmail(email);
+      return right(null);
+    } on CustomException catch (e) {
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.resetPassword: \\${e.toString()}');
+      return left(ServerFailure('An unknown error occurred. Please try again later.'));
+    }
   }
   
   @override
-  Future<Either<Failure, void>> resetPasswordNgo(String email) {
-    // TODO: implement resetPasswordNgo
-    throw UnimplementedError();
+  Future<Either<Failure, void>> resetPasswordNgo(String email) async {
+    try {
+      await firebaseAuthService.sendPasswordResetEmail(email);
+      return right(null);
+    } on CustomException catch (e) {
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.resetPasswordNgo: \\${e.toString()}');
+      return left(ServerFailure('An unknown error occurred. Please try again later.'));
+    }
   }
 }

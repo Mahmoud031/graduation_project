@@ -141,4 +141,24 @@ class FirebaseAuthService {
           message: 'An unknown error occurred. Please try again later.');
     }
   }
+
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      log("Exception in FirebaseAuthService.sendPasswordResetEmail: \\${e.toString()} and code is \\${e.code}");
+      if (e.code == 'user-not-found') {
+        throw CustomException(message: 'No user found for that email.');
+      } else if (e.code == 'invalid-email') {
+        throw CustomException(message: 'The email address is invalid.');
+      } else if (e.code == 'network-request-failed') {
+        throw CustomException(message: 'No internet connection');
+      } else {
+        throw CustomException(message: 'An unknown error occurred. Please try again later.');
+      }
+    } catch (e) {
+      log("Exception in FirebaseAuthService.sendPasswordResetEmail: \\${e.toString()}");
+      throw CustomException(message: 'An unknown error occurred. Please try again later.');
+    }
+  }
 }
