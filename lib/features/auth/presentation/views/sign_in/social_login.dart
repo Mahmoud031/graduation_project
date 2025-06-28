@@ -3,7 +3,8 @@ import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_in/social_login_widget.dart';
 
 class SocialLogin extends StatelessWidget {
-  const SocialLogin({super.key, required this.onTapGoogle, required this.onTapFacebook});
+  const SocialLogin(
+      {super.key, required this.onTapGoogle, required this.onTapFacebook});
   final VoidCallback onTapGoogle;
   final VoidCallback onTapFacebook;
 
@@ -15,14 +16,9 @@ class SocialLogin extends StatelessWidget {
         SocialLoginWidget(
           image: AppImages.loginViewGoogle,
           onTap: onTapGoogle,
-          
         ),
         const SizedBox(
           width: 20,
-        ),
-        SocialLoginWidget(
-          image: AppImages.loginViewFacebook,
-          onTap: onTapFacebook,
         ),
       ],
     );

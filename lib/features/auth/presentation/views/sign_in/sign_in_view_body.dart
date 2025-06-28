@@ -62,8 +62,8 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              height: 70,
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.1,
                             ),
                             CustomTextFormField(
                               onSaved: (value) {
@@ -74,8 +74,8 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                               prefixIcon: Icons.person_outline_rounded,
                               textInputType: TextInputType.emailAddress,
                             ),
-                            const SizedBox(
-                              height: 32,
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.04,
                             ),
                             PasswordField(
                               onSaved: (value) {
@@ -89,20 +89,20 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(context, ForgotPasswordView.routeName);
+                                    Navigator.pushNamed(
+                                        context, ForgotPasswordView.routeName);
                                   },
                                   child: Text(
                                     'Forgot Password?',
                                     style: TextStyles.textstyle14.copyWith(
-                                      decoration: TextDecoration.underline,
-                                      color: Colors.blue,
+                                      color: Color(0xffF2F6FC),
                                     ),
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 30,
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.04,
                             ),
                             CustomButton(
                               text: "Sign In",
@@ -123,11 +123,11 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                               },
                             ),
                             SizedBox(
-                              height: 4,
+                              height: MediaQuery.of(context).size.height * 0.02,
                             ),
                             const OrDivider(),
                             SizedBox(
-                              height: 4,
+                              height: MediaQuery.of(context).size.height * 0.02,
                             ),
                             Center(
                               child: Text("Sign in with",
@@ -148,7 +148,7 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                               },
                             ),
                             SizedBox(
-                              height: 10,
+                              height: MediaQuery.of(context).size.height * 0.02,
                             ),
                             const DontHaveAccount(),
                           ],

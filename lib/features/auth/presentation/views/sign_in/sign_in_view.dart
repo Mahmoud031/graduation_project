@@ -8,7 +8,7 @@ import '../../cubits/sign_in_cubit/signin_cubit.dart';
 
 class SigninView extends StatelessWidget {
   const SigninView({super.key});
-  static const routeName = 'signin';
+  static const routeName = 'signinView';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
