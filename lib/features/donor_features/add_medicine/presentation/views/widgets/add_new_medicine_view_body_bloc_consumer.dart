@@ -9,10 +9,12 @@ import 'add_new_medicine_view_body.dart';
 class AddNewMedicineViewBodyBlocConsumer extends StatelessWidget {
   final String ngoName;
   final String ngoUId;
+  final String? requestId;
   const AddNewMedicineViewBodyBlocConsumer({
     super.key,
     required this.ngoName,
     required this.ngoUId,
+    this.requestId,
   });
 
   @override
@@ -37,7 +39,7 @@ class AddNewMedicineViewBodyBlocConsumer extends StatelessWidget {
       builder: (context, state) {
         return ModalProgressHUD(
           inAsyncCall: state is AddMedicineLoading,
-          child: AddNewMedicineViewBody(ngoName: ngoName, ngoUId: ngoUId),
+          child: AddNewMedicineViewBody(ngoName: ngoName, ngoUId: ngoUId, requestId: requestId),
         );
       },
     );

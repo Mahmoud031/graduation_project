@@ -3,8 +3,11 @@ import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/features/ngo_features/Donation_Management/presentation/views/donation_management_view.dart';
 import 'package:graduation_project/features/ngo_features/Donations/presentation/views/ngo_donations_view.dart';
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/presentation/views/medicine_inventory_view.dart';
+import 'package:graduation_project/features/ngo_features/medicine_requests/presentation/views/ngo_requests_list_view.dart';
 import 'package:graduation_project/features/ngo_features/ngo_support_center/presentation/views/ngo_support_center_view.dart';
 import 'package:graduation_project/features/ngo_features/reports/presentation/views/reports_view.dart';
+
+import '../../../../medicine_requests/presentation/views/ngo_medicine_request_view.dart';
 
 class NgoOption {
   final String title;
@@ -39,6 +42,18 @@ class NgoOptions {
       imagePath: AppImages.ngoDistributionManagement,
       color: Color(0xFF9F8772),
       route: DonationManagementView.routeName,
+    ),
+    NgoOption(
+      title: 'Request Medicine',
+      imagePath: AppImages.requestMedicineNgo,
+      color: Color(0xFF4CAF50),
+      route: NgoMedicineRequestView.routeName,
+    ),
+    NgoOption(
+      title: 'My Requests',
+      imagePath: AppImages.medicineRequestsNgo,
+      color: Color(0xFF1976D2),
+      route: NgoRequestsListView.routeName,
     ),
     NgoOption(
       title: 'Reports',

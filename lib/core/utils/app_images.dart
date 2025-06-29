@@ -31,4 +31,10 @@ abstract class AppImages {
       'assets/images/ngo_home_page_images/distribution management.png';
   static const String ngoSupportCenter =
       'assets/images/ngo_home_page_images/support center2.png';
+  static const String medicineRequestsDonor =
+      'assets/images/home_page_images/medicine _requests_donor.png';
+  static const String medicineRequestsNgo =
+      'assets/images/ngo_home_page_images/medicine_requests_ngo.png';
+  static const String requestMedicineNgo =
+      'assets/images/ngo_home_page_images/request_medicine_ngo.png';
 }

@@ -33,6 +33,9 @@ import '../../features/profile/presentation/views/edit_ngo_profile_view.dart';
 import '../../features/profile/presentation/views/ngo_profile_view.dart';
 import 'package:graduation_project/features/auth/domain/entities/user_entity.dart';
 import 'package:graduation_project/features/auth/presentation/views/widgets/complete_profile/complete_profile_view.dart'; // Import the new view
+import 'package:graduation_project/features/ngo_features/medicine_requests/presentation/views/ngo_medicine_request_view.dart';
+import 'package:graduation_project/features/ngo_features/medicine_requests/presentation/views/ngo_requests_list_view.dart';
+import 'package:graduation_project/features/donor_features/medicine_requests/presentation/views/medicine_requests_view.dart';
 
 Route<dynamic> onGenerateRoutes(RouteSettings settings) {
   switch (settings.name) {
@@ -51,12 +54,13 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
     case FindNgoView.routeName:
       return MaterialPageRoute(builder: (_) => const FindNgoView());
     case AddMedicineView.routeName:
-      final Map<String, String> args =
-          settings.arguments as Map<String, String>? ?? {};
+      final Map<String, dynamic> args =
+          settings.arguments as Map<String, dynamic>? ?? {};
       final String ngoName = args['ngoName'] ?? '';
       final String ngoUId = args['ngoUId'] ?? '';
+      final String? requestId = args['requestId'];
       return MaterialPageRoute(
-          builder: (_) => AddMedicineView(ngoName: ngoName, ngoUId: ngoUId));
+          builder: (_) => AddMedicineView(ngoName: ngoName, ngoUId: ngoUId, requestId: requestId));
     case MyDonationsView.routeName:
       return MaterialPageRoute(builder: (_) => const MyDonationsView());
     case HomeView.routeName:
@@ -87,7 +91,7 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const NgoProfileView());
     case EditNgoProfileView.routeName:
       return MaterialPageRoute(builder: (_) => const EditNgoProfileView());
-      case EditDonorProfileView.routeName:
+    case EditDonorProfileView.routeName:
       return MaterialPageRoute(builder: (_) => const EditDonorProfileView());
     case CompleteProfileView.routeName:
       final userEntity = settings.arguments as UserEntity;
@@ -108,7 +112,13 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
     case ChangePasswordView.routeName:
       return MaterialPageRoute(
           builder: (_) => const ChangePasswordView());
-
+    case NgoMedicineRequestView.routeName:
+      return MaterialPageRoute(builder: (_) => const NgoMedicineRequestView());
+    case NgoRequestsListView.routeName:
+      return MaterialPageRoute(builder: (_) => const NgoRequestsListView());
+    case MedicineRequestsView.routeName:
+      return MaterialPageRoute(builder: (_) => const MedicineRequestsView());
+    
     default:
       return MaterialPageRoute(builder: (_) => const SplashView());
   }

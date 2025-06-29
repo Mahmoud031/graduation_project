@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/features/donor_features/donation_guide/presentation/views/donation_guide_view.dart';
 import 'package:graduation_project/features/donor_features/find_ngo/presentation/views/find_ngo_view.dart';
+import 'package:graduation_project/features/donor_features/medicine_requests/presentation/views/medicine_requests_view.dart';
 import 'package:graduation_project/features/donor_features/support_center/presentation/views/support_center_view.dart';
 import 'package:graduation_project/features/donor_features/my_donations/presentation/views/my_donations_view.dart';
 
@@ -38,6 +39,12 @@ class DonorOptions {
       imagePath: AppImages.viewTransaction,
       color: Colors.purple,
       route: MyDonationsView.routeName,
+    ),
+    DonorOption(
+      title: 'Medicine Requests',
+      imagePath: AppImages.medicineRequestsDonor,
+      color: Colors.deepOrange,
+      route: MedicineRequestsView.routeName,
     ),
     DonorOption(
       title: 'Support Center',

@@ -16,6 +16,8 @@ import 'package:graduation_project/features/ngo_features/Medicine_inventory/data
 import 'package:graduation_project/features/ngo_features/Medicine_inventory/domain/repositories/medicine_invnetory_repo.dart';
 import 'package:graduation_project/core/services/firebase_auth_service.dart';
 import 'package:graduation_project/core/services/firestore_service.dart';
+import 'package:graduation_project/features/ngo_features/medicine_requests/data/repos/medicine_request_repo_impl.dart';
+import 'package:graduation_project/features/ngo_features/medicine_requests/domain/repos/medicine_request_repo.dart';
 
 final getIt = GetIt.instance;
 void setupGetit() {
@@ -47,6 +49,11 @@ void setupGetit() {
   getIt.registerSingleton<MedicineInvnetoryRepo>(
     MedicineInvnetoryRepoImpl(
       databaseService: getIt<DatabaseService>(),
+    ),
+  );
+  getIt.registerSingleton<MedicineRequestRepo>(
+    MedicineRequestRepoImpl(
+      getIt<DatabaseService>(),
     ),
   );
   getIt.registerFactory<LogoutCubit>(

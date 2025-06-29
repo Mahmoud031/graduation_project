@@ -12,4 +12,6 @@ class BackendEndpoint {
   static const getMedicineInventory = 'medicine_inventory';
   static const deleteMedicineInventory = 'medicine_inventory';
   static const updateMedicineInventory = 'medicine_inventory';
+  static const addMedicineRequest = 'medicine_requests';
+  static const getMedicineRequests = 'medicine_requests';
 }
