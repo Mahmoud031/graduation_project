@@ -141,11 +141,7 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                               onTapGoogle: () {
                                 context.read<SigninCubit>().signInWithGoogle();
                               },
-                              onTapFacebook: () {
-                                context
-                                    .read<SigninCubit>()
-                                    .signInWithFacebook();
-                              },
+                             
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.02,

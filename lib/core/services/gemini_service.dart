@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:google_generative_ai/google_generative_ai.dart';
-import 'package:graduation_project/core/errors/exceptions.dart';
 
 class GeminiService {
   static const String _apiKey = 'AIzaSyDT4d4JzxrOl4A2T0IOurFJOu-ypHepAiY';

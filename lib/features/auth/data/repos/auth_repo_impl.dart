@@ -248,20 +248,6 @@ class AuthRepoImpl extends AuthRepo {
     }
   }
 
-  @override
-  Future<Either<Failure, UserEntity>> signInWithFacebook() async {
-    User? user;
-    try {
-      user = await firebaseAuthService.signInWithFacebook();
-      var userEntity = UserModel.fromFirebaseUser(user);
-      return right(userEntity);
-    } catch (e) {
-      await deleteUser(user);
-      log('Exception in AuthRepoImpl.signInWithFacebook: ${e.toString()}');
-      return left(
-          ServerFailure('An unknown error occurred. please try later.'));
-    }
-  }
 
   @override
   Future<void> adduserData({required UserEntity user}) async {
@@ -311,21 +297,6 @@ class AuthRepoImpl extends AuthRepo {
       throw CustomException(message: 'Some requested document was not found.');
     }
     return UserModel.fromJson(userData);
-  }
-
-  @override
-  Future<Either<Failure, NgoEntity>> ngoSignInFacebook() async {
-    User? user;
-    try {
-      user = await firebaseAuthService.signInWithFacebook();
-      var ngoEntity = NgoModel.fromFirebaseUser(user);
-      return right(ngoEntity);
-    } catch (e) {
-      await deleteUser(user);
-      log('Exception in AuthRepoImpl.signInWithFacebook: ${e.toString()}');
-      return left(
-          ServerFailure('An unknown error occurred. please try later.'));
-    }
   }
 
   @override

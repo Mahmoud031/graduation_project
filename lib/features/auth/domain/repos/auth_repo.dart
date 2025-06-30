@@ -34,8 +34,6 @@ abstract class AuthRepo {
     required bool isMember,
   });
 
-  Future<Either<Failure, UserEntity>> signInWithFacebook();
-  Future<Either<Failure, NgoEntity>> ngoSignInFacebook();
   Future adduserData({required UserEntity user});
   Future addNgoData({required NgoEntity ngo});
   Future <UserEntity> getUserData({required String uId});

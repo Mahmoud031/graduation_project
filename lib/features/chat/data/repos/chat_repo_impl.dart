@@ -203,4 +203,32 @@ class ChatRepoImpl implements ChatRepo {
       return chats;
     });
   }
+
+  @override
+  Future<Either<Failure, void>> deleteChat(String chatId) async {
+    try {
+      // First, delete all messages associated with the chat
+      final messages = await getChatMessages(chatId);
+      messages.fold(
+        (failure) => throw Exception(failure.message),
+        (messagesList) async {
+          for (var message in messagesList) {
+            await databaseService.deleteData(
+              path: BackendEndpoint.chatMessages,
+              documentId: message.messageId,
+            );
+          }
+        },
+      );
+      // Then, delete the chat itself
+      await databaseService.deleteData(
+        path: BackendEndpoint.chats,
+        documentId: chatId,
+      );
+      return Right(null);
+    } catch (e) {
+      log('Error deleting chat: $e');
+      return Left(ServerFailure('Failed to delete chat: ${e.toString()}'));
+    }
+  }
 } 

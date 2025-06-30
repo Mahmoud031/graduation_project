@@ -15,39 +15,36 @@ class DonationGuideViewBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              'Donation Guide',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF2E7D32), // Deep green color
-              ),
-            ),
+            
             const SizedBox(height: 24),
             const SectionTitle(title: 'Step-by-Step Guide'),
             const SizedBox(height: 16),
             const StepCard(
               step: 1,
-              title: 'Sign Up',
-              description: 'Create your account to start your donation journey',
+              title: 'Sign Up / Sign In',
+              description:
+                  'Create an account or log in to start your donation journey.',
               icon: Icons.person_add,
             ),
             const StepCard(
               step: 2,
-              title: 'Verify Account',
-              description: 'Complete verification to ensure secure donations',
-              icon: Icons.verified_user,
+              title: 'Find an NGO',
+              description:
+                  'Browse the list of NGOs and choose one to donate to.',
+              icon: Icons.search,
             ),
             const StepCard(
               step: 3,
-              title: 'Choose Donation Type',
-              description: 'Select the type of medicine you wish to donate',
+              title: 'Add Medicine Details',
+              description:
+                  'Fill in the medicine details, including name, tablet count, expiry date, and upload a clear image.',
               icon: Icons.medical_services,
             ),
             const StepCard(
               step: 4,
-              title: 'Track Status',
-              description: 'Monitor your donation\'s journey and impact',
+              title: 'Track Your Donation',
+              description:
+                  'Monitor the status of your donation in the "My Donations" section.',
               icon: Icons.track_changes,
             ),
             const SizedBox(height: 32),
@@ -57,9 +54,10 @@ class DonationGuideViewBody extends StatelessWidget {
               title: 'What We Accept',
               items: [
                 'Unopened medicine packages',
-                'Medicines within expiry date',
+                'Medicines with a valid expiry date',
                 'Properly stored medications',
-                'Original packaging',
+                'Clear image of the medicine, production and expiry dates',
+                'Accurate information in all donation form fields',
               ],
               color: Color(0xFF4CAF50), // Light green
             ),

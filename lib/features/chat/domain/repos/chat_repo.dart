@@ -12,4 +12,5 @@ abstract class ChatRepo {
   Future<Either<Failure, void>> updateMessageStatus(String messageId, String status);
   Stream<List<ChatMessageEntity>> listenToMessages(String chatId);
   Stream<List<ChatEntity>> listenToChats(String userId, String userType);
+  Future<Either<Failure, void>> deleteChat(String chatId);
 } 

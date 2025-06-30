@@ -3,24 +3,19 @@ import 'package:graduation_project/core/utils/app_images.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_in/social_login_widget.dart';
 
 class SocialLogin extends StatelessWidget {
-  const SocialLogin(
-      {super.key, required this.onTapGoogle, required this.onTapFacebook});
+  const SocialLogin({
+    super.key,
+    required this.onTapGoogle,
+  });
   final VoidCallback onTapGoogle;
-  final VoidCallback onTapFacebook;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SocialLoginWidget(
-          image: AppImages.loginViewGoogle,
-          onTap: onTapGoogle,
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-      ],
+    return Center(
+      child: SocialLoginWidget(
+        image: AppImages.loginViewGoogle,
+        onTap: onTapGoogle,
+      ),
     );
   }
 }

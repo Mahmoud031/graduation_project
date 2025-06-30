@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/helper_functions/build_error_bar.dart';
 import 'package:graduation_project/core/helper_functions/get_user.dart';
 import 'package:graduation_project/core/services/get_it_service.dart';
-import 'package:graduation_project/core/utils/app_colors.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/features/chatbot/domain/repos/chatbot_repo.dart';
 import 'package:graduation_project/features/chatbot/presentation/cubits/chatbot_cubit/chatbot_cubit.dart';

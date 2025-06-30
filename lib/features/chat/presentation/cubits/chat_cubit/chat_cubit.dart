@@ -50,6 +50,16 @@ class ChatCubit extends Cubit<ChatState> {
     );
   }
 
+  Future<void> deleteChat(String chatId) async {
+    final result = await chatRepo.deleteChat(chatId);
+    result.fold(
+      (failure) => emit(ChatFailure(failure.message)),
+      (_) {
+        // No new state is needed here, as the listener will auto-update the list
+      },
+    );
+  }
+
   @override
   Future<void> close() {
     _isClosed = true;
