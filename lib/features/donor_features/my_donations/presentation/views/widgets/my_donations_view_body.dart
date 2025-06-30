@@ -34,9 +34,7 @@ class _MyDonationsViewBodyState extends State<MyDonationsViewBody> {
 
   List<MedicineEntity> _filterMedicines(List<MedicineEntity> medicines) {
     return medicines.where((medicine) {
-      // Status filter
       if (selectedStatus != 'All') {
-        // Convert both strings to lowercase for case-insensitive comparison
         final medicineStatus = medicine.status.toLowerCase();
         final selectedStatusLower = selectedStatus.toLowerCase();
 
@@ -45,7 +43,6 @@ class _MyDonationsViewBodyState extends State<MyDonationsViewBody> {
         }
       }
 
-      // Search filter
       if (searchQuery.isNotEmpty) {
         final medicineName = medicine.medicineName.toLowerCase();
         final ngoName = medicine.ngoName.toLowerCase();
