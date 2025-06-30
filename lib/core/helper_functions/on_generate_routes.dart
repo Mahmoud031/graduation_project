@@ -40,6 +40,7 @@ import 'package:graduation_project/features/chat/presentation/views/chat_list_vi
 import 'package:graduation_project/features/chat/presentation/views/chat_room_view.dart';
 import 'package:graduation_project/features/chat/presentation/cubits/chat_cubit/chat_cubit.dart';
 import 'package:graduation_project/features/chat/domain/repos/chat_repo.dart';
+import 'package:graduation_project/features/chatbot/presentation/views/chatbot_view.dart';
 
 Route<dynamic> onGenerateRoutes(RouteSettings settings) {
   switch (settings.name) {
@@ -137,6 +138,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
           otherPartyName: args['otherPartyName'],
         ),
       );
+    case ChatbotView.routeName:
+      return MaterialPageRoute(builder: (_) => const ChatbotView());
     default:
       return MaterialPageRoute(builder: (_) => const SplashView());
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project/core/helper_functions/get_user.dart';
 import 'package:graduation_project/core/widgets/custom_home_app_bar.dart';
 import 'package:graduation_project/features/donor_features/home/presentation/views/widgets/home_view_body.dart';
 
@@ -10,10 +11,11 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final donor = getUser();
     return Scaffold(
-      backgroundColor: const Color(0xFFC2E1E3),
+      backgroundColor: Color(0xffC2E1E3),
       appBar: CustomHomeAppBar(
-        title: 'Donation Hub',
+        title: 'Welcome, ${donor.name}',
         onPressed: () {
           Navigator.pushNamed(context, DonorProfileView.routeName);
         },

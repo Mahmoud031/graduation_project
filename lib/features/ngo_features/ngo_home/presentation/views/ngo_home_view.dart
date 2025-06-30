@@ -18,7 +18,7 @@ class NgoHomeView extends StatelessWidget {
     return BlocProvider(
       create: (_) => MedicineCubit(MedicineRepoImpl(getIt<DatabaseService>())),
       child: Scaffold(
-        backgroundColor: const Color(0xFFFFF3E0),
+        backgroundColor: Colors.white,
         appBar: CustomHomeAppBar(
           onPressed: () {
             Navigator.pushNamed(context, NgoProfileView.routeName);

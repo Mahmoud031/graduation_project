@@ -8,25 +8,26 @@ class NgoHomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: NgoOptions.options.map((option) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: ContainerCard(
-                title: option.title,
-                imagePath: option.imagePath,
-                color: option.color,
-                onTap: () {
-                  Navigator.pushNamed(context, option.route);
-                },
-              ),
-            );
-          }).toList(),
-        ),
+    return GridView.builder(
+      padding: const EdgeInsets.all(20.0),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 20.0,
+        mainAxisSpacing: 20.0,
+        childAspectRatio: 0.9,
       ),
+      itemCount: NgoOptions.options.length,
+      itemBuilder: (context, index) {
+        final option = NgoOptions.options[index];
+        return ContainerCard(
+          title: option.title,
+          imagePath: option.imagePath,
+          color: option.color,
+          onTap: () {
+            Navigator.pushNamed(context, option.route);
+          },
+        );
+      },
     );
   }
 }

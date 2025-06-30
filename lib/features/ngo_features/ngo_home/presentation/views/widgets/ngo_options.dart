@@ -7,6 +7,7 @@ import 'package:graduation_project/features/ngo_features/medicine_requests/prese
 import 'package:graduation_project/features/ngo_features/ngo_support_center/presentation/views/ngo_support_center_view.dart';
 import 'package:graduation_project/features/ngo_features/reports/presentation/views/reports_view.dart';
 import 'package:graduation_project/features/chat/presentation/views/chat_list_view.dart';
+import 'package:graduation_project/features/chatbot/presentation/views/chatbot_view.dart';
 
 import '../../../../medicine_requests/presentation/views/ngo_medicine_request_view.dart';
 
@@ -73,6 +74,12 @@ class NgoOptions {
       imagePath: AppImages.medicineDonationGuide,
       color: Colors.blue,
       route: ChatListView.routeName,
+    ),
+    NgoOption(
+      title: 'AI Assistant',
+      imagePath: AppImages.medicineDonationGuide,
+      color: Colors.indigo,
+      route: ChatbotView.routeName,
     ),
   ];
 }

@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:graduation_project/core/services/database_service.dart';
 import 'package:graduation_project/core/services/storage_service.dart';
 import 'package:graduation_project/core/services/supabase_storage.dart';
+import 'package:graduation_project/core/services/gemini_service.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/data/repos/images_repo_impl.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/data/repos/medicine_repo_impl.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/domain/repos/images_repo.dart';
@@ -22,12 +23,15 @@ import 'package:graduation_project/features/chat/data/repos/chat_repo_impl.dart'
 import 'package:graduation_project/features/chat/domain/repos/chat_repo.dart';
 import 'package:graduation_project/features/chat/presentation/cubits/chat_cubit/chat_cubit.dart';
 import 'package:graduation_project/features/chat/presentation/cubits/message_cubit/message_cubit.dart';
+import 'package:graduation_project/features/chatbot/data/repos/chatbot_repo_impl.dart';
+import 'package:graduation_project/features/chatbot/domain/repos/chatbot_repo.dart';
 
 final getIt = GetIt.instance;
 void setupGetit() {
   getIt.registerSingleton<StorageService>(SupabaseStorageService());
   getIt.registerSingleton<FirebaseAuthService>(FirebaseAuthService());
   getIt.registerSingleton<DatabaseService>(FirestoreService());
+  getIt.registerSingleton<GeminiService>(GeminiService());
   getIt.registerSingleton<AuthRepo>(AuthRepoImpl(
     firebaseAuthService: getIt<FirebaseAuthService>(),
     databaseService: getIt<DatabaseService>(),
@@ -73,5 +77,10 @@ void setupGetit() {
   );
   getIt.registerFactory<MessageCubit>(
     () => MessageCubit(getIt<ChatRepo>()),
+  );
+  getIt.registerSingleton<ChatbotRepo>(
+    ChatbotRepoImpl(
+      geminiService: getIt<GeminiService>(),
+    ),
   );
 }

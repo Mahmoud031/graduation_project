@@ -6,6 +6,7 @@ import 'package:graduation_project/features/donor_features/medicine_requests/pre
 import 'package:graduation_project/features/donor_features/support_center/presentation/views/support_center_view.dart';
 import 'package:graduation_project/features/donor_features/my_donations/presentation/views/my_donations_view.dart';
 import 'package:graduation_project/features/chat/presentation/views/chat_list_view.dart';
+import 'package:graduation_project/features/chatbot/presentation/views/chatbot_view.dart';
 
 class DonorOption {
   final String title;
@@ -64,6 +65,12 @@ class DonorOptions {
       imagePath: AppImages.medicineDonationGuide,
       color: Colors.blue,
       route: ChatListView.routeName,
+    ),
+    DonorOption(
+      title: 'AI Assistant',
+      imagePath: AppImages.medicineDonationGuide,
+      color: Colors.indigo,
+      route: ChatbotView.routeName,
     ),
   ];
 }

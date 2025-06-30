@@ -22,30 +22,29 @@ class ContainerCard extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
           child: Container(
-            height: 180,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: color.withOpacity(0.3),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
+                  color: color.withOpacity(0.25),
+                  blurRadius: 12,
+                  offset: const Offset(0, 5),
                 ),
               ],
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(20),
               child: Stack(
                 fit: StackFit.expand,
                 children: [
-                  // Background Image
                   Image.asset(
                     imagePath,
                     fit: BoxFit.cover,
+                    color: color.withOpacity(0.5),
+                    colorBlendMode: BlendMode.darken,
                   ),
-                  // Gradient Overlay
                   Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -53,14 +52,14 @@ class ContainerCard extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.transparent,
-                          color.withOpacity(0.7),
+                          Colors.black.withOpacity(0.6),
                         ],
+                        stops: const [0.5, 1.0],
                       ),
                     ),
                   ),
-                  // Content
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(12.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,36 +68,14 @@ class ContainerCard extends StatelessWidget {
                           title,
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 24,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Colors.white,
-                                size: 16,
-                              ),
-                              SizedBox(width: 4),
-                              Text(
-                                'Tap to explore',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
-                              ),
+                            shadows: [
+                              Shadow(
+                                color: Colors.black54,
+                                blurRadius: 4,
+                                offset: Offset(0, 2),
+                              )
                             ],
                           ),
                         ),
