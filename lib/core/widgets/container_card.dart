@@ -16,6 +16,9 @@ class ContainerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final double padding = width * 0.03;
+    final double fontSize = width > 600 ? 24 : 20;
     return Hero(
       tag: title,
       child: Material(
@@ -59,18 +62,18 @@ class ContainerCard extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: EdgeInsets.all(padding),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: fontSize,
                             fontWeight: FontWeight.bold,
-                            shadows: [
+                            shadows: const [
                               Shadow(
                                 color: Colors.black54,
                                 blurRadius: 4,

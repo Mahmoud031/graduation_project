@@ -28,8 +28,10 @@ class NgoQuickActionsSection extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Wrap(
+              alignment: WrapAlignment.spaceEvenly,
+              spacing: 16,
+              runSpacing: 16,
               children: [
                 _buildActionButton(
                   context,

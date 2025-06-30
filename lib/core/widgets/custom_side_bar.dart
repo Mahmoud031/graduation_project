@@ -72,16 +72,16 @@ class CustomSideBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           SizedBox(
-            height: 150,
+            height: MediaQuery.of(context).size.height * 0.15,
             child: DrawerHeader(
               decoration: const BoxDecoration(
                 color: Color(0xFF010E1D),
               ),
               child: Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.account_circle,
-                    size: 60,
+                    size: MediaQuery.of(context).size.width * 0.1,
                     color: Colors.white,
                   ),
                   const SizedBox(width: 16),
@@ -89,7 +89,7 @@ class CustomSideBar extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(user.name, style: TextStyles.textstyle25),
+                      Text(user.name, style: TextStyles.textstyle18),
                       Text(user.email, style: TextStyles.textstyle14),
                     ],
                   ),

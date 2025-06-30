@@ -7,8 +7,12 @@ class StatisticsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    double maxCrossAxisExtent = width > 600 ? 300 : 200;
+    double childAspectRatio = width > 600 ? 1.2 : 0.9;
+    double spacing = width * 0.04;
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
+      margin: EdgeInsets.symmetric(horizontal: spacing),
       child: BlocBuilder<MedicineCubit, MedicineState>(
         builder: (context, state) {
           if (state is MedicineLoading) {
@@ -29,23 +33,42 @@ class StatisticsGrid extends StatelessWidget {
               return sum + count;
             });
 
-            return GridView.count(
+            return GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              childAspectRatio: 1.2,
-              children: [
-                _buildStatCard('Total Donations', '$totalDonations',
-                    Icons.card_giftcard, Colors.orangeAccent),
-                _buildStatCard('Completed', '$completedDonations',
-                    Icons.check_circle, Colors.greenAccent.shade400),
-                _buildStatCard('Pending', '$pendingDonations',
-                    Icons.pending_actions, Colors.blueAccent.shade100),
-                _buildStatCard('Total Tablets', '$totalTablets',
-                    Icons.medical_services, Colors.purpleAccent.shade100),
-              ],
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: maxCrossAxisExtent,
+                mainAxisSpacing: spacing,
+                crossAxisSpacing: spacing,
+                childAspectRatio: childAspectRatio,
+              ),
+              itemCount: 4,
+              itemBuilder: (context, index) {
+                switch (index) {
+                  case 0:
+                    return _buildStatCard('Total Donations', '$totalDonations',
+                        Icons.card_giftcard, Colors.orangeAccent, width);
+                  case 1:
+                    return _buildStatCard('Completed', '$completedDonations',
+                        Icons.check_circle, Colors.greenAccent.shade400, width);
+                  case 2:
+                    return _buildStatCard(
+                        'Pending',
+                        '$pendingDonations',
+                        Icons.pending_actions,
+                        Colors.blueAccent.shade100,
+                        width);
+                  case 3:
+                    return _buildStatCard(
+                        'Total Tablets',
+                        '$totalTablets',
+                        Icons.medical_services,
+                        Colors.purpleAccent.shade100,
+                        width);
+                  default:
+                    return const SizedBox.shrink();
+                }
+              },
             );
           }
 
@@ -65,9 +88,9 @@ class StatisticsGrid extends StatelessWidget {
   }
 
   Widget _buildStatCard(
-      String title, String value, IconData icon, Color color) {
+      String title, String value, IconData icon, Color color, double width) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(width * 0.04),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -83,23 +106,26 @@ class StatisticsGrid extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 32, color: color),
-          const SizedBox(height: 8),
+          Icon(icon, size: width > 600 ? 40 : 32, color: color),
+          SizedBox(height: width * 0.015),
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 24,
+            style: TextStyle(
+              fontSize: width > 600 ? 28 : 24,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: width * 0.01),
           Text(
             title,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: width > 600 ? 16 : 14,
               color: Colors.grey.shade600,
             ),
             textAlign: TextAlign.center,
+            softWrap: true,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),

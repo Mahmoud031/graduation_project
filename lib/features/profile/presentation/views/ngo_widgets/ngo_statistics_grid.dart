@@ -59,7 +59,7 @@ class NgoStatisticsGrid extends StatelessWidget {
                     crossAxisCount: 2,
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
-                    childAspectRatio: 1.2,
+                    childAspectRatio: 0.9,
                     children: [
                       _StatCard('Total Donations', '$totalDonations',
                           Icons.card_giftcard, Colors.orangeAccent),
@@ -124,6 +124,9 @@ class _StatCard extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
             textAlign: TextAlign.center,
+            softWrap: true,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),

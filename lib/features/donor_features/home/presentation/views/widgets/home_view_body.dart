@@ -7,13 +7,16 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    double maxCrossAxisExtent = width > 600 ? 300 : 200;
+    double childAspectRatio = width > 600 ? 1.2 : 0.9;
     return GridView.builder(
-      padding: const EdgeInsets.all(20.0),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 20.0,
-        mainAxisSpacing: 20.0,
-        childAspectRatio: 0.9,
+      padding: EdgeInsets.all(width * 0.05),
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: maxCrossAxisExtent,
+        crossAxisSpacing: width * 0.04,
+        mainAxisSpacing: width * 0.04,
+        childAspectRatio: childAspectRatio,
       ),
       itemCount: DonorOptions.options.length,
       itemBuilder: (context, index) {
