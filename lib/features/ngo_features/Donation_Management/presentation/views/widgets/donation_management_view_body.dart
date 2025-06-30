@@ -87,6 +87,7 @@ class _DonationManagementViewBodyState
                             status: medicine.status,
                             details: medicine.details,
                             receivedDate: medicine.receivedDate,
+                            userId: medicine.userId,
                           );
                         },
                       );

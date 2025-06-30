@@ -5,6 +5,8 @@ import 'received_donations/donation_status.dart';
 import 'received_donations/status_icon.dart';
 import 'received_donations/status_dropdown.dart';
 import 'received_donations/rejection_reason_dialog.dart';
+import 'package:get_it/get_it.dart';
+import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
 
 class RecievdDonationsCard extends StatefulWidget {
   final String medicineName;
@@ -18,6 +20,7 @@ class RecievdDonationsCard extends StatefulWidget {
   final String details;
   final String receivedDate;
   final String? rejectionMessage;
+  final String userId;
 
   const RecievdDonationsCard({
     super.key,
@@ -32,6 +35,7 @@ class RecievdDonationsCard extends StatefulWidget {
     required this.details,
     required this.receivedDate,
     this.rejectionMessage,
+    required this.userId,
   });
 
   @override
@@ -46,10 +50,10 @@ class _RecievdDonationsCardState extends State<RecievdDonationsCard> {
         builder: (context) => RejectionReasonDialog(
           onConfirm: (reason) {
             context.read<MedicineCubit>().updateMedicineStatus(
-              widget.medicineId,
-              newStatus.name,
-              rejectionMessage: reason,
-            );
+                  widget.medicineId,
+                  newStatus.name,
+                  rejectionMessage: reason,
+                );
             Navigator.pop(context);
           },
           onCancel: () {
@@ -59,9 +63,9 @@ class _RecievdDonationsCardState extends State<RecievdDonationsCard> {
       );
     } else {
       context.read<MedicineCubit>().updateMedicineStatus(
-        widget.medicineId,
-        newStatus.name,
-      );
+            widget.medicineId,
+            newStatus.name,
+          );
     }
   }
 
@@ -78,7 +82,8 @@ class _RecievdDonationsCardState extends State<RecievdDonationsCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildHeader(currentStatus),
-            if (currentStatus == DonationStatus.rejected && widget.rejectionMessage != null)
+            if (currentStatus == DonationStatus.rejected &&
+                widget.rejectionMessage != null)
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Container(
@@ -141,6 +146,29 @@ class _RecievdDonationsCardState extends State<RecievdDonationsCard> {
                   fontSize: 15,
                   color: Colors.black87,
                 ),
+              ),
+              FutureBuilder(
+                future: GetIt.I<AuthRepo>().getUserData(uId: widget.userId),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const SizedBox(
+                      height: 16,
+                      width: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    );
+                  }
+                  if (snapshot.hasError || !snapshot.hasData) {
+                    return const Text(
+                      'Donor phone unavailable',
+                      style: TextStyle(fontSize: 14, color: Colors.red),
+                    );
+                  }
+                  final user = snapshot.data;
+                  return Text(
+                    'Phone: ${user!.phone}',
+                    style: const TextStyle(fontSize: 14, color: Colors.black54),
+                  );
+                },
               ),
               const SizedBox(height: 4),
               Text(

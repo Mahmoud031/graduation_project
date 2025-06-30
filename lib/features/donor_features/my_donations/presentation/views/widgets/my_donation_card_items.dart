@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/domain/entities/medicine_entity.dart';
+import 'package:graduation_project/core/services/get_it_service.dart';
+import 'package:graduation_project/features/auth/domain/repos/auth_repo.dart';
 
 class MyDonationsCardItems extends StatelessWidget {
   const MyDonationsCardItems({
@@ -131,6 +134,35 @@ class MyDonationsCardItems extends StatelessWidget {
                           fontSize: 14,
                           color: Colors.black54,
                         ),
+                      ),
+                      const SizedBox(height: 4),
+                      FutureBuilder(
+                        future: GetIt.I<AuthRepo>()
+                            .getNgoData(uId: medicineEntity.ngoUId),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const SizedBox(
+                              height: 16,
+                              width: 16,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            );
+                          }
+                          if (snapshot.hasError || !snapshot.hasData) {
+                            return const Text(
+                              'NGO phone unavailable',
+                              style: TextStyle(fontSize: 14, color: Colors.red),
+                            );
+                          }
+                          final ngo = snapshot.data;
+                          return Text(
+                            'NGO Phone: \t${ngo!.phone}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
