@@ -18,6 +18,10 @@ import 'package:graduation_project/core/services/firebase_auth_service.dart';
 import 'package:graduation_project/core/services/firestore_service.dart';
 import 'package:graduation_project/features/ngo_features/medicine_requests/data/repos/medicine_request_repo_impl.dart';
 import 'package:graduation_project/features/ngo_features/medicine_requests/domain/repos/medicine_request_repo.dart';
+import 'package:graduation_project/features/chat/data/repos/chat_repo_impl.dart';
+import 'package:graduation_project/features/chat/domain/repos/chat_repo.dart';
+import 'package:graduation_project/features/chat/presentation/cubits/chat_cubit/chat_cubit.dart';
+import 'package:graduation_project/features/chat/presentation/cubits/message_cubit/message_cubit.dart';
 
 final getIt = GetIt.instance;
 void setupGetit() {
@@ -58,5 +62,16 @@ void setupGetit() {
   );
   getIt.registerFactory<LogoutCubit>(
     () => LogoutCubit(getIt<AuthRepo>()),
+  );
+  getIt.registerSingleton<ChatRepo>(
+    ChatRepoImpl(
+      databaseService: getIt<DatabaseService>(),
+    ),
+  );
+  getIt.registerFactory<ChatCubit>(
+    () => ChatCubit(getIt<ChatRepo>()),
+  );
+  getIt.registerFactory<MessageCubit>(
+    () => MessageCubit(getIt<ChatRepo>()),
   );
 }

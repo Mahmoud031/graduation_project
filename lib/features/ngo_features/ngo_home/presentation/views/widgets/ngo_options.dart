@@ -6,6 +6,7 @@ import 'package:graduation_project/features/ngo_features/Medicine_inventory/pres
 import 'package:graduation_project/features/ngo_features/medicine_requests/presentation/views/ngo_requests_list_view.dart';
 import 'package:graduation_project/features/ngo_features/ngo_support_center/presentation/views/ngo_support_center_view.dart';
 import 'package:graduation_project/features/ngo_features/reports/presentation/views/reports_view.dart';
+import 'package:graduation_project/features/chat/presentation/views/chat_list_view.dart';
 
 import '../../../../medicine_requests/presentation/views/ngo_medicine_request_view.dart';
 
@@ -66,6 +67,12 @@ class NgoOptions {
       imagePath: AppImages.ngoSupportCenter,
       color: Color(0xFFF3B664),
       route: NgoSupportCenterView.routeName,
+    ),
+    NgoOption(
+      title: 'Chat',
+      imagePath: AppImages.medicineDonationGuide,
+      color: Colors.blue,
+      route: ChatListView.routeName,
     ),
   ];
 }

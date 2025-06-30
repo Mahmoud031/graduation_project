@@ -12,4 +12,7 @@ abstract class DatabaseService {
       required String documentId});
   Future<void> deleteData({required String path, String documentId});
   
+  // Real-time listening methods for chat feature
+  Stream<List<Map<String, dynamic>>> listenToCollection(String path);
+  Stream<Map<String, dynamic>?> listenToDocument(String path, String documentId);
 }

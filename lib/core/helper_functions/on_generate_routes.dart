@@ -36,6 +36,10 @@ import 'package:graduation_project/features/auth/presentation/views/widgets/comp
 import 'package:graduation_project/features/ngo_features/medicine_requests/presentation/views/ngo_medicine_request_view.dart';
 import 'package:graduation_project/features/ngo_features/medicine_requests/presentation/views/ngo_requests_list_view.dart';
 import 'package:graduation_project/features/donor_features/medicine_requests/presentation/views/medicine_requests_view.dart';
+import 'package:graduation_project/features/chat/presentation/views/chat_list_view.dart';
+import 'package:graduation_project/features/chat/presentation/views/chat_room_view.dart';
+import 'package:graduation_project/features/chat/presentation/cubits/chat_cubit/chat_cubit.dart';
+import 'package:graduation_project/features/chat/domain/repos/chat_repo.dart';
 
 Route<dynamic> onGenerateRoutes(RouteSettings settings) {
   switch (settings.name) {
@@ -118,7 +122,21 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const NgoRequestsListView());
     case MedicineRequestsView.routeName:
       return MaterialPageRoute(builder: (_) => const MedicineRequestsView());
-    
+    case ChatListView.routeName:
+      return MaterialPageRoute(
+        builder: (_) => BlocProvider(
+          create: (_) => ChatCubit(getIt<ChatRepo>()),
+          child: const ChatListView(),
+        ),
+      );
+    case ChatRoomView.routeName:
+      final args = settings.arguments as Map<String, dynamic>;
+      return MaterialPageRoute(
+        builder: (_) => ChatRoomView(
+          chatId: args['chatId'],
+          otherPartyName: args['otherPartyName'],
+        ),
+      );
     default:
       return MaterialPageRoute(builder: (_) => const SplashView());
   }

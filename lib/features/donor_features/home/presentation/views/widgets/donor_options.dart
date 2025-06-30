@@ -5,6 +5,7 @@ import 'package:graduation_project/features/donor_features/find_ngo/presentation
 import 'package:graduation_project/features/donor_features/medicine_requests/presentation/views/medicine_requests_view.dart';
 import 'package:graduation_project/features/donor_features/support_center/presentation/views/support_center_view.dart';
 import 'package:graduation_project/features/donor_features/my_donations/presentation/views/my_donations_view.dart';
+import 'package:graduation_project/features/chat/presentation/views/chat_list_view.dart';
 
 class DonorOption {
   final String title;
@@ -57,6 +58,12 @@ class DonorOptions {
       imagePath: AppImages.medicineDonationGuide,
       color: Colors.teal,
       route: DonationGuideView.routeName,
+    ),
+    DonorOption(
+      title: 'Chat',
+      imagePath: AppImages.medicineDonationGuide,
+      color: Colors.blue,
+      route: ChatListView.routeName,
     ),
   ];
 }

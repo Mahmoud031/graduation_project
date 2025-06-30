@@ -48,5 +48,27 @@ class FirestoreService implements DatabaseService {
       throw Exception('Document ID must be provided for deletion');
     }
   }
- 
+
+  @override
+  Stream<List<Map<String, dynamic>>> listenToCollection(String path) {
+    return firestore.collection(path).snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        var data = doc.data();
+        data['documentId'] = doc.id;
+        return data;
+      }).toList();
+    });
+  }
+
+  @override
+  Stream<Map<String, dynamic>?> listenToDocument(String path, String documentId) {
+    return firestore.collection(path).doc(documentId).snapshots().map((doc) {
+      if (doc.exists) {
+        var data = doc.data()!;
+        data['documentId'] = doc.id;
+        return data;
+      }
+      return null;
+    });
+  }
 }

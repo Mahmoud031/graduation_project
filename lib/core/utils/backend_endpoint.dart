@@ -14,4 +14,6 @@ class BackendEndpoint {
   static const updateMedicineInventory = 'medicine_inventory';
   static const addMedicineRequest = 'medicine_requests';
   static const getMedicineRequests = 'medicine_requests';
+  static const chats = 'chats';
+  static const chatMessages = 'chat_messages';
 }
