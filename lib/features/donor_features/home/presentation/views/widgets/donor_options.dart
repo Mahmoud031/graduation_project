@@ -30,12 +30,7 @@ class DonorOptions {
       color: Colors.blue,
       route: FindNgoView.routeName,
     ),
-    DonorOption(
-      title: 'Donate Money',
-      imagePath: AppImages.donateMoney,
-      color: Colors.green,
-      route: '/donate-money',
-    ),
+   
     DonorOption(
       title: 'My Donations',
       imagePath: AppImages.viewTransaction,
@@ -62,13 +57,13 @@ class DonorOptions {
     ),
     DonorOption(
       title: 'Chat',
-      imagePath: AppImages.medicineDonationGuide,
+      imagePath: AppImages.chat,
       color: Colors.blue,
       route: ChatListView.routeName,
     ),
     DonorOption(
       title: 'AI Assistant',
-      imagePath: AppImages.medicineDonationGuide,
+      imagePath: AppImages.aiAssistant,
       color: Colors.indigo,
       route: ChatbotView.routeName,
     ),

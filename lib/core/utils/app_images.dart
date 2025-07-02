@@ -37,4 +37,7 @@ abstract class AppImages {
       'assets/images/ngo_home_page_images/medicine_requests_ngo.png';
   static const String requestMedicineNgo =
       'assets/images/ngo_home_page_images/request_medicine_ngo.png';
+  static const String aiAssistant =
+      'assets/images/ai_assistant.png';
+  static const String chat = 'assets/images/chat.png';
 }

@@ -71,13 +71,13 @@ class NgoOptions {
     ),
     NgoOption(
       title: 'Chat',
-      imagePath: AppImages.medicineDonationGuide,
+      imagePath: AppImages.chat,
       color: Colors.blue,
       route: ChatListView.routeName,
     ),
     NgoOption(
       title: 'AI Assistant',
-      imagePath: AppImages.medicineDonationGuide,
+      imagePath: AppImages.aiAssistant,
       color: Colors.indigo,
       route: ChatbotView.routeName,
     ),

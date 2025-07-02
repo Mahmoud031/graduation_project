@@ -28,41 +28,47 @@ class NgoQuickActionsSection extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Wrap(
-              alignment: WrapAlignment.spaceEvenly,
-              spacing: 16,
-              runSpacing: 16,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildActionButton(
-                  context,
-                  'Donations',
-                  Icons.card_giftcard,
-                  () =>
-                      Navigator.pushNamed(context, NgoDonationsView.routeName),
-                  color: Colors.orangeAccent,
+                Flexible(
+                  child: _buildActionButton(
+                    context,
+                    'Donations',
+                    Icons.card_giftcard,
+                    () => Navigator.pushNamed(
+                        context, NgoDonationsView.routeName),
+                    color: Colors.orangeAccent,
+                  ),
                 ),
-                _buildActionButton(
-                  context,
-                  'Inventory',
-                  Icons.medical_services,
-                  () => Navigator.pushNamed(
-                      context, MedicineInventoryView.routeName),
-                  color: Colors.greenAccent.shade400,
+                Flexible(
+                  child: _buildActionButton(
+                    context,
+                    'Inventory',
+                    Icons.medical_services,
+                    () => Navigator.pushNamed(
+                        context, MedicineInventoryView.routeName),
+                    color: Colors.greenAccent.shade400,
+                  ),
                 ),
-                _buildActionButton(
-                  context,
-                  'Management',
-                  Icons.manage_accounts,
-                  () => Navigator.pushNamed(
-                      context, DonationManagementView.routeName),
-                  color: Colors.purpleAccent.shade100,
+                Flexible(
+                  child: _buildActionButton(
+                    context,
+                    'Management',
+                    Icons.manage_accounts,
+                    () => Navigator.pushNamed(
+                        context, DonationManagementView.routeName),
+                    color: Colors.purpleAccent.shade100,
+                  ),
                 ),
-                _buildActionButton(
-                  context,
-                  'Reports',
-                  Icons.bar_chart,
-                  () => Navigator.pushNamed(context, ReportsView.routeName),
-                  color: Colors.blueAccent.shade100,
+                Flexible(
+                  child: _buildActionButton(
+                    context,
+                    'Reports',
+                    Icons.bar_chart,
+                    () => Navigator.pushNamed(context, ReportsView.routeName),
+                    color: Colors.blueAccent.shade100,
+                  ),
                 ),
               ],
             ),
@@ -90,7 +96,7 @@ class NgoQuickActionsSection extends StatelessWidget {
             onTap: onPressed,
             child: Padding(
               padding: const EdgeInsets.all(18.0),
-              child: Icon(icon, color: Colors.white, size: 28),
+              child: Icon(icon, color: Colors.white, size: 24),
             ),
           ),
         ),
