@@ -15,6 +15,7 @@ class MemberFormFields extends StatelessWidget {
   final Function(String?) onAddressSaved;
   final Function(String?) onTypeSaved;
   final Function(bool) onTermsChanged;
+  final TextEditingController? passwordController; // Add password controller
 
   const MemberFormFields({
     super.key,
@@ -27,7 +28,53 @@ class MemberFormFields extends StatelessWidget {
     required this.onAddressSaved,
     required this.onTypeSaved,
     required this.onTermsChanged,
+    this.passwordController, // Add password controller parameter
   });
+
+  // Validation functions
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter an email';
+    }
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (!emailRegex.hasMatch(value)) {
+      return 'Enter a valid email';
+    }
+    return null;
+  }
+
+  String? _validateNationalId(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter national ID';
+    }
+    if (value.length != 14) {
+      return 'National ID must be 14 numbers';
+    }
+    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+      return 'National ID must contain only numbers';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a password';
+    }
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters';
+    }
+    return null;
+  }
+
+  String? _validateConfirmPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please confirm your password';
+    }
+    if (passwordController != null && value != passwordController!.text) {
+      return 'Passwords do not match';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +102,7 @@ class MemberFormFields extends StatelessWidget {
           labelText: 'Email',
           prefixIcon: Icons.email,
           textInputType: TextInputType.emailAddress,
+          validator: _validateEmail,
         ),
         const SizedBox(height: 10),
         CustomTextFormField(
@@ -78,17 +126,21 @@ class MemberFormFields extends StatelessWidget {
           labelText: 'National id',
           prefixIcon: Icons.badge,
           textInputType: TextInputType.number,
+          validator: _validateNationalId,
         ),
         const SizedBox(height: 10),
         PasswordField(
           labelText: 'Password',
           hintText: 'Enter Password',
           onSaved: onPasswordSaved,
+          validator: _validatePassword,
+          controller: passwordController, // Pass the controller to password field
         ),
         const SizedBox(height: 10),
         PasswordField(
           labelText: 'Confirm Password',
           hintText: 'Confirm Password',
+          validator: _validateConfirmPassword,
         ),
         const SizedBox(height: 10),
         CustomTextFormField(

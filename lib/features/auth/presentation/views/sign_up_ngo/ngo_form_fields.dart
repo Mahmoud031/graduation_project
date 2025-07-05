@@ -12,6 +12,7 @@ class NgoFormFields extends StatelessWidget {
   final Function(String?) onPasswordSaved;
   final Function(String?) onAddressSaved;
   final Function(bool) onTermsChanged;
+  final TextEditingController? passwordController;
 
   const NgoFormFields({
     super.key,
@@ -22,7 +23,39 @@ class NgoFormFields extends StatelessWidget {
     required this.onPasswordSaved,
     required this.onAddressSaved,
     required this.onTermsChanged,
+    this.passwordController,
   });
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter an email';
+    }
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (!emailRegex.hasMatch(value)) {
+      return 'Enter a valid email';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a password';
+    }
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters';
+    }
+    return null;
+  }
+
+  String? _validateConfirmPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please confirm your password';
+    }
+    if (passwordController != null && value != passwordController!.text) {
+      return 'Passwords do not match';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +82,7 @@ class NgoFormFields extends StatelessWidget {
           labelText: 'Email',
           prefixIcon: Icons.email,
           textInputType: TextInputType.emailAddress,
+          validator: _validateEmail,
         ),
         const SizedBox(height: 10),
         CustomTextFormField(
@@ -70,11 +104,15 @@ class NgoFormFields extends StatelessWidget {
           onSaved: onPasswordSaved,
           labelText: 'Password',
           hintText: 'Enter Password',
+          validator: _validatePassword,
+          controller:
+              passwordController, // Pass the controller to password field
         ),
         const SizedBox(height: 10),
         PasswordField(
           labelText: 'confirm Password',
           hintText: 'confirm Password',
+          validator: _validateConfirmPassword,
         ),
         const SizedBox(height: 10),
         CustomTextFormField(

@@ -21,6 +21,7 @@ class _SignUpNgoViewBodyState extends State<SignUpNgoViewBody> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   late String email, password, name, phone, ngoId, address;
   late bool isChecked = false;
+  final TextEditingController passwordController = TextEditingController(); // Add password controller
 
   void _handleSignUp() {
       if (!formKey.currentState!.validate()) {
@@ -45,6 +46,12 @@ class _SignUpNgoViewBodyState extends State<SignUpNgoViewBody> {
       address: address,
     );
     handler.handleSignUp();
+  }
+
+  @override
+  void dispose() {
+    passwordController.dispose(); // Dispose the controller
+    super.dispose();
   }
 
   @override
@@ -93,6 +100,7 @@ class _SignUpNgoViewBodyState extends State<SignUpNgoViewBody> {
                                 onPasswordSaved: (value) => password = value!,
                                 onAddressSaved: (value) => address = value!,
                                 onTermsChanged: (value) => isChecked = value,
+                                passwordController: passwordController, // Pass the password controller
                               ),
                               const SizedBox(height: 10),
                               CustomButton(

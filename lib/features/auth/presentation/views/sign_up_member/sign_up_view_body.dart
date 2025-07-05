@@ -22,6 +22,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   late String email, password, name, phone, nationalId, type, address;
   late int age;
   late bool isChecked = false;
+  final TextEditingController passwordController = TextEditingController(); // Add password controller
   
 
   void _handleSignUp() {
@@ -49,6 +50,11 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   handler.handleSignUp();
 }
 
+  @override
+  void dispose() {
+    passwordController.dispose(); // Dispose the controller
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +104,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                                 onAddressSaved: (value) => address = value!,
                                 onTypeSaved: (value) => type = value!,
                                 onTermsChanged: (value) => isChecked = value,
+                                passwordController: passwordController, // Pass the password controller
                               ),
                               const SizedBox(height: 10),
                               CustomButton(
