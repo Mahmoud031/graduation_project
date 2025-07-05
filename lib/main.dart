@@ -9,7 +9,6 @@ import 'core/helper_functions/on_generate_routes.dart';
 import 'features/splash/presentation/views/splash_view.dart';
 import 'firebase_options.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -23,12 +22,12 @@ void main() async {
   await Prefs.init();
   setupGetit();
   runApp(
-    const Medics(),
+    const PharmaShare(),
   );
 }
 
-class Medics extends StatelessWidget {
-  const Medics({super.key});
+class PharmaShare extends StatelessWidget {
+  const PharmaShare({super.key});
 
   @override
   Widget build(BuildContext context) {

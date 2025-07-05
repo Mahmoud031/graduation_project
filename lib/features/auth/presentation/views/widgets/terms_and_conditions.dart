@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/utils/app_text_styles.dart';
+import 'package:graduation_project/features/auth/presentation/views/widgets/terms_and_conditions_view.dart';
 import 'check_box.dart';
 
 class TermsAndConditions extends StatefulWidget {
@@ -29,20 +30,25 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
             },
           ),
         ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.7,
-          child: Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(
-                  text: 'By creating an account, you agree to ',
-                  style: TextStyles.textstyle14,
-                ),
-                TextSpan(
-                  text: 'our terms and conditions',
-                  style: TextStyles.textstyle14.copyWith(color: Colors.blue),
-                ),
-              ],
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, TermsAndConditionsView.routeName);
+          },
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.7,
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'By creating an account, you agree to ',
+                    style: TextStyles.textstyle14,
+                  ),
+                  TextSpan(
+                    text: 'our terms and conditions',
+                    style: TextStyles.textstyle14.copyWith(color: Colors.blue),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

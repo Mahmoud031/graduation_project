@@ -8,6 +8,7 @@ import 'package:graduation_project/features/auth/presentation/views/forgot_passw
 import 'package:graduation_project/features/auth/presentation/views/sign_in/sign_in_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_up_ngo/sign_up_ngo_view.dart';
 import 'package:graduation_project/features/auth/presentation/views/sign_up_member/sign_up_view.dart';
+import 'package:graduation_project/features/auth/presentation/views/widgets/terms_and_conditions_view.dart';
 import 'package:graduation_project/features/donor_features/add_medicine/presentation/views/add_medicine_view.dart';
 import 'package:graduation_project/features/donor_features/donation_guide/presentation/views/donation_guide_view.dart';
 import 'package:graduation_project/features/donor_features/find_ngo/presentation/views/find_ngo_view.dart';
@@ -50,6 +51,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const OnBoardingView());
     case SigninView.routeName:
       return MaterialPageRoute(builder: (_) => const SigninView());
+    case TermsAndConditionsView.routeName:
+      return MaterialPageRoute(builder: (_) => const TermsAndConditionsView());
     case ForgotPasswordView.routeName:
       return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
     case SignUpView.routeName:
